@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1082572581987",
+    "firebase_url": "https://driverapp-9ba37.firebaseio.com",
+    "project_id": "driverapp-9ba37",
+    "storage_bucket": "driverapp-9ba37.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1082572581987:android:98f799538416e9523c1c56",
+        "android_client_info": {
+          "package_name": "com.seasia.driverapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1082572581987-hdq228l6utckr9iuun3ubfhfd1l1bbi3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.seasia.driverapp",
+            "certificate_hash": "1b07d3421471215e0ce32432e09934d57e9a6ea0"
+          }
+        },
+        {
+          "client_id": "1082572581987-5qvr549mrlmhcpv1f3fc7e7ptugdrf59.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9R_7ugcKPdatAmUAlNjfRnaLX9zCotVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1082572581987-5qvr549mrlmhcpv1f3fc7e7ptugdrf59.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

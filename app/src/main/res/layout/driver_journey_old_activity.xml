@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/rl_journey_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/journey_backgound">
+
+        <ImageView
+            android:id="@+id/darkOverLay_Content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorDarkBack"
+            android:visibility="visible" />
+
+        <!--        <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorBlack">-->
+
+        <include
+            android:id="@+id/common_tool_bar"
+            layout="@layout/common_toolbar_back"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/ll_journey"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_70"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_complete"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:id="@+id/btnComplete"
+                            android:layout_width="@dimen/dp_120"
+                            android:layout_height="@dimen/dp_30"
+                            android:layout_alignTop="@+id/j_complete"
+                            android:layout_alignRight="@+id/j_complete"
+                            android:layout_gravity="right"
+                            android:layout_marginRight="@dimen/dp_25"
+                            android:background="@drawable/journey_green"
+                            android:text="@string/complete"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold" />
+
+                        <com.seasia.driverapp.utils.journey.MyJourney4
+                            android:id="@+id/j_complete"
+                            android:layout_width="250dp"
+                            android:layout_height="150dp"
+                            android:layout_centerHorizontal="true" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:id="@+id/btnReached"
+                            android:layout_width="@dimen/dp_120"
+                            android:layout_height="@dimen/dp_30"
+                            android:layout_alignLeft="@+id/j_reached"
+                            android:layout_alignTop="@+id/j_reached"
+                            android:layout_gravity="right"
+                            android:background="@drawable/journey_green"
+                            android:text="@string/reached"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold" />
+
+                        <com.seasia.driverapp.utils.journey.MyJourney3
+                            android:id="@+id/j_reached"
+                            android:layout_width="250dp"
+                            android:layout_height="150dp"
+                            android:layout_centerHorizontal="true" />
+
+                        <ImageView
+                            android:id="@+id/ivOnTheWay"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_alignRight="@+id/j_reached"
+                            android:layout_alignBottom="@+id/j_reached"
+                            android:layout_marginRight="40dp"
+                            android:layout_marginBottom="-20dp"
+                            android:visibility="visible" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        >
+
+                        <!--  <ImageView
+                              android:id="@+id/ivOnTheWay"
+                              android:layout_width="120dp"
+                              android:layout_height="120dp"
+                              android:layout_alignTop="@+id/j_onTheWay"
+                              android:layout_alignRight="@+id/j_onTheWay"
+                              android:visibility="visible" />-->
+
+                        <!-- Bacground tint works on API 21+ -->
+                        <ImageView
+                            android:id="@+id/ivMotorcycle"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:backgroundTint="@color/colorWhite"
+                            android:layout_marginRight="70dp"
+                            android:layout_alignTop="@+id/j_onTheWay"
+                            android:layout_alignRight="@+id/j_onTheWay"
+                            android:background="@drawable/flat_scooter" />
+
+                        <Button
+                            android:id="@+id/btnOnTheWay"
+                            android:layout_width="80dp"
+                            android:layout_height="@dimen/dp_70"
+                            android:layout_alignTop="@+id/j_onTheWay"
+                            android:layout_alignRight="@+id/j_onTheWay"
+                            android:layout_gravity="right"
+                            android:text="@string/on_the_way"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
+                        <com.seasia.driverapp.utils.journey.MyJourney2
+                            android:id="@+id/j_onTheWay"
+                            android:layout_width="250dp"
+                            android:layout_height="150dp"
+                            android:layout_centerHorizontal="true" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:id="@+id/btnStart"
+                            android:layout_width="@dimen/dp_120"
+                            android:layout_height="@dimen/dp_30"
+                            android:layout_alignLeft="@+id/j_start"
+                            android:layout_alignTop="@+id/j_start"
+                            android:layout_gravity="right"
+                            android:background="@drawable/journey_green"
+                            android:text="@string/start"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorWhite"
+                            android:textStyle="bold" />
+
+                        <com.seasia.driverapp.utils.journey.MyJourney1
+                            android:id="@+id/j_start"
+                            android:layout_width="250dp"
+                            android:layout_height="150dp"
+                            android:layout_centerHorizontal="true"
+                            android:visibility="invisible" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+            </RelativeLayout>
+        </ScrollView>
+        <!--  </View>-->
+
+        <!--       <com.seasia.driverapp.utils.journey.MyJouneyAnimation
+                   android:id="@+id/j_animation"
+                   android:layout_width="200dp"
+                   android:layout_height="150dp"
+                   android:layout_gravity="center_horizontal" />-->
+    </RelativeLayout>
+</layout>

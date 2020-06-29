@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.seasia.driverapp.common.BindingUtils" />
+
+    </data>
+
+    <!--   <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_margin="@dimen/dp_5"
+           android:background="@drawable/shape_round_corner"
+           android:elevation="@dimen/dp_20"
+           >-->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_15"
+        android:elevation="@dimen/dp_5"
+        app:cardCornerRadius="@dimen/dp_12">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tvAssignedDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/date"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvJobStatusOld"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/job_completed"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/ivOrderDetails"
+                    android:layout_width="@dimen/dp_50"
+                    android:layout_height="@dimen/dp_50"
+                    android:layout_alignParentEnd="true"
+                    android:contentDescription="@string/todo"
+                    android:padding="@dimen/dp_15"
+                    android:rotation="180"
+                    android:src="@drawable/iosback"
+                    android:tint="@color/colorGrey"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginTop="-5dp"
+                android:layout_marginRight="@dimen/dp_15"
+                android:background="@color/colorGreyLight" />
+
+            <RelativeLayout
+                android:id="@+id/rlOrderSummary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/llRestaurantDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/user" />
+
+                    <LinearLayout
+                        android:id="@+id/llRestaurantAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvRestaurantName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Name"
+                            android:textColor="@color/colorBlack"
+                            />
+
+                        <TextView
+                            android:id="@+id/tvAddress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/address"
+                            />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/llAddressDtl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:layout_below="@+id/llRestaurantDetails"
+                    android:layout_marginLeft="-5dp"
+                    android:layout_marginTop="@dimen/dp_10">
+
+                    <ImageView
+                        android:id="@+id/iv_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_location" />
+
+                    <TextView
+                        android:id="@+id/tvRestaurantAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/iv_location"
+                        android:paddingBottom="@dimen/dp_15"
+                        android:text="@string/address" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/rl_order_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/llAddressDtl">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_8"
+                        android:src="@drawable/triangle"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tvOrderType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Order Price" />
+
+                    <TextView
+                        android:id="@+id/tvOrderPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text="@string/order_price"
+                        android:textColor="@color/colorBlue"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvJobStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rl_order_detail"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:text="@string/job_completed"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <!--</RelativeLayout>-->
+</layout>

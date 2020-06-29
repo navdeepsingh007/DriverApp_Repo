@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="cancelVM"
+            type="com.seasia.driverapp.viewmodel.CancelVM" />
+    </data>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar_common"
+            layout="@layout/common_toolbar_back"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_toobar" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_no_record"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/no_record_found"
+                    android:visibility="gone" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_cancel_reason"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="@dimen/dp_15"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/colorWhite" />
+
+                <EditText
+                    android:id="@+id/et_reason"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_100"
+                    android:gravity="top"
+                    android:layout_below="@+id/rv_cancel_reason"
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_15"
+                    android:background="@drawable/rectangle_blue_stroke"
+                    android:hint="@string/reason"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:maxLength="32"
+                    android:visibility="gone"
+                    tools:ignore="Autofill,TextFields,UnusedAttribute" />
+
+                <Button
+                    android:id="@+id/btn_cancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/et_reason"
+                    android:layout_marginLeft="@dimen/dp_25"
+                    android:layout_marginTop="@dimen/dp_25"
+                    android:layout_marginRight="@dimen/dp_25"
+                    android:background="@drawable/round_back_blue"
+                    android:text="@string/btn_oncancel"
+                    android:textColor="@color/colorWhite"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

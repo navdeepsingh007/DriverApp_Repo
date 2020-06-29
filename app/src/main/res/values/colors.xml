@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorWhite2">#F9F4F3</color>
+    <color name="colorGrey">#7B7C7C</color>
+    <color name="appBackgroundColor">#ffffff</color>
+    <color name="colorGreyLight">#EDF0F0</color>
+    <!--<color name="colorButton">#FF6871</color>-->
+    <color name="colorblack">#474747</color>
+    <color name="colorOrange">#FC9539</color>
+    <color name="colorSuccess">#00BB27</color>
+    <color name="colorRed">#E72F1A</color>
+    <color name="colorGreen">#00BB27</color>
+    <color name="colorMaroon">#EB5757</color>
+    <color name="colorButton">#474747</color>
+    <color name="colorBlack2">#464646</color>
+    <color name="colorGolden">#F1B922</color>
+    <color name="colorGrey1">#D0D0D0</color>
+    <color name="colorLightBlue">#1C9FEA</color>
+    <color name="orange_transparent">#98FC9A03</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorYellow">#dab45f</color>
+    <color name="colorTransparentBlack">#99000000</color>
+    <color name="list_text_color">#404040</color>
+
+    <color name="tabSelection">#DB6589</color>
+    <color name="btnBackground">#DB6589</color>
+    <color name="btnBackgroundWhite">#F8F8F8</color>
+
+    <color name="color_primary_blue">#40bfff</color>
+    <color name="color_grey_toolbar">#ebf0ff</color>
+    <color name="ef_grey">#9E9E9E</color>
+    <color name="color_navy_blue">#223263</color>
+    <color name="colorBlueDark">#3966E3</color>
+    <color name="colorBlue2">#1D6CFF</color>
+    <color name="colorBlue">#1152FD</color>
+
+    <color name="colorDisable">#83F32626</color>
+
+    <!-- Driver jobs color -->
+    <color name="colorDisabled">#DC8580</color>
+    <color name="colorEnabled">#4CCC51</color>
+    <color name="colorActive">#FFC15D</color>
+
+    <color name="colorDarkBack">#80000000</color>
+</resources>

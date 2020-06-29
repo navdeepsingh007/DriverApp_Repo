@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<ImageView
+        android:id="@+id/img_gps_logo"
+        android:layout_width="match_parent"
+        android:scaleType="fitXY"
+        android:layout_height="@dimen/dp_250"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorGrey"
+        android:src="@drawable/splash"
+        android:contentDescription="todo"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/dp_20"
+        android:layout_below="@+id/img_gps_logo"
+        android:background="@color/colorWhite"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_10">
+
+        <TextView
+            android:id="@+id/tv_location_header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/location_permissions"
+            android:textColor="@color/colorBlack"
+            android:gravity="center"
+            android:padding="@dimen/dp_3"
+            app:font="@{`semibold`}"
+            android:layout_marginTop="@dimen/dp_15"
+            android:textSize="@dimen/sp_15" />
+        <TextView
+            android:id="@+id/tv_allow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp_3"
+            android:textSize="@dimen/sp_14"
+            app:font="@{`regular`}"
+            android:gravity="center"
+            android:textColor="@color/colorBlack"
+            android:text="@string/allow_location"/>
+        <Button
+            android:id="@+id/btn_turn_on_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_15"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorOrange"
+            android:paddingLeft="@dimen/dp_5"
+            android:paddingRight="@dimen/dp_5"
+            app:font="@{`semibold`}"
+            android:text="@string/turn_on_location"
+            android:layout_marginBottom="@dimen/dp_15"
+            />
+    </LinearLayout>
+</RelativeLayout>
+</layout>

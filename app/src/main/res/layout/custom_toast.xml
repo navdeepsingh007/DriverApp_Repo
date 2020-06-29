@@ -1,0 +1,32 @@
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toast_layout_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorSuccess"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/ic_tick"
+            android:tint="@color/appBackgroundColor" />
+
+        <TextView
+            android:id="@+id/tv_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/sp_14"
+            app:font="@{`semibold`}"
+            tools:text="@string/todo" />
+
+    </LinearLayout>
+</layout>

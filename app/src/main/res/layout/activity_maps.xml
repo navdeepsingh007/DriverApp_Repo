@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".views.CurrentLocationActivity" />
+
+    <Button
+        android:id="@+id/btn_continue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="showDirectionsOnMap"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/dp_25"
+        android:layout_marginBottom="@dimen/dp_25"
+        android:layout_marginRight="@dimen/dp_25"
+        android:background="@drawable/round_back_blue"
+        android:text="@string/show_directions"
+        android:textColor="@color/colorWhite"
+         />
+</RelativeLayout>

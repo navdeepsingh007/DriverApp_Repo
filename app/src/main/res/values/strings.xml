@@ -1,0 +1,191 @@
+<resources>
+    <string name="app_name">DriverApp</string>
+    <string name="cd_splash_screen">Splash</string>
+    <string name="google_maps_key">AIzaSyD0U058JGkqFUgFoTfK-_fdToSu6q0SIo8</string>
+    <string name="directions_api_key">AIzaSyACMxnVzccKPbpGhbqt7ILDXA7H7yPvbMk</string>
+    <!--<string name="directions_api_key">AIzaSyDCaDXdgS_Y0AwNDgf3lojeqGEWzzzSn1E</string>-->
+    <!--AIzaSyD0U058JGkqFUgFoTfK-_fdToSu6q0SIo8-->
+
+    <string name="ok">OK</string>
+    <string name="please_wait">Please wait…</string>
+    <string name="phone_number">Mobile number</string>
+    <string name="log_in">Please enter your mobile number</string>
+    <string name="invalid_phone_number">Invalid mobile number</string>
+    <string name="welcome">Hello</string>
+    <string name="login">Continue</string>
+    <string name="proceed">Proceed</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="logout">Logout</string>
+    <string name="todo">TODO</string>
+    <string name="upload_with_camera">Upload with camera</string>
+    <string name="place_image_here">Upload from gallery</string>
+    <string name="select_option">Select option</string>
+
+    <!-- OTP Verify -->
+    <string name="verification_code">Verification code</string>
+    <string name="otp_verification_text">Please enter OTP received on e-mail</string>
+    <string name="resend_otp"><u>Resend code</u></string>
+    <string name="empty">Please enter</string>
+    <string name="invalid">Please enter valid</string>
+    <string name="OTP">OTP</string>
+    <string name="already_exist">Phone number already exists</string>
+    <string name="invalid_number">Invalid phone number</string>
+    <string name="otp_verify">Otp verify</string>
+    <string name="resend_otp_message">Resend OTP</string>
+    <string name="something_error">Something went wrong</string>
+    <string name="invalid_otp">Invalid OTP</string>
+    <string name="verification_code_msg">Please enter code that has been sent to you</string>
+    <string name="otp_not_received_text">Didn\'t Receive code?</string>
+    <string name="resend_time">Resend Time </string>
+    <string name="resend_otp_time">Resend OTP Time</string>
+    <string name="verification_account">Verification Account</string>
+    <!-- Internet connection and Server -->
+    <string name="internet_connection">Please check your internet connection and try after some time!</string>
+    <string name="internal_server_error">Internal server error, so please try after some time!</string>
+    <string name="server_not_reached">Firebase server not reached!</string>
+    <!-- Profile -->
+    <string name="profile">Profile</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="phone_no">Phone Number</string>
+    <string name="email_address">Email Address</string>
+    <string name="address">Address</string>
+    <string name="id_proof">ID Proof</string>
+    <string name="reason">Reason</string>
+    <string name="btn_continue">Continue</string>
+    <string name="btn_update">Update</string>
+    <string name="edit">Edit</string>
+    <string name="gallery_select_title_msg">Tap to select</string>
+    <string name="folder">Folder</string>
+
+    <!-- Booking  -->
+    <string name="cancel_booking">Cancel Booking</string>
+    <string name="cancellationstext">Cancellation of this service will cost you $25 from your account. In order to
+        proceed, press Continue :
+    </string>
+    <string name="back">Back</string>
+    <string name="continues">Continue</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="congratulation">Congratulations!!</string>
+    <string name="booking_success">You Successfully created your booking</string>
+    <string name="location_permissions">Location Permissions Turned Off</string>
+    <string name="allow_location">Allow to turn on Location Permissions</string>
+    <string name="turn_on_location">Turn on Location</string>
+    <string name="GPS_enabled">Location Services is not enabled,Please enable Location Services</string>
+    <string name="user_register">Register</string>
+    <!-- Navigation Drawer Menu -->
+    <string name="menu_home">Home</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_update_profile">User name</string>
+    <string name="profile_phone">phone</string>
+    <string name="menu_addresses">Addresses</string>
+    <string name="menu_add_address">Add Address</string>
+    <string name="menu_notifications">Notifications</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_help">Help</string>
+    <string name="menu_logout">Logout</string>
+    <string name="logout_confirmation">Do you want to logout?</string>
+
+    <!-- Driver jobs -->
+    <string name="assign_jobs">Assigned Jobs</string>
+    <string name="complete_jobs">Complete Jobs</string>
+    <string name="no_record_found">No Record Found</string>
+    <string name="completed_date">Completed Date :</string>
+    <string name="service">Service</string>
+    <string name="services">Driver Jobs</string>
+    <string name="renewal">Renewal</string>
+
+    <string name="home">Active Jobs</string>
+    <string name="due_date">Due Date</string>
+    <string name="service_type">Service Type</string>
+    <string name="vendor_colon">Vendor: </string>
+
+    <!-- Assigned Jobs -->
+    <!--    <string name="job_start">Are you sure you want to START this Job?</string>-->
+    <string name="job_start">Are you sure you want to start this job?</string>
+    <string name="job_reached">Are you sure you have reached at your destination location?</string>
+    <string name="job_complete">Are you sure you have completed this job?</string>
+    <string name="job_on_way">Are you sure you are on the way?</string>
+    <string name="job_cancel">Are you sure you want to cancel this job?</string>
+    <string name="date">02-05-2020 13:05</string>
+    <string name="order_type">Order Type</string>
+    <string name="order_price">0</string>
+    <!--<string name="order_address">Address of order to be delivered</string>-->
+    <string name="btn_call">Call</string>
+    <string name="btn_detail">Details</string>
+    <string name="btn_start">Set Status</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="finish_job">Finish Job</string>
+    <string name="warning_finish_job">Do you really want to finish this job?</string>
+    <string name="warning_cancel_job">Do you really want to cancel this job?</string>
+    <string name="warning_reject_job">Do you really want to reject this job?</string>
+    <string name="show_directions">Show Directions</string>
+
+    <string name="job_completed">Job Completed</string>
+
+    <!-- Customer Feedback -->
+    <string name="customer_feedback">My Profile</string>
+    <string name="overall_rating">Overall Rating</string>
+
+    <string name="driver_name">Name</string>
+    <string name="driver_rating">Overall Rating</string>
+    <string name="driver_comment">Comment</string>
+    <string name="profile_edit">Edit</string>
+    <string name="profile_orders">total Orders - </string>
+    <string name="profile_feedback"> overall Feedback</string>
+
+    <!-- Job History -->
+    <string name="job_history">Job History</string>
+    <string name="pending">Pending</string>
+    <string name="completed">Completed</string>
+    <string name="items">Items</string>
+    <string name="ordered_on">Delivered On</string>
+    <string name="total_amnt">Total Amount</string>
+
+    <string name="items_dummy">1 X Hair cutting</string>
+
+    <!-- Cancel Reason -->
+    <string name="cancel_reason">Reason for Cancellation</string>
+    <string name="btn_oncancel">Cancel</string>
+
+    <!-- Order Details -->
+    <string name="order_details">Order Details</string>
+    <string name="order_info">Order Information</string>
+    <string name="delivery_method">Delivery Method</string>
+    <string name="dicount">Discount</string>
+    <string name="units">Quantity:</string>
+    <string name="amount">Amount</string>
+    <string name="btn_complete_order">Complete Order</string>
+    <string name="delivery_date_time">Delivery Date and Time</string>
+    <string name="order_address">Address</string>
+
+    <!-- Webview -->
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="terms_and_conditions">Terms and Conditions</string>
+
+    <!-- Notifications -->
+    <string name="dummy_details">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    </string>
+    <string name="dummy_details_old">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+    </string>
+    <string name="notification_title">Front end developer</string>
+    <string name="notifications">Notifications</string>
+
+    <!-- Earnings -->
+    <string name="earnings">Earnings</string>
+
+    <!-- Journey -->
+    <string name="job_status">Job Status</string>
+    <string name="start">Start</string>
+    <string name="on_the_way">On the way</string>
+    <string name="reached">Reached</string>
+    <string name="complete">Completed</string>
+
+    <!-- FCM -->
+    <string name="default_notification_channel_id">Driver Channel</string>
+    <string name="msg_token_fmt">token format</string>
+    <string name="delete_notifications">Are you sure you want to delete all notifications?</string>
+</resources>

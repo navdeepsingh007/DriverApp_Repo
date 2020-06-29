@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/ll_back_press"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10">
+
+        <ImageView
+            android:id="@+id/iv_login_go_back"
+            android:layout_width="20dp"
+            android:layout_height="30dp"
+            android:src="@drawable/iosback"
+            app:backOnClick="@{ `back` }" />
+
+        <TextView
+            android:id="@+id/tv_title_verification_code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="@dimen/sp_18"
+
+            />
+
+    </RelativeLayout>
+</layout>

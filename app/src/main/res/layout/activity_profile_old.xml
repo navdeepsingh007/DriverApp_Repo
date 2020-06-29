@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="profileViewModel"
+            type="com.seasia.driverapp.viewmodel.ProfileVM" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar_common"
+            layout="@layout/common_toolbar_back"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_toobar" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_15"
+            android:paddingBottom="@dimen/dp_15">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/dp_15"
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_profile"
+                    android:layout_width="@dimen/dp_100"
+                    android:layout_height="@dimen/dp_100"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:clickable="false"
+                    android:onClick="@{(v) -> profileViewModel.clickListener(v)}"
+                    android:src="@drawable/user" />
+
+                <TextView
+                    android:id="@+id/tvFirstName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sp_10"
+                    android:layout_marginTop="@dimen/sp_12"
+                    android:layout_marginEnd="@dimen/sp_10"
+                    android:text="@string/first_name"
+                    android:textColor="@color/color_navy_blue"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_first_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:background="@drawable/rectangle_blue_stroke"
+                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+                    android:enabled="false"
+                    android:hint="@string/first_name"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:maxLength="32"
+                    android:padding="@dimen/dp_10"
+                    tools:ignore="Autofill,TextFields,UnusedAttribute" />
+
+                <TextView
+                    android:id="@+id/tvLastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sp_10"
+                    android:layout_marginTop="@dimen/sp_12"
+                    android:layout_marginEnd="@dimen/sp_10"
+                    android:text="@string/last_name"
+                    android:textColor="@color/color_navy_blue"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_last_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:background="@drawable/rectangle_blue_stroke"
+                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+                    android:enabled="false"
+                    android:hint="@string/last_name"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:maxLength="32"
+                    android:padding="@dimen/dp_10"
+                    tools:ignore="Autofill,TextFields,UnusedAttribute" />
+
+                <TextView
+                    android:id="@+id/tvEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sp_10"
+                    android:layout_marginTop="@dimen/sp_12"
+                    android:layout_marginEnd="@dimen/sp_10"
+                    android:text="@string/email_address"
+                    android:textColor="@color/color_navy_blue"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_email_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:background="@drawable/rectangle_blue_stroke"
+                    android:enabled="false"
+                    android:hint="@string/email_address"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="40"
+                    android:padding="@dimen/dp_10"
+                    tools:ignore="Autofill,TextFields,UnusedAttribute" />
+
+                <TextView
+                    android:id="@+id/tvPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sp_10"
+                    android:layout_marginTop="@dimen/sp_12"
+                    android:layout_marginEnd="@dimen/sp_10"
+                    android:text="@string/phone_no"
+                    android:textColor="@color/color_navy_blue"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_phone_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:background="@drawable/rectangle_blue_stroke"
+                    android:digits="12345677890"
+                    android:enabled="false"
+                    android:hint="@string/phone_no"
+                    android:imeOptions="actionNext"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:padding="@dimen/dp_10"
+                    tools:ignore="Autofill,TextFields,UnusedAttribute" />
+
+                <TextView
+                    android:id="@+id/tvAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sp_10"
+                    android:layout_marginTop="@dimen/sp_12"
+                    android:layout_marginEnd="@dimen/sp_10"
+                    android:text="@string/address"
+                    android:textColor="@color/color_navy_blue"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/et_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:background="@drawable/rectangle_blue_stroke"
+                    android:enabled="false"
+                    android:hint="@string/address"
+                    android:imeOptions="actionNext"
+                    android:inputType="text"
+                    android:maxLength="32"
+                    android:padding="@dimen/dp_10"
+                    tools:ignore="Autofill,TextFields,UnusedAttribute" />
+
+                <TextView
+                    android:id="@+id/tvIdProof"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/sp_10"
+                    android:layout_marginTop="@dimen/sp_12"
+                    android:layout_marginEnd="@dimen/sp_10"
+                    android:text="@string/id_proof"
+                    android:textColor="@color/color_navy_blue"
+                    android:textSize="@dimen/sp_16"
+                    android:textStyle="bold" />
+
+                <!--                <RelativeLayout
+                                    android:id="@+id/rel_proof"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="@dimen/dp_45"
+                                    android:layout_marginStart="@dimen/dp_10"
+                                    android:layout_marginTop="@dimen/dp_10"
+                                    android:layout_marginEnd="@dimen/dp_10"
+                                    android:background="@drawable/rectangle_blue_stroke"
+                                    android:visibility="gone">
+
+                                    <de.hdodenhof.circleimageview.CircleImageView
+                                        android:id="@+id/img_id_preview"
+                                        android:layout_width="@dimen/dp_40"
+                                        android:layout_height="@dimen/dp_40"
+                                        android:layout_alignParentEnd="true"
+                                        android:onClick="@{(v) -> profileViewModel.clickListener(v)}"
+                                        android:paddingRight="@dimen/dp_5"
+                                        android:src="@drawable/attachment"
+                                        tools:ignore="UnusedAttribute" />
+
+                                    <EditText
+                                        android:id="@+id/etIdProof"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="@dimen/dp_10"
+                                        android:background="@android:color/transparent"
+                                        android:enabled="false"
+                                        android:hint="@string/id_proof"
+                                        android:padding="@dimen/dp_10"
+                                        tools:ignore="Autofill,TextFields,UnusedAttribute" />
+                                </RelativeLayout>-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:layout_marginStart="@dimen/dp_10"
+                    >
+
+                    <EditText
+                        android:id="@+id/etIdProof"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="8.5"
+                        android:layout_marginEnd="@dimen/dp_10"
+                        android:background="@drawable/rectangle_blue_stroke"
+                        android:enabled="false"
+                        android:imeOptions="actionDone"
+                        android:hint="@string/id_proof"
+                        android:padding="@dimen/dp_10"
+                        tools:ignore="Autofill,TextFields,UnusedAttribute" />
+
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/img_id_preview"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/dp_40"
+                        android:layout_weight="1.5"
+                        android:layout_alignParentEnd="true"
+                        android:paddingRight="@dimen/dp_5"
+                        android:onClick="@{(v) -> profileViewModel.clickListener(v)}"
+                        android:src="@drawable/attachment"
+                        tools:ignore="UnusedAttribute" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_continue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_25"
+                    android:layout_marginTop="@dimen/dp_25"
+                    android:layout_marginRight="@dimen/dp_25"
+                    android:background="@drawable/button_round_back_blue"
+                    android:onClick="@{(v) -> profileViewModel.onUpdateProfileClick(v, etFirstName, etLastName, etPhoneNumber, etEmailAddress, etAddress, imgProfile, etIdProof)}"
+                    android:text="@string/btn_update"
+                    android:textColor="@color/colorWhite"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </ScrollView>
+
+        <!--    <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/first_name"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/last_name"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>-->
+    </LinearLayout>
+</layout>

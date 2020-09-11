@@ -7,6 +7,8 @@ data class OrderDetailResponse(
 ) {
     data class Body(
         val address: Address = Address(),
+        val company: Company = Company(),
+        val orderStatus: OrderStatus = OrderStatus(),
         val addressId: String = "",
         val assignedEmployees: ArrayList<AssignedEmployee> = arrayListOf(),
         val cancellationReason: String = "",
@@ -26,8 +28,10 @@ data class OrderDetailResponse(
         val trackStatus: Int = 0,
         val trackingLatitude: String = "",
         val trackingLongitude: String = "",
+        val tip: String = "",
         val updatedAt: String = "",
-        val userId: String = ""
+        val userId: String = "",
+        var deliveryInstructions: ArrayList<String>? = arrayListOf()
     )
 
     data class Address(
@@ -72,5 +76,29 @@ data class OrderDetailResponse(
         val price: String = "",
         val thumbnail: String = "",
         val type: String = ""
+    )
+
+    data class Company(
+        val logo1: String? = "",
+
+        val address1: String? = "",
+
+        val companyName: String? = "",
+
+        val totalRatings: String? = "",
+
+        val latitude: String? = "",
+
+        val rating: String? = "",
+
+        val longitude: String? = ""
+    )
+
+    data class OrderStatus(
+        val parentStatus: String? = "",
+
+        val statusName: String? = "",
+
+        val status: String? = ""
     )
 }

@@ -9,8 +9,7 @@ import com.seasia.driverapp.R
 import com.seasia.driverapp.application.MyApplication
 import com.seasia.driverapp.common.UtilsFunctions
 import com.seasia.driverapp.constants.ApiKeysConstants
-import com.seasia.driverapp.model.CommonModel
-import com.seasia.driverapp.model.OrderStatusResponse
+import com.seasia.driverapp.model.*
 import com.seasia.driverapp.model.driverjob.ServicesListResponse
 import com.seasia.driverapp.model.driverjob.VendorListResponse
 import com.seasia.driverapp.repo.ServicesRepository
@@ -21,6 +20,9 @@ class JobsViewModel : BaseViewModel() {
     private lateinit var serviceslist: LiveData<OrderStatusResponse>
     private var activeJobsList = MutableLiveData<OrderStatusResponse>()
     private var completedJobsList = MutableLiveData<OrderStatusResponse>()
+    private var acceptOrder = MutableLiveData<AcceptOrderResponse>()
+    private var rejectOrder = MutableLiveData<RejectOrderResponse>()
+    private var offlineStatus = MutableLiveData<OfflineStatusResponse>()
     private var updateService = MutableLiveData<CommonModel>()
     private var servicesRepository = ServicesRepository()
     private val mIsUpdating = MutableLiveData<Boolean>()
@@ -30,9 +32,9 @@ class JobsViewModel : BaseViewModel() {
 
     init {
         if (UtilsFunctions.isNetworkConnectedWithoutToast()) {
-            serviceslist = servicesRepository.getServicesList("", "")
-            activeJobsList = servicesRepository.getServicesList("", "")
-            completedJobsList = servicesRepository.getServicesList("", "")
+            serviceslist = servicesRepository.getServicesList("", "","","")
+            activeJobsList = servicesRepository.getServicesList("", "","","")
+            completedJobsList = servicesRepository.getServicesList("", "","","")
             updateService = servicesRepository.updateService(null, "")
 //            vendorList = servicesRepository.getVendorList()
 
@@ -67,9 +69,9 @@ class JobsViewModel : BaseViewModel() {
         btnClick.value = v.resources.getResourceName(v.id).split("/")[1]
     }
 
-    fun getServices(mJsonObject: String, companyId: String) {
+    fun getServices(jobStatus: String,progressStatus: String, page: String,limit:String) {
         if (UtilsFunctions.isNetworkConnected()) {
-            serviceslist = servicesRepository.getServicesList(mJsonObject, companyId)
+            serviceslist = servicesRepository.getServicesList(jobStatus,progressStatus, page,limit)
 
             Log.d("JobsVM ----> ", serviceslist.value.toString())
             mIsUpdating.postValue(true)
@@ -78,17 +80,55 @@ class JobsViewModel : BaseViewModel() {
 
     fun activeJobs(progressStatus: String, companyId: String) {
         if (UtilsFunctions.isNetworkConnected()) {
-            activeJobsList = servicesRepository.getServicesList(progressStatus, companyId)
+            activeJobsList = servicesRepository.getServicesList(progressStatus,"", companyId,"")
             mIsUpdating.postValue(true)
         }
     }
 
-    fun completedJobs(progressStatus: String, companyId: String) {
+    fun completedJobs(jobStatus: String,progressStatus: String, page: String,limit:String) {
         if (UtilsFunctions.isNetworkConnected()) {
-            completedJobsList = servicesRepository.getServicesList(progressStatus, companyId)
+            completedJobsList = servicesRepository.getServicesList(jobStatus,progressStatus, page,limit)
             mIsUpdating.postValue(true)
         }
     }
+
+
+
+    fun acceptOrderJobs(input:AcceptOrderInput) {
+        if (UtilsFunctions.isNetworkConnected()) {
+            acceptOrder = servicesRepository.acceptOrder(input)
+            mIsUpdating.postValue(true)
+        }
+    }
+
+    fun acceptOrderResponse(): LiveData<AcceptOrderResponse> {
+        return acceptOrder
+    }
+
+
+    fun rejectOrderJobs(input:RejectOrderInput) {
+        if (UtilsFunctions.isNetworkConnected()) {
+            rejectOrder = servicesRepository.rejectOrder(input)
+            mIsUpdating.postValue(true)
+        }
+    }
+
+    fun rejectOrderResponse(): LiveData<RejectOrderResponse> {
+        return rejectOrder
+    }
+ fun offlineStatus(input:OfflineStatusInput) {
+        if (UtilsFunctions.isNetworkConnected()) {
+            offlineStatus = servicesRepository.offlineStatus(input)
+            mIsUpdating.postValue(true)
+        }
+    }
+
+    fun offlineResponse(): LiveData<OfflineStatusResponse> {
+        return offlineStatus
+    }
+
+
+
 
     fun getActiveJobs(): LiveData<OrderStatusResponse> {
         return activeJobsList

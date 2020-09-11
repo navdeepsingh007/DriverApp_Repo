@@ -54,7 +54,8 @@ data class OrderStatusResponse(
     )
 
     data class AssignedEmployee(
-        val id: String = ""
+        val id: String = "",
+        val jobStatus: String = ""
     )
 
     data class Suborder(

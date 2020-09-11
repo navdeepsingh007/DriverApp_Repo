@@ -5,7 +5,6 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RadioButton
 import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.databinding.DataBindingUtil
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.request.RequestOptions
 import com.seasia.driverapp.R
 import com.seasia.driverapp.common.UtilsFunctions
-import com.seasia.driverapp.databinding.RowJobCancelReasonBinding
 import com.seasia.driverapp.databinding.RowJobsHistoryBinding
 import com.seasia.driverapp.model.OrderStatusResponse
 import com.seasia.driverapp.utils.Utils
@@ -22,7 +20,7 @@ import com.seasia.driverapp.views.OrderDetailsActivity
 
 class JobHistoryAdapter(
     val context: Context,
-    val jobHistoryList: ArrayList<OrderStatusResponse.Body>
+    var jobHistoryList: ArrayList<OrderStatusResponse.Body>
 ) : RecyclerView.Adapter<JobHistoryAdapter.ViewHolder>() {
 
     @NonNull
@@ -34,6 +32,12 @@ class JobHistoryAdapter(
             false
         ) as RowJobsHistoryBinding
         return ViewHolder(binding.root, viewType, binding, context, jobHistoryList)
+    }
+
+    fun setData(list: ArrayList<OrderStatusResponse.Body>){
+        jobHistoryList=list
+        notifyDataSetChanged()
+
     }
 
     override fun onBindViewHolder(@NonNull holder: ViewHolder, position: Int) {
@@ -54,8 +58,28 @@ class JobHistoryAdapter(
         holder.binding.tvOrderPrice.text = price
 
         setJobStatusColor(response.progressStatus, holder.binding.tvJobStatus)
+        val orderStatus = UtilsFunctions.getTrackingStatus(response.progressStatus.toString())
 
-        holder.binding.ivOrderDetails.setOnClickListener { showOrderDetails(response.id) }
+        val formattedOrderDate = Utils(context).getDate(
+            "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+            response.serviceDateTime,
+            "dd MMM yyyy, hh:mm a"
+//            "dd-MMM,yyyy | hh:mm a"
+        )
+        val currDate = Utils(context).currentDate()
+        val orderDate = Utils(context).formattedDate(
+            formattedOrderDate,
+            "dd MMM yyyy, hh:mm a", "dd-MMM-yyyy"
+        )
+
+
+
+        holder.binding.ivOrderDetails.setOnClickListener { showOrderDetails(
+            response.id,
+            orderStatus,
+            currDate,
+            orderDate
+        ) }
 
         // Restaurant image, name,
 //        holder.binding.ivRestaurantImage
@@ -82,9 +106,19 @@ class JobHistoryAdapter(
         holder.binding.tvItems.text = orderedItems
     }
 
-    private fun showOrderDetails(orderId: String) {
+    private fun showOrderDetails(
+        orderId: String,
+        orderStatus: String,
+        currDate: String,
+        orderDate: String
+    ) {
         val intent = Intent(context, OrderDetailsActivity::class.java)
         intent.putExtra("orderId", orderId)
+
+        intent.putExtra("orderStatus", orderStatus)
+        intent.putExtra("currDate", currDate)
+        intent.putExtra("orderDate", orderDate)
+
         context.startActivity(intent)
     }
 

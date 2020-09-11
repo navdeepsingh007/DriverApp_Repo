@@ -5,12 +5,12 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
-import android.provider.AlarmClock.EXTRA_MESSAGE
 import android.view.View
 import android.view.Window
+import android.widget.CompoundButton
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,12 +18,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
 import com.seasia.driverapp.R
 import com.seasia.driverapp.application.MyApplication
+import com.seasia.driverapp.application.MyApplication.Companion.callApi
 import com.seasia.driverapp.callbacks.DriverJobCallbacks
 import com.seasia.driverapp.common.UtilsFunctions
 import com.seasia.driverapp.constants.ApiKeysConstants
 import com.seasia.driverapp.databinding.FragmentServicesBinding
-import com.seasia.driverapp.model.CommonModel
-import com.seasia.driverapp.model.OrderStatusResponse
+import com.seasia.driverapp.model.*
+import com.seasia.driverapp.sharedpreference.SharedPrefClass
 import com.seasia.driverapp.utils.BaseActivity
 import com.seasia.driverapp.utils.BaseFragment
 import com.seasia.driverapp.utils.CheckRuntimePermissions
@@ -32,15 +33,24 @@ import com.seasia.driverapp.views.CurrentLocNewActivity
 import com.seasia.driverapp.views.DashboardNewActivity
 import com.seasia.driverapp.views.OrderDetailsActivity
 import com.uniongoods.adapters.AssignedJobsAdapter
+import kotlinx.android.synthetic.main.fragment_services.*
 
 
 class AssignedJobsFragment(/*val totalAssignedJobs: DashboardAssignedJobs*/) : BaseFragment() {
     val REQUEST_CANCEL_REASON = 1
     private var servicesList = ArrayList<OrderStatusResponse.Body>()
     private lateinit var fragmentServicesBinding: FragmentServicesBinding
-    private lateinit var jobsViewModel: JobsViewModel
+    private  var jobsViewModel: JobsViewModel?=null
     private val mJsonObject = JsonObject()
     private var servicesListAdapter: AssignedJobsAdapter? = null
+    var count=1
+    var limit: Int = 10
+    var mPastVisibleItems = 0
+    var mVisibleItemCount = 0
+    var mTotalItemCount = 0
+    var mLoadMoreViewCheck = true
+    var mStatus="0"
+
 //    private var totalAssignedJobs: DashboardAssignedJobs = DashboardAssignedJobs()
 
     // lOCATION
@@ -73,30 +83,78 @@ class AssignedJobsFragment(/*val totalAssignedJobs: DashboardAssignedJobs*/) : B
             ).toString()*/
         )
 
+
+
+        fragmentServicesBinding.swipeContainer.setColorSchemeResources(R.color.colorBlue,R.color.colorBlue,R.color.colorBlue);
+
+        fragmentServicesBinding.swipeContainer.setOnRefreshListener { // Your code to refresh the list here.
+
+            if (UtilsFunctions.isNetworkConnected()) {
+//            baseActivity.startProgressDialog()
+                servicesList.clear()
+                servicesListAdapter?.notifyDataSetChanged()
+                val companyId = MyApplication.sharedPref.getPrefValue(
+                    requireContext(),
+                    ApiKeysConstants.COMPANY_ID
+                ) as String
+              //  baseActivity.startProgressDialog()
+                jobsViewModel!!. getServices("0,1","", "1",limit.toString())
+             //   fragmentServicesBinding.swipeContainer.isRefreshing=false
+
+            } else{
+                fragmentServicesBinding.swipeContainer.isRefreshing=false
+            }
+        }
+
         initRecyclerView()
+        mStatus=   SharedPrefClass().getPrefValue(MyApplication.instance.applicationContext, ApiKeysConstants.OFFLINE_STATUS).toString()
+        if(mStatus.equals("1")){
+            btnOffline.setText(getString(R.string.online))
+            btnOffline.isChecked=true
+        }
+        btnOffline.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                btnOffline.setText(getString(R.string.online))
+                offlineStatus("1")
+                mStatus="1"
+            } else {
+                btnOffline.setText(getString(R.string.offline))
+                offlineStatus("0")
+                mStatus="0"
+            }
+        })
 
         //   servicesViewModel.getServicesList()
-        jobsViewModel.getServicesList().observe(this,
+        jobsViewModel!!.getServicesList().observe(this,
             Observer<OrderStatusResponse> { response ->
                 if (response != null) {
                     val message = response.message
                     baseActivity.stopProgressDialog()
+                    fragmentServicesBinding.swipeContainer.isRefreshing=false
                     when {
                         response.code == 200 -> {
-                            if (!response.body.isEmpty()) {
+                             mLoadMoreViewCheck = true
+                            if (response.body!=null) {
+
                                 servicesList.addAll(response.body!!)
                                 fragmentServicesBinding.rvServices.visibility = View.VISIBLE
                                 fragmentServicesBinding.tvNoRecord.visibility = View.GONE
-//                                initRecyclerView()
+                             //   initRecyclerView()
+                                servicesListAdapter!!.setData(servicesList)
 
                                 // TO DO clear service list
-                                servicesList.clear()
-                                servicesList.addAll(response.body)
-                                servicesListAdapter?.notifyDataSetChanged()
+                              //  servicesList.clear()
+                           //     servicesListAdapter?.notifyDataSetChanged()
 
                                 (activity as DashboardNewActivity).assignedJobsCount(response.body.size)
 
 //                                totalAssignedJobs.assignedJobsCount(response.body.size)
+
+                                if(servicesList.size>0){
+                                    fragmentServicesBinding.tvNoRecord.visibility = View.GONE
+                                } else{
+                                    fragmentServicesBinding.tvNoRecord.visibility = View.VISIBLE
+                                }
                             } else {
                                 message?.let {
 //                                    UtilsFunctions.showToastError(it)
@@ -165,8 +223,13 @@ class AssignedJobsFragment(/*val totalAssignedJobs: DashboardAssignedJobs*/) : B
                         onJobCanceledClick(orderId, orderStatus, lat, lon)
                     }
 
-                    override fun onJobDetails(orderId: String, orderStatus: String) {
-                        onJobDetailsClick(orderId, orderStatus)
+                    override fun onJobDetails(
+                        orderId: String,
+                        orderStatus: String,
+                        currDate: String,
+                        orderDate: String
+                    ) {
+                        onJobDetailsClick(orderId, orderStatus,currDate,orderDate)
                     }
 
                     override fun onShowGMaps(lat: String, lon: String) {
@@ -175,16 +238,34 @@ class AssignedJobsFragment(/*val totalAssignedJobs: DashboardAssignedJobs*/) : B
                 }
             )
 
-        val linearLayoutManager = LinearLayoutManager(this.baseActivity)
-        linearLayoutManager.orientation = RecyclerView.VERTICAL
+        val linearLayoutManager = LinearLayoutManager(this.baseActivity,LinearLayoutManager.VERTICAL,false)
         fragmentServicesBinding.rvServices.layoutManager = linearLayoutManager
         fragmentServicesBinding.rvServices.adapter = servicesListAdapter
         fragmentServicesBinding.rvServices.addOnScrollListener(object :
             RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 
+                if (dy > 0) //check for scroll down
+                {
+                    mVisibleItemCount = linearLayoutManager.childCount
+                    mTotalItemCount = linearLayoutManager.itemCount
+                    mPastVisibleItems = linearLayoutManager.findFirstVisibleItemPosition()
+                    if (mLoadMoreViewCheck) {
+                        if ((mVisibleItemCount + mPastVisibleItems) >= mTotalItemCount) {
+                            mLoadMoreViewCheck = false
+                            count++
+                            //reviewsViewModel.getReviewsList(serviceId, count.toString())
+                            if (UtilsFunctions.isNetworkConnected()) {
+                                jobsViewModel!!.getServices("0,1","", count.toString(),limit.toString())
+                            }
+                        }
+                    }
+                }
+
+
             }
         })
+
     }
 
     override fun onResume() {
@@ -199,7 +280,7 @@ class AssignedJobsFragment(/*val totalAssignedJobs: DashboardAssignedJobs*/) : B
                 requireContext(),
                 ApiKeysConstants.COMPANY_ID
             ) as String
-            jobsViewModel.getServices("1", companyId)
+            jobsViewModel!!. getServices("0,1","", "1",limit.toString())
         }
     }
 
@@ -209,7 +290,7 @@ class AssignedJobsFragment(/*val totalAssignedJobs: DashboardAssignedJobs*/) : B
         lat: String,
         lon: String
     ) {
-        jobsViewModel.updateOrderStatus(orderId, orderStatus).observe(this,
+        jobsViewModel!!.updateOrderStatus(orderId, orderStatus).observe(this,
             Observer<CommonModel> { response ->
                 if (response != null) {
                     val message = response.message
@@ -245,9 +326,17 @@ class AssignedJobsFragment(/*val totalAssignedJobs: DashboardAssignedJobs*/) : B
 //        showRadioButtonDialog()
     }
 
-    private fun onJobDetailsClick(orderId: String, orderStatus: String) {
+    private fun onJobDetailsClick(
+        orderId: String,
+        orderStatus: String,
+        currDate: String,
+        orderDate: String
+    ) {
         val intent = Intent(context, OrderDetailsActivity::class.java)
         intent.putExtra("orderId", orderId)
+        intent.putExtra("orderStatus", orderStatus)
+        intent.putExtra("currDate", currDate)
+        intent.putExtra("orderDate", orderDate)
         startActivity(intent)
     }
 
@@ -325,4 +414,131 @@ class AssignedJobsFragment(/*val totalAssignedJobs: DashboardAssignedJobs*/) : B
             }
         }
     }*/
+
+    fun acceptOrder(orderId: String, id: String) {
+
+        AlertDialog.Builder(baseActivity)
+//            .setTitle("Cancel")
+            .setMessage("Are you sure want to accept order?")
+            .setPositiveButton(
+                R.string.yes,
+                { dialog, which ->
+
+                    jobsViewModel = ViewModelProviders.of(this).get(JobsViewModel::class.java)
+                    val input=AcceptOrderInput()
+                    input.orderId=orderId
+                    input.id=id
+                    baseActivity.startProgressDialog()
+                    jobsViewModel!!.acceptOrderJobs(input)
+                    jobsViewModel!!.acceptOrderResponse().observe(this,
+                        Observer<AcceptOrderResponse> { response ->
+                            if(callApi) {
+                                callApi = false
+                                baseActivity.stopProgressDialog()
+                                if (response != null) {
+                                    val message = response.message
+                                    when {
+                                        response.code == 200 -> {
+                                            UtilsFunctions.showToastSuccess(response.message!!)
+                                            servicesList.clear()
+                                            jobsViewModel!!.getServices(
+                                                "0,1",
+                                                "",
+                                                "1",
+                                                limit.toString()
+                                            )
+
+                                        }
+                                        else -> message?.let {
+                                            UtilsFunctions.showToastError(response.message!!)
+                                        }
+                                    }
+                                }
+                            }
+                        })
+                })
+            .setNegativeButton(R.string.no, null)
+            .setIcon(R.drawable.ic_alert)
+            .show()
+    }
+    fun rejectOrder(orderId: String, id: String) {
+        AlertDialog.Builder(baseActivity)
+//            .setTitle("Cancel")
+            .setMessage("Are you sure want to reject order?")
+            .setPositiveButton(
+                R.string.yes,
+                { dialog, which ->
+                    val input=RejectOrderInput()
+                    input.orderId=orderId
+                    input.id=id
+                    baseActivity.startProgressDialog()
+                    jobsViewModel!!.rejectOrderJobs(input)
+                    jobsViewModel!!.rejectOrderResponse().observe(this,
+                        Observer<RejectOrderResponse> { response ->
+                            if(callApi) {
+                                callApi = false
+
+                                baseActivity.stopProgressDialog()
+                                if (response != null) {
+                                    val message = response.message
+                                    when {
+                                        response.code == 200 -> {
+                                            UtilsFunctions.showToastSuccess(response.message!!)
+                                            servicesList.clear()
+                                            jobsViewModel!!.getServices(
+                                                "0,1",
+                                                "",
+                                                "1",
+                                                limit.toString()
+                                            )
+                                        }
+                                        else -> message?.let {
+                                            UtilsFunctions.showToastError(response.message!!)
+                                        }
+                                    }
+                                }
+                                jobsViewModel!!.rejectOrderResponse().removeObservers(this)
+                            }
+                        })
+                })
+            .setNegativeButton(R.string.no, null)
+            .setIcon(R.drawable.ic_alert)
+            .show()
+    }
+
+    fun offlineStatus(status: String) {
+        var input=OfflineStatusInput()
+        input.status=status
+        baseActivity.startProgressDialog()
+        jobsViewModel!!.offlineStatus(input)
+        jobsViewModel!!.offlineResponse().observe(this,
+            Observer<OfflineStatusResponse> { response ->
+                if(callApi) {
+                    callApi=false
+                    baseActivity.stopProgressDialog()
+                    if (response != null) {
+                        val message = response.message
+                        when {
+                            response.code == 200 -> {
+                                    UtilsFunctions.showToastSuccess(response.message!!)
+
+                                SharedPrefClass().putObject(
+                                    MyApplication.instance,
+                                    ApiKeysConstants.OFFLINE_STATUS,
+                                    mStatus
+                                )
+
+                            }
+                            else -> message?.let {
+                                UtilsFunctions.showToastError(response.message!!)
+                            }
+                        }
+                    }
+                    jobsViewModel!!.rejectOrderResponse().removeObservers(this)
+                }
+            })
+
+    }
+
+
 }

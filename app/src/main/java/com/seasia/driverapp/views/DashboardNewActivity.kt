@@ -33,6 +33,7 @@ import com.seasia.driverapp.callbacks.DashboardAssignedJobs
 import com.seasia.driverapp.common.DialogUtil
 import com.seasia.driverapp.common.DialogsInterface
 import com.seasia.driverapp.common.UtilsFunctions
+import com.seasia.driverapp.constants.ApiKeysConstants
 import com.seasia.driverapp.constants.GlobalConstants
 import com.seasia.driverapp.databinding.ActivityDashboardNewBinding
 import com.seasia.driverapp.databinding.ContentMainBinding
@@ -284,6 +285,11 @@ class DashboardNewActivity : BaseActivity(), DialogsInterface,
                         MyApplication.instance.applicationContext,
                         "isLogin",
                         false
+                    )
+                    SharedPrefClass().putObject(
+                        MyApplication.instance,
+                        ApiKeysConstants.OFFLINE_STATUS,
+                        ""
                     )
                 } else {
                     UtilsFunctions.showToastError(message)

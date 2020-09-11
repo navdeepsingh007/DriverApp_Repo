@@ -10,10 +10,11 @@ import com.seasia.driverapp.api.ApiResponse
 import com.seasia.driverapp.api.ApiService
 import com.seasia.driverapp.application.MyApplication
 import com.seasia.driverapp.common.UtilsFunctions
-import com.seasia.driverapp.model.CommonModel
-import com.seasia.driverapp.model.OrderStatusResponse
+import com.seasia.driverapp.constants.ApiKeysConstants
+import com.seasia.driverapp.model.*
 import com.seasia.driverapp.model.driverjob.ServicesListResponse
 import com.seasia.driverapp.model.driverjob.VendorListResponse
+import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
@@ -21,17 +22,23 @@ import java.util.HashMap
 
 class ServicesRepository {
     private var data : MutableLiveData<OrderStatusResponse>? = null
+    private var acceptOrderData : MutableLiveData<AcceptOrderResponse>? = null
+    private var rejectOrderData : MutableLiveData<RejectOrderResponse>? = null
+    private var offlineStatus : MutableLiveData<OfflineStatusResponse>? = null
     private var data1 : MutableLiveData<CommonModel>? = null
     private val gson = GsonBuilder().serializeNulls().create()
     private var data2 : MutableLiveData<VendorListResponse>? = null
 
     init {
+        acceptOrderData = MutableLiveData()
+        rejectOrderData = MutableLiveData()
+        offlineStatus = MutableLiveData()
         data = MutableLiveData()
         data1 = MutableLiveData()
         data2 = MutableLiveData()
     }
 
-    fun getServicesList(serviceType : String, companyId: String) : MutableLiveData<OrderStatusResponse> {
+    fun getServicesList(serviceType : String,progessStatus : String,page: String,limit: String) : MutableLiveData<OrderStatusResponse> {
         if (!TextUtils.isEmpty(serviceType)) {
             val mApiService = ApiService<JsonObject>()
             mApiService.get(
@@ -56,11 +63,122 @@ class ServicesRepository {
                         data!!.postValue(null)
                     }
 
-                }, ApiClient.getApiInterface().getAssignedOrCompletedJobs(serviceType, companyId)
+                }, ApiClient.getApiInterface().getAssignedOrCompletedJobs(serviceType,progessStatus, page,limit)
             )
         }
         return data!!
     }
+
+
+
+    fun acceptOrder(input:AcceptOrderInput) : MutableLiveData<AcceptOrderResponse> {
+
+            val mApiService = ApiService<JsonObject>()
+            mApiService.get(
+                object : ApiResponse<JsonObject> {
+                    override fun onResponse(mResponse : Response<JsonObject>) {
+                        val loginResponse = if (mResponse.body() != null)
+                            gson.fromJson<AcceptOrderResponse>(
+                                "" + mResponse.body(),
+                                AcceptOrderResponse::class.java
+                            )
+                        else {
+                            gson.fromJson<AcceptOrderResponse>(
+                                mResponse.errorBody()!!.charStream(),
+                                AcceptOrderResponse::class.java
+                            )
+                        }
+                        acceptOrderData!!.postValue(loginResponse)
+                        MyApplication.callApi=true
+                    }
+
+                    override fun onError(mKey : String) {
+                        UtilsFunctions.showToastError(MyApplication.instance.getString(R.string.internal_server_error))
+                        acceptOrderData!!.postValue(null)
+                        MyApplication.callApi=true
+                    }
+
+                }, ApiClient.getApiInterface().acceptOrder(input)
+            )
+
+        return acceptOrderData!!
+    }
+
+
+    fun rejectOrder(input:RejectOrderInput) : MutableLiveData<RejectOrderResponse> {
+
+        val mApiService = ApiService<JsonObject>()
+        mApiService.get(
+            object : ApiResponse<JsonObject> {
+                override fun onResponse(mResponse : Response<JsonObject>) {
+                    val loginResponse = if (mResponse.body() != null)
+                        gson.fromJson<RejectOrderResponse>(
+                            "" + mResponse.body(),
+                            RejectOrderResponse::class.java
+                        )
+                    else {
+                        gson.fromJson<RejectOrderResponse>(
+                            mResponse.errorBody()!!.charStream(),
+                            RejectOrderResponse::class.java
+                        )
+                    }
+                    rejectOrderData!!.postValue(loginResponse)
+                    MyApplication.callApi=true
+                }
+
+                override fun onError(mKey : String) {
+                    UtilsFunctions.showToastError(MyApplication.instance.getString(R.string.internal_server_error))
+                    rejectOrderData!!.postValue(null)
+                    MyApplication.callApi=true
+                }
+
+            }, ApiClient.getApiInterface().rejectOrder(input)
+        )
+
+        return rejectOrderData!!
+    }
+
+
+
+    fun offlineStatus(input:OfflineStatusInput) : MutableLiveData<OfflineStatusResponse> {
+
+        val mApiService = ApiService<JsonObject>()
+        mApiService.get(
+            object : ApiResponse<JsonObject> {
+                override fun onResponse(mResponse : Response<JsonObject>) {
+                    val loginResponse = if (mResponse.body() != null)
+                        gson.fromJson<OfflineStatusResponse>(
+                            "" + mResponse.body(),
+                            OfflineStatusResponse::class.java
+                        )
+                    else {
+                        gson.fromJson<OfflineStatusResponse>(
+                            mResponse.errorBody()!!.charStream(),
+                            OfflineStatusResponse::class.java
+                        )
+                    }
+                    offlineStatus!!.postValue(loginResponse)
+                    MyApplication.callApi=true
+                }
+
+                override fun onError(mKey : String) {
+                    UtilsFunctions.showToastError(MyApplication.instance.getString(R.string.internal_server_error))
+                    offlineStatus!!.postValue(null)
+                    MyApplication.callApi=true
+                }
+
+            }, ApiClient.getApiInterface().offlineStatus(input)
+        )
+
+        return offlineStatus!!
+    }
+
+
+
+
+
+
+
 
     fun updateService(jsonObject: JsonObject?, companyId: String) : MutableLiveData<CommonModel> {
         if (jsonObject != null) {

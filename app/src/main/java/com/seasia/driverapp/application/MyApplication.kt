@@ -34,5 +34,6 @@ class MyApplication : MultiDexApplication() {
         lateinit var instance: MyApplication
         lateinit var gson: Gson
         lateinit var sharedPref: SharedPrefClass
+         var callApi=false
     }
 }

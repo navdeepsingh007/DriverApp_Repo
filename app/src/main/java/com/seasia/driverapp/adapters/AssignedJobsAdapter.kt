@@ -14,7 +14,6 @@ import android.view.ViewGroup
 import androidx.annotation.NonNull
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
-import androidx.core.graphics.ColorUtils
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.seasia.driverapp.R
@@ -35,7 +34,7 @@ import kotlinx.android.synthetic.main.row_driver_jobs.view.*
 
 class AssignedJobsAdapter(
     context: AssignedJobsFragment,
-    val jobsList: ArrayList<OrderStatusResponse.Body>,
+    var jobsList: ArrayList<OrderStatusResponse.Body>,
     var activity: Context,
     val driverJobCallbacks: DriverJobCallbacks
 ) :
@@ -56,6 +55,21 @@ class AssignedJobsAdapter(
 //        this.servicesList = jobsList
     }
 
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
+
+    fun setData(list: ArrayList<OrderStatusResponse.Body>){
+        jobsList=list
+        notifyDataSetChanged()
+    }
+
     @NonNull
     override fun onCreateViewHolder(@NonNull parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = DataBindingUtil.inflate(
@@ -71,6 +85,7 @@ class AssignedJobsAdapter(
     @SuppressLint("SetTextI18n", "ResourceAsColor")
     override fun onBindViewHolder(@NonNull holder: ViewHolder, position: Int) {
         val response = jobsList.get(position)
+        var assignStatus= jobsList.get(position).assignedEmployees.get(0).jobStatus
         val formattedOrderDate = Utils(activity).getDate(
             "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
             response.serviceDateTime,
@@ -89,7 +104,9 @@ class AssignedJobsAdapter(
         holder.binding.tvOrderPrice.text = price
 
         val orderId = response.id
+        val userId = jobsList.get(position).assignedEmployees.get(0).id
         val trackStatus = response.trackStatus.toString()
+        val progressStatus = response.progressStatus.toString()
 
         var lat = ""
         var lon = ""
@@ -101,20 +118,39 @@ class AssignedJobsAdapter(
 //        val phoneNo = response.assignedEmployees[position].employee.phoneNumber
         val phoneNo = response.user.phoneNumber
 
-        val trackingStatus = UtilsFunctions.getTrackingStatus(response.trackStatus.toString())
+        val trackingStatus = UtilsFunctions.getTrackingStatus(response.progressStatus.toString())
 
         holder.binding.btnCall.setOnClickListener { onCall(phoneNo) }
+        val currDate = Utils(activity).currentDate()
+        val orderDate = Utils(activity).formattedDate(
+            formattedOrderDate,
+            "dd MMM yyyy, hh:mm a", "dd-MMM-yyyy"
+        )
+
+        Log.d("AssignedJobs -===> ", "$currDate - $orderDate")
+
+
         holder.binding.btnStart.setOnClickListener {
-            onStart(
-                orderId,
-                trackStatus,
-                lat,
-                lon,
-                trackingStatus
-            )
+
+            if(assignStatus.equals("0")){
+//                Toast.makeText(activity,"comming soon", Toast.LENGTH_LONG).show()
+                mContext.acceptOrder(orderId,userId)
+
+            } else{
+                onStart(orderId, progressStatus, lat, lon, trackingStatus,currDate,orderDate)
+            }
+
         }
-        holder.binding.btnCancel.setOnClickListener { onCancel(orderId, trackStatus, lat, lon) }
-        holder.binding.btnDetail.setOnClickListener { onDetail(orderId, trackStatus) }
+        holder.binding.btnCancel.setOnClickListener {
+            if(assignStatus.equals("0")){
+             //   Toast.makeText(activity,"conmming soon", Toast.LENGTH_LONG).show()
+                mContext.rejectOrder(orderId,userId)
+
+            } else{
+                onCancel(orderId, "2", lat, lon)
+            }
+            }
+        holder.binding.btnDetail.setOnClickListener { onDetail(orderId, trackStatus,currDate,orderDate) }
         holder.binding.tvOrderType.text = response.orderNo
 
 //        holder.binding.btnStart.setText(trackingStatus)
@@ -123,7 +159,7 @@ class AssignedJobsAdapter(
 
         // Row click listener
         holder.itemView.setOnClickListener {
-            onDetail(orderId, trackStatus)
+            onDetail(orderId, trackStatus,currDate,orderDate)
         }
 
         holder.itemView.llAddressDtl.setOnClickListener {
@@ -131,13 +167,7 @@ class AssignedJobsAdapter(
         }
 
         // If job not of current date, disable set status button
-        val currDate = Utils(activity).currentDate()
-        val orderDate = Utils(activity).formattedDate(
-            formattedOrderDate,
-            "dd MMM yyyy, hh:mm a", "dd-MMM-yyyy"
-        )
 
-        Log.d("AssignedJobs -===> ", "$currDate - $orderDate")
 
         // Check already started job exist
         val isAlreadyStartedJobExist = MyApplication.sharedPref.getBoolPreference(
@@ -147,26 +177,44 @@ class AssignedJobsAdapter(
 
 //                || Utils(activity).compareIfPreviousDate(orderDate)
 
-        if (currDate.equals(orderDate)) {
-            holder.binding.btnStart.isEnabled = true
-            holder.binding.btnStart.background.alpha = 255
-        } else {
-            holder.binding.btnStart.isEnabled = false
-            holder.binding.btnStart.background.alpha = 100
-        }
 
-        val alreadyExistingOrderId = MyApplication.sharedPref.getPrefValue(
-            MyApplication.instance,
-            GlobalConstants.JOB_ORDER_ID
-        ) as String?
-
-        if (alreadyExistingOrderId != null && !alreadyExistingOrderId.isEmpty()) {
-            if (alreadyExistingOrderId.equals(orderId)) {
+        if(assignStatus.equals("0")){
+            holder.binding.btnStart.text="Accept"
+            holder.binding.btnCancel.text="Reject"
+            holder.binding.btnStart.setBackgroundResource(R.drawable.round_small_green)
+            if (currDate.equals(orderDate)) {
+                holder.binding.btnStart.isEnabled = true
+                holder.binding.btnStart.background.alpha = 255
+                holder.binding.btnCancel.isEnabled = true
+                holder.binding.btnCancel.background.alpha = 255
+            } else {
+                holder.binding.btnStart.isEnabled = false
+                holder.binding.btnStart.background.alpha = 100
+            }
+        } else{
+            holder.binding.btnStart.text="Set Status"
+            holder.binding.btnCancel.text="Cancel"
+            holder.binding.btnStart.setBackgroundResource(R.drawable.round_small_blue)
+            if (currDate.equals(orderDate)) {
                 holder.binding.btnStart.isEnabled = true
                 holder.binding.btnStart.background.alpha = 255
             } else {
                 holder.binding.btnStart.isEnabled = false
                 holder.binding.btnStart.background.alpha = 100
+            }
+            val alreadyExistingOrderId = MyApplication.sharedPref.getPrefValue(
+                MyApplication.instance,
+                GlobalConstants.JOB_ORDER_ID
+            ) as String?
+
+            if (alreadyExistingOrderId != null && !alreadyExistingOrderId.isEmpty()) {
+                if (alreadyExistingOrderId.equals(orderId)) {
+                    holder.binding.btnStart.isEnabled = true
+                    holder.binding.btnStart.background.alpha = 255
+                } else {
+                    holder.binding.btnStart.isEnabled = false
+                    holder.binding.btnStart.background.alpha = 100
+                }
             }
         }
     }
@@ -224,11 +272,16 @@ class AssignedJobsAdapter(
         orderStatus: String,
         lat: String,
         lon: String,
-        trackingStatus: String
+        trackingStatus: String,
+        currDate: String,
+        orderDate: String
     ) {
         if (UtilsFunctions.checkGpsEnabled(activity)) {
             val intent = Intent(activity, DriverJourneyActivity::class.java)
             intent.putExtra("orderId", orderId)
+            intent.putExtra("orderStatus", orderStatus)
+            intent.putExtra("currDate", currDate)
+            intent.putExtra("orderDate", orderDate)
             intent.putExtra("lat", lat)
             intent.putExtra("lon", lon)
             activity.startActivity(intent)
@@ -266,8 +319,13 @@ class AssignedJobsAdapter(
         showCancelDialog(msg, orderId, orderStatus, lat, lon)
     }
 
-    private fun onDetail(orderId: String, orderStatus: String) {
-        driverJobCallbacks.onJobDetails(orderId, orderStatus)
+    private fun onDetail(
+        orderId: String,
+        orderStatus: String,
+        currDate: String,
+        orderDate: String
+    ) {
+        driverJobCallbacks.onJobDetails(orderId, orderStatus,currDate,orderDate)
     }
 
 

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
+    <!--<color name="colorPrimary">#6200EE</color>-->
+    <color name="colorPrimary">#DC143C</color>
+   <!--<color name="colorPrimaryDark">#3700B3</color>-->
+    <color name="colorPrimaryDark">#C51639</color>
     <color name="colorAccent">#03DAC5</color>
 
     <color name="colorWhite">#ffffff</color>
@@ -35,9 +37,15 @@
     <color name="color_grey_toolbar">#ebf0ff</color>
     <color name="ef_grey">#9E9E9E</color>
     <color name="color_navy_blue">#223263</color>
-    <color name="colorBlueDark">#3966E3</color>
+
+    <!--<color name="colorBlueDark">#3966E3</color>-->
+    <color name="colorBlueDark">#C51639</color>
+
+
     <color name="colorBlue2">#1D6CFF</color>
-    <color name="colorBlue">#1152FD</color>
+
+    <color name="colorBlue1">#1152FD</color>
+    <color name="colorBlue">#DC143C</color>
 
     <color name="colorDisable">#83F32626</color>
 

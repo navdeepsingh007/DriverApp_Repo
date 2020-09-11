@@ -31,7 +31,7 @@ class DriverEarningsActivity : BaseActivity() {
         jobsViewModel = ViewModelProvider(this).get(JobsViewModel::class.java)
 
         setEarningsAdapter()
-//        initCompletedJobsObserver()
+        initCompletedJobsObserver()
 
         companyId = MyApplication.sharedPref.getPrefValue(
             this,

@@ -292,6 +292,7 @@ object UtilsFunctions {
             "2" -> status = "Reached"
 //            "3" -> status = "On the way"
             "4" -> status = "Delivered"
+            "5" -> status = "Delivered"
         }
         return status
     }
@@ -301,6 +302,7 @@ object UtilsFunctions {
         var status = ""
         when (trackStatus) {
             "4" -> status = "Delivered"
+            "5" -> status = "Delivered"
             else -> status = "Pending"
         }
         return status

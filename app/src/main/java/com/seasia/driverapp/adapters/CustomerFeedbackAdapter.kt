@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.seasia.driverapp.R
+import com.seasia.driverapp.common.UtilsFunctions
 import com.seasia.driverapp.databinding.RowFeedbackListingBinding
 import com.seasia.driverapp.model.CustomerFeedbackResponse
 import com.seasia.driverapp.utils.Utils
@@ -18,7 +19,7 @@ import com.seasia.driverapp.views.OrderDetailsActivity
 
 
 class CustomerFeedbackAdapter(
-    context: CustomerFeedbackActivity,
+    var context: CustomerFeedbackActivity,
     val ratingList: ArrayList<CustomerFeedbackResponse.Rating>,
     var activity: Context
 ) : RecyclerView.Adapter<CustomerFeedbackAdapter.ViewHolder>() {
@@ -50,6 +51,8 @@ class CustomerFeedbackAdapter(
             result.order.serviceDateTime,
             "dd MMM yyyy, hh:mm a"
         )
+
+
 
         holder.binding.orderDetails.setOnClickListener { showOrderDetails(result.order.id) }
 

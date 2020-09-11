@@ -40,7 +40,7 @@ abstract class BaseActivity : AppCompatActivity() {
     protected var viewDataBinding: ViewDataBinding? = null
     private var utils: Utils? = null
     private var inputMethodManager: InputMethodManager? = null
-    private var progressDialog: Dialog? = null
+    var progressDialog: Dialog? = null
     private var mFragmentManager: androidx.fragment.app.FragmentManager? = null
     private val gson = GsonBuilder().serializeNulls().create()
     private var permCallback: PermissionCallback? = null

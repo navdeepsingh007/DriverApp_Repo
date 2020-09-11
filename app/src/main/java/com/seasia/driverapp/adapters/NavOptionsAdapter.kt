@@ -23,6 +23,7 @@ class NavOptionsAdapter(
         optionsList.add("Job History")
 //        optionsList.add("Earnings")
         optionsList.add("Notifications")
+        optionsList.add("Wallet History")
 //        optionsList.add("Help")
         optionsList.add("Terms and Conditions")
         optionsList.add("Privacy Policy")

@@ -8,6 +8,7 @@ object ApiKeysConstants {
 
     // lOGIN API
     const val PHONE_NO = "phoneNumber"
+    const val OFFLINE_STATUS = "offlineStatus"
     const val COUNTRY_CODE = "countryCode"
     const val COMPANY_ID = "companyId"
     const val DEVICE_TOKEN = "deviceToken"

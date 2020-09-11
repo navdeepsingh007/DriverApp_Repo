@@ -8,6 +8,11 @@
         <item name="colorAccent">@color/colorBlue</item>
     </style>
 
+    <!-- Theme.AppCompat.Light is not a dialog theme -->
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
     <style name="transparent_dialog_borderless" parent="Theme.AppCompat.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowBackground">@null</item>
@@ -55,6 +60,18 @@
         <!--<item name="android:textViewStyle">@style/MontserratTextViewStyle</item>-->
         <!--<item name="android:buttonStyle">@style/MontserratButtonStyle</item>-->
     </style>
+
+
+
+    <style name="AppThemeOne" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowDisablePreview">true</item>
+    </style>
+
+
 
     <style name="MontserratTextViewStyle" parent="android:Widget.TextView">
     <!--    <item name="android:fontFamily">@font/montserrat_regular</item>-->

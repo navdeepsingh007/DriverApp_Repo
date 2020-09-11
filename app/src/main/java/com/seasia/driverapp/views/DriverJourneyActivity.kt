@@ -37,6 +37,7 @@ import com.seasia.driverapp.socket.BackgroundLocationService
 import com.seasia.driverapp.utils.BaseActivity
 import com.seasia.driverapp.viewmodel.DriverJourneyVM
 import com.skyfishjy.library.RippleBackground
+import kotlinx.android.synthetic.main.driver_journey_activity.*
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -46,6 +47,9 @@ class DriverJourneyActivity : BaseActivity(), DialogsInterface,
     private lateinit var binding: DriverJourneyActivityBinding
     private lateinit var driverJourneyVM: DriverJourneyVM
     private lateinit var orderId: String
+    private lateinit var orderStatus: String
+    private lateinit var orderDate: String
+    private lateinit var currDate: String
     private lateinit var lat: String
     private lateinit var lon: String
     private val START = "Start"
@@ -54,10 +58,10 @@ class DriverJourneyActivity : BaseActivity(), DialogsInterface,
     private val COMPLETED = "Complete"
 
     private val STATUS_BEFORE_START = "0"
-    private val STATUS_ON_START = "1"
+    private val STATUS_ON_START = "8"
     private val STATUS_ON_THE_WAY = "3"
-    private val STATUS_ON_REACHED = "2"
-    private val STATUS_ON_COMPLETED = "4"
+    private val STATUS_ON_REACHED = "9"
+    private val STATUS_ON_COMPLETED = "5"
 
     // Background Service
     var gpsService: BackgroundLocationService? = null
@@ -269,9 +273,16 @@ class DriverJourneyActivity : BaseActivity(), DialogsInterface,
 
     private fun getExtras() {
         orderId = intent.getStringExtra("orderId")
+        orderStatus = intent.getStringExtra("orderStatus")
+        currDate = intent.getStringExtra("currDate")
+        orderDate = intent.getStringExtra("orderDate")
         lat = intent.getStringExtra("lat")
         lon = intent.getStringExtra("lon")
 //        orderId = "8ea26301-67d1-45b4-b8f8-d7b103ccdda6"
+
+        if(orderStatus.equals(STATUS_ON_START)){
+            binding.btnStart.setText("Started")
+        }
     }
 
     private fun onJobStart(statusUpdateAlongWithVisibility: Boolean) {
@@ -577,6 +588,7 @@ class DriverJourneyActivity : BaseActivity(), DialogsInterface,
                                     GlobalConstants.JOB_LON,
                                     lon
                                 )
+                                binding.btnStart.setText("Started")
 
                                 // Open socket, start getting order location
                                 openSocketStartOrderLocationUpdate()

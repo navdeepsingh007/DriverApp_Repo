@@ -1,6 +1,10 @@
 package com.seasia.driverapp.api
 
 import com.google.gson.JsonObject
+import com.seasia.driverapp.model.AcceptOrderInput
+import com.seasia.driverapp.model.OfflineStatusInput
+import com.seasia.driverapp.model.RejectOrderInput
+import com.seasia.driverapp.model.WalletInput
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -27,10 +31,9 @@ interface ApiInterface {
     ): Call<JsonObject>
 
     // progressStatus = 1 [Pending Jobs], progressStatus = 5 [Completed Jobs]
-    @Headers("Content-Type: application/json")
     @GET("orders/list")
-    fun getAssignedOrCompletedJobs(@Query("progressStatus") progressStatus: String,
-                                   @Header("companyId") companyId: String): Call<JsonObject>
+    fun getAssignedOrCompletedJobs(@Query("jobStatus") jobStatus: String,@Query("progressStatus") progressStatus: String,
+                                   @Query("page") page: String, @Query("limit") limit: String): Call<JsonObject>
 
     // status = 0 [Not Started], 1 [Started from location], 2 [Reached at destination]
     // status = 3 [Job Started], 4 [Job completed from driver side]
@@ -44,6 +47,20 @@ interface ApiInterface {
 
     @POST("orders/submitCancel")
     fun cancelJob(@Header("companyId") companyId: String, @Body jsonObject: JsonObject): Call<JsonObject>
+
+    @POST("orders/acceptJob")
+    fun acceptOrder(@Body input: AcceptOrderInput): Call<JsonObject>
+
+    @POST("orders/rejectJob")
+    fun rejectOrder(@Body input: RejectOrderInput): Call<JsonObject>
+
+    @POST("auth/markStatus")
+    fun offlineStatus(@Body status: OfflineStatusInput): Call<JsonObject>
+
+    @POST("profile/wallet/history")
+    fun walletData(@Body input:WalletInput): Call<JsonObject>
+
+
 
     @Headers("Content-Type: application/json")
     @GET("orders/feedbacklist/")

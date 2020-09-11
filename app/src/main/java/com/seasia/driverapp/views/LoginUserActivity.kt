@@ -114,18 +114,17 @@ class LoginUserActivity : BaseActivity() {
 
                     if (message.equals("Login Successfully")) {
                         // Temporary code below
-                        startActivity(Intent(this, DashboardNewActivity::class.java))
-//                        showToastSuccess(message)
-                        SharedPrefClass().putObject(
-                            MyApplication.instance,
-                            "isLogin",
-                            true
-                        )
+//                        startActivity(Intent(this, DashboardNewActivity::class.java))
+////                        showToastSuccess(message)
+//                        SharedPrefClass().putObject(
+//                            MyApplication.instance,
+//                            "isLogin",
+//                            true
+//                        )
 
                         // Final production, 1 liner
-//                        FirebaseFunctions.sendOTP("login", jObj, this)
-
-//                        loginUserBinding.etPhoneNo.setText("")
+                        FirebaseFunctions.sendOTP("login", jObj, this)
+                        loginUserBinding.etPhoneNo.setText("")
                     } else {
                         showToastError(message)
                     }

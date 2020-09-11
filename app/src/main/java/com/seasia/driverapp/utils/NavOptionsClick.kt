@@ -33,6 +33,9 @@ class NavOptionsClick(private val context: BaseActivity) {
             "Notifications" -> {
                 context.startActivity(Intent(context, NotificationActivity::class.java))
             }
+            "Wallet History" -> {
+                context.startActivity(Intent(context, WalletHistoryActivity::class.java))
+            }
 //            "Earnings" -> {
 //                context.startActivity(Intent(context, DriverEarningsActivity::class.java))
 //            }

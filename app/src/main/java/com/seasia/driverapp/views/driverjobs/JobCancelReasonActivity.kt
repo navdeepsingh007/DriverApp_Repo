@@ -90,20 +90,20 @@ class JobCancelReasonActivity : BaseActivity(), JobCancelReason {
 //        UtilsFunctions.showToastSuccess(reasonId)
 
         if (reasonName.contains("Other", true) || reasonName.contains("Others", true)) {
-            binding.etReason.visibility = View.VISIBLE
+            binding.etParent.visibility = View.VISIBLE
             binding.btnCancel.visibility = View.VISIBLE
         } else {
-            binding.etReason.visibility = View.GONE
+            binding.etParent.visibility = View.GONE
             binding.btnCancel.visibility = View.GONE
             initOnJobCancelObserver(reasonId, "")
         }
 
         binding.btnCancel.setOnClickListener {
-            if (binding.etReason.text.toString().isEmpty()) {
+            if (binding.etReason.text.toString().trim().isEmpty()) {
                 UtilsFunctions.showToastWarning("Please enter reason for cancellation")
                 return@setOnClickListener
             }
-            initOnJobCancelObserver(reasonId, binding.etReason.text.toString())
+            initOnJobCancelObserver(reasonId, binding.etReason.text.trim().toString())
         }
     }
 

@@ -206,11 +206,12 @@ class DashboardNewActivity : BaseActivity(), DialogsInterface,
         }
     }
 
-    override fun onBackPressed() {
-        showLogoutAlert()
-    }
+  /*  override fun onBackPressed() {
+        super.onBackPressed()
+        //showLogoutAlert()
+    }*/
 
-    private fun showLogoutAlert() {
+    fun showLogoutAlert() {
         dialog = DialogUtil.showDialog(
             this,
             this,

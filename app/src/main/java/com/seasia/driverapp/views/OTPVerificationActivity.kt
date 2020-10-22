@@ -10,7 +10,6 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.firebase.FirebaseException
@@ -206,30 +205,36 @@ class OTPVerificationActivity : BaseActivity(),
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
         mAuth.signInWithCredential(credential)
-            .addOnCompleteListener(this,
-                { task ->
-                    stopProgressDialog()
-                    if (task.isSuccessful) {
-                        SharedPrefClass().putObject(
-                            MyApplication.instance,
-                            "isLogin",
-                            true
-                        )
+            .addOnCompleteListener(
+                this
+            ) { task ->
+                stopProgressDialog()
+                if (task.isSuccessful) {
+                    SharedPrefClass().putObject(
+                        MyApplication.instance,
+                        "isLogin",
+                        true
+                    )
 
-                        val intent = Intent(this, DashboardNewActivity::class.java)
-                        intent.putExtra("phoneNumber", mJsonObject.getString("phoneNumber"))
-                        intent.putExtra("data", mJsonObject.toString())
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        //verification unsuccessful.. display an error message
-                        var message = getString(R.string.something_error)
+                    val intent = Intent(this, DashboardNewActivity::class.java)
+                    intent.putExtra("phoneNumber", mJsonObject.getString("phoneNumber"))
+                    intent.putExtra("data", mJsonObject.toString())
+                    intent.addFlags(
+                        Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                                Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                                Intent.FLAG_ACTIVITY_NEW_TASK
+                    )
+                    startActivity(intent)
+                    finish()
+                } else {
+                    //verification unsuccessful.. display an error message
+                    var message = getString(R.string.something_error)
 
-                        if (task.exception is FirebaseAuthException) {
-                            message = getString(R.string.invalid_otp)
-                        }
-                        showToastError(message)
+                    if (task.exception is FirebaseAuthException) {
+                        message = getString(R.string.invalid_otp)
                     }
-                })
+                    showToastError(message)
+                }
+            }
     }
 }

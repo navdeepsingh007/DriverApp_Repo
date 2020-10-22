@@ -4,6 +4,7 @@ package com.seasia.driverapp.api
 */
 
 import android.content.Intent
+import android.icu.util.TimeUnit
 import android.text.TextUtils
 import androidx.annotation.NonNull
 import com.seasia.driverapp.application.MyApplication
@@ -50,13 +51,13 @@ object ApiClient {
             ).toString()
         }
         val httpClient = OkHttpClient.Builder()
-        //.connectTimeout(1, TimeUnit.MINUTES)
-        // .readTimeout(1, TimeUnit.MINUTES)
-        // .writeTimeout(1, TimeUnit.MINUTES)
+        .connectTimeout(1, java.util.concurrent.TimeUnit.MINUTES)
+         .readTimeout(1, java.util.concurrent.TimeUnit.MINUTES)
+         .writeTimeout(1, java.util.concurrent.TimeUnit.MINUTES)
 
         //Print Api Logs
         val logging = HttpLoggingInterceptor()
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+        logging.level = HttpLoggingInterceptor.Level.BODY
         httpClient.interceptors().add(logging)
 
         val mBuilder = Retrofit.Builder()
@@ -67,7 +68,7 @@ object ApiClient {
             MyApplication.instance,
             "isLogin"
         ).toString()
-        if (!TextUtils.isEmpty(mAuthToken) && mAuthToken.equals("session_token")) {
+        if (!TextUtils.isEmpty(mAuthToken) && mAuthToken == "session_token") {
             mAuthToken = ""
         }
         if (isLogin == "false") {
@@ -85,6 +86,8 @@ object ApiClient {
                         .header("Authorization", finalMAuthToken)
                         .header("lang", lang)
                         .header("Content-Type", "application/json")
+                    print("authToken=----- $finalMAuthToken")
+                    print("lang=----- $lang")
                     val request = builder.build()
                     val response = chain.proceed(request)
                     return if (response.code() == 401) {

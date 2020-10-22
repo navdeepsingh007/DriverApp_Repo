@@ -10,7 +10,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.seasia.driverapp.R
-import com.seasia.driverapp.common.UtilsFunctions
 import com.seasia.driverapp.databinding.RowFeedbackListingBinding
 import com.seasia.driverapp.model.CustomerFeedbackResponse
 import com.seasia.driverapp.utils.Utils
@@ -44,24 +43,46 @@ class CustomerFeedbackAdapter(
     override fun onBindViewHolder(@NonNull holder: ViewHolder, position: Int) {
         val result = ratingList[position]
         holder.binding.tvReview.text = result.review
-        holder.binding.tvUserName.text = result.order.user.firstName
+        holder.binding.tvUserName.text = result.user.firstName
         holder.binding.ratingBar.rating = result.rating.toFloat()
         holder.binding.tvFeedbackDate.text = Utils(activity).getDate(
             "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
-            result.order.serviceDateTime,
+            result.createdAt,
             "dd MMM yyyy, hh:mm a"
         )
 
+        holder.binding.orderDetails.setOnClickListener {
 
+            if (result.order == null) {
+                context.showToastError(context.getString(R.string.order_is_already_deleted))
+            } else {
+                val formattedOrderDate = Utils(context).getDate(
+                    "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+                    result.order.serviceDateTime,
+                    "dd MMM yyyy, hh:mm a"
+//            "dd-MMM,yyyy | hh:mm a"
+                )
+                val currDate = Utils(context).currentDate()
+                val orderDate = Utils(context).formattedDate(
+                    formattedOrderDate,
+                    "dd MMM yyyy, hh:mm a", "dd-MMM-yyyy"
+                )
+                showOrderDetails(result.order.id, currDate, orderDate)
+            }
+        }
 
-        holder.binding.orderDetails.setOnClickListener { showOrderDetails(result.order.id) }
-
-        setImage(result.order.user.image, holder)
+        setImage(result.user.image, holder)
     }
 
-    private fun showOrderDetails(orderId: String) {
+    private fun showOrderDetails(
+        orderId: String,
+        currDate: String,
+        orderDate: String
+    ) {
         val intent = Intent(mContext, OrderDetailsActivity::class.java)
         intent.putExtra("orderId", orderId)
+        intent.putExtra("currDate", currDate)
+        intent.putExtra("orderDate", orderDate)
         mContext.startActivity(intent)
     }
 

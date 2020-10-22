@@ -161,6 +161,7 @@
     <string name="btn_complete_order">Complete Order</string>
     <string name="delivery_date_time">Delivery Date and Time</string>
     <string name="order_address">Address</string>
+    <string name="coming_soon">Coming Soon</string>
 
     <!-- Webview -->
     <string name="privacy_policy">Privacy Policy</string>
@@ -193,4 +194,5 @@
     <string name="delete_notifications">Are you sure you want to delete all notifications?</string>
     <string name="online">Online</string>
     <string name="offline">Offline</string>
+    <string name="order_is_already_deleted">Order is already deleted.</string>
 </resources>

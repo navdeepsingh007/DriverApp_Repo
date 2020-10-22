@@ -14,16 +14,17 @@ data class CustomerFeedbackResponse(
 
     data class Rating(
         val id: String = "",
-        val order: Order = Order(),
+        val order: Order? = null,
         val rating: String = "",
         val ratingOn: String = "",
-        val review: String = ""
+        val review: String = "",
+        val createdAt: String = "",
+        val user: User = User()
     )
 
     data class Order(
         val id: String = "",
-        val serviceDateTime: String = "",
-        val user: User = User()
+        val serviceDateTime: String = ""
     )
 
     data class User(

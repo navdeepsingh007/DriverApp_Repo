@@ -59,7 +59,8 @@ object GlobalConstants {
     @JvmStatic
 //    val BASE_URL = "http://51.79.40.224:9062/api/delivery/"  // lIVE
    // val BASE_URL = "http://51.79.40.224:9075/api/delivery/"  // TESTING
-    val BASE_URL = "http://stgcerb.cerebruminfotech.com:9062/api/delivery/"  // TESTING
+//    val BASE_URL = "http://stgcerb.cerebruminfotech.com:9062/api/delivery/"  // TESTING
+    val BASE_URL = "http://stgcerb.cerebruminfotech.com:9069/api/delivery/"  // TESTING
 
     @JvmStatic
 //    val BASE_SERVER = "http://51.79.40.224:9062/api/delivery/"  // LIVE

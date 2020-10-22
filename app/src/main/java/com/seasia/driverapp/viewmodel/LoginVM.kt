@@ -2,6 +2,7 @@ package com.seasia.driverapp.viewmodel
 
 import android.view.View
 import android.widget.EditText
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.JsonObject
@@ -43,13 +44,19 @@ class LoginVM : BaseViewModel() {
 //            // your code
 //        })
         val phone = phoneNo.text.toString()
-        if (phone.length < 10) {
+
+        if(phone.isEmpty()){
+            UtilsFunctions.showToastWarning(MyApplication.instance.getString(R.string.log_in))
+            return
+        }
+        else if (phone.length < 10) {
             UtilsFunctions.showToastWarning(MyApplication.instance.getString(R.string.invalid_phone_number))
             return
         }
-
 //        if (ccp.isValidFullNumber) {
         if (UtilsFunctions.isNetworkConnected()) {
+
+
             val jObj = JsonObject()
             jObj.addProperty(ApiKeysConstants.PHONE_NO, phone)
             jObj.addProperty(ApiKeysConstants.COUNTRY_CODE, ccp.selectedCountryCode)

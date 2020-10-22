@@ -37,7 +37,6 @@ class JobHistoryAdapter(
     fun setData(list: ArrayList<OrderStatusResponse.Body>){
         jobHistoryList=list
         notifyDataSetChanged()
-
     }
 
     override fun onBindViewHolder(@NonNull holder: ViewHolder, position: Int) {
@@ -51,9 +50,10 @@ class JobHistoryAdapter(
 //        holder.binding.tvAddress.text = response.address.addressName
 //        val completeAddress = "${response.address.addressName} ${response.address.landmark} ${response.address.city}"
 
-        holder.binding.tvAddress.text = response.companyAddress.address1
+        holder.binding.tvAddress.text = response.company.address1
         holder.binding.tvOrderType.text = response.orderNo
 
+        print("currency=---- ${response.currency}")
         val price = "${response.currency}${response.totalOrderPrice}"
         holder.binding.tvOrderPrice.text = price
 
@@ -83,13 +83,13 @@ class JobHistoryAdapter(
 
         // Restaurant image, name,
 //        holder.binding.ivRestaurantImage
-        holder.binding.tvRestaurantName.text = response.companyAddress.companyName
+        holder.binding.tvRestaurantName.text = response.company.companyName
 
         itemsDeliveredByDriver(holder, response)
 
         UtilsFunctions.loadImage(
             context,
-            response.companyAddress.logo1,
+            response.company.logo1,
             RequestOptions(),
             R.drawable.no_image,
             holder.binding.ivRestaurantImage
@@ -114,7 +114,6 @@ class JobHistoryAdapter(
     ) {
         val intent = Intent(context, OrderDetailsActivity::class.java)
         intent.putExtra("orderId", orderId)
-
         intent.putExtra("orderStatus", orderStatus)
         intent.putExtra("currDate", currDate)
         intent.putExtra("orderDate", orderDate)

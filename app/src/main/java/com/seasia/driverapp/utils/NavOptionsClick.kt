@@ -1,6 +1,7 @@
 package com.seasia.driverapp.utils
 
 import android.content.Intent
+import com.seasia.driverapp.R
 import com.seasia.driverapp.views.*
 
 class NavOptionsClick(private val context: BaseActivity) {
@@ -20,7 +21,7 @@ class NavOptionsClick(private val context: BaseActivity) {
                 context.startActivity(Intent(context, CustomerFeedbackActivity::class.java))
             }
             "Help" -> {
-//                context.startActivity(Intent(context, DriverJourneyActivity::class.java))
+                context.showToastSuccess(context.getString(R.string.coming_soon))
             }
             "Terms and Conditions" -> {
                 context.startActivity(Intent(context, TermsAndConditionsActivity::class.java))
@@ -35,6 +36,9 @@ class NavOptionsClick(private val context: BaseActivity) {
             }
             "Wallet History" -> {
                 context.startActivity(Intent(context, WalletHistoryActivity::class.java))
+            }
+            else ->
+            {
             }
 //            "Earnings" -> {
 //                context.startActivity(Intent(context, DriverEarningsActivity::class.java))

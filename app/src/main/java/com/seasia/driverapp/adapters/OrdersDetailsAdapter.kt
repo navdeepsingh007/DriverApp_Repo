@@ -46,7 +46,7 @@ class OrdersDetailsAdapter(
 
         UtilsFunctions.loadImage(
             context,
-            response.icon,
+            response.thumbnail,
             RequestOptions(),
             R.drawable.no_image,
             holder.binding.ivCustImage

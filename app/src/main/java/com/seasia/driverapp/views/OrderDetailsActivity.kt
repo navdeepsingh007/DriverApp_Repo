@@ -52,12 +52,11 @@ class OrderDetailsActivity : BaseActivity() {
 
     private fun getOrderExtras() {
         orderId = intent.getStringExtra("orderId")!!
-        if (intent.getStringExtra("orderStatus")!! != null) {
+        if (intent.hasExtra("orderStatus"))
             orderStatus = intent.getStringExtra("orderStatus")!!
+
             currDate = intent.getStringExtra("currDate")!!
             orderDate = intent.getStringExtra("orderDate")!!
-        }
-
     }
 
     private fun initToolbar() {

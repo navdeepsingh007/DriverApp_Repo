@@ -19,14 +19,15 @@ class NavOptionsAdapter(
     init {
         optionsList.add("Home")
 //        optionsList.add("Profile")
-        optionsList.add("My Profile")
         optionsList.add("Job History")
+        optionsList.add("My Profile")
 //        optionsList.add("Earnings")
         optionsList.add("Notifications")
-        optionsList.add("Wallet History")
-//        optionsList.add("Help")
+//        optionsList.add("Wallet History")
         optionsList.add("Terms and Conditions")
-        optionsList.add("Privacy Policy")
+        optionsList.add("Help")
+        optionsList.add("Logout")
+//        optionsList.add("Privacy Policy")
     }
 
     override fun getItemCount(): Int {
@@ -58,6 +59,9 @@ class NavOptionsAdapter(
 //        )
         holder.binding.root.setOnClickListener {
             context.binding.drawerLayout.closeDrawers()
+            if(optionsList[position]=="Logout")
+                context.showLogoutAlert()
+            else
             NavOptionsClick(context).onOptionClick(optionsList[position])
         }
     }

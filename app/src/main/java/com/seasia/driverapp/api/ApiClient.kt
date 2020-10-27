@@ -50,6 +50,7 @@ object ApiClient {
                 GlobalConstants.ACCESS_TOKEN
             ).toString()
         }
+
         val httpClient = OkHttpClient.Builder()
         .connectTimeout(1, java.util.concurrent.TimeUnit.MINUTES)
          .readTimeout(1, java.util.concurrent.TimeUnit.MINUTES)

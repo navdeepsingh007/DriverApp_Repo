@@ -26,6 +26,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.FragmentTransaction
 import com.google.gson.GsonBuilder
 import com.seasia.driverapp.R
 import com.seasia.driverapp.common.UtilsFunctions
@@ -246,6 +247,23 @@ abstract class BaseActivity : AppCompatActivity() {
             mFragmentTransaction.commit()
         }
     }
+
+
+    fun newCallFragments(
+        fragment: androidx.fragment.app.Fragment?,
+        mFragmentManager: androidx.fragment.app.FragmentManager
+    ) {
+        val mFragmentTransaction = mFragmentManager.beginTransaction()
+        if (fragment != null) {
+//            mFragmentTransaction.addToBackStack(null)
+            mFragmentTransaction.replace(R.id.frame_layout1, fragment)
+//             mFragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            mFragmentTransaction.commit()
+        }
+    }
+
+
+
 
     fun callFragmentsContainer(
         fragment: androidx.fragment.app.Fragment?,

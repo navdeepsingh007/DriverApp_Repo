@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".views.DashboardNewActivity">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorWhite"
+            android:layout_height="@dimen/dp_100"
+            android:background="@drawable/ic_toolbar"
             android:theme="@style/AppTheme.AppBarOverlay">
 
             <androidx.appcompat.widget.Toolbar
@@ -25,6 +25,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="@string/home"
+                    android:visibility="gone"
                     android:textColor="@color/colorBlue"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -37,22 +38,36 @@
                     android:layout_marginEnd="@dimen/dp_20"
                     android:textColor="@color/colorBlack"
                     android:textSize="@dimen/sp_12"
+                    android:visibility="gone"
                     android:textStyle="bold" />
 
+
+                <ImageView
+                    android:id="@+id/ivDeleteNotification"
+                    android:layout_width="@dimen/dp_40"
+                    android:layout_height="@dimen/dp_25"
+                    android:layout_centerHorizontal="true"
+                    android:paddingRight="@dimen/dp_20"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:layout_gravity="end"
+                    android:tint="@color/colorWhite"
+                    android:src="@drawable/ic_delete"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
             </androidx.appcompat.widget.Toolbar>
-        </com.google.android.material.appbar.AppBarLayout>
+        </RelativeLayout>
 
         <include
             android:id="@+id/incContentMain"
-            layout="@layout/content_main" />
+            layout="@layout/content_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_60" />
 
-        <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|end"
-                android:layout_margin="@dimen/fab_margin"
-                app:srcCompat="@android:drawable/ic_dialog_email" />-->
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </RelativeLayout>
 </layout>

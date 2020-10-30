@@ -5,6 +5,7 @@ import com.seasia.driverapp.model.AcceptOrderInput
 import com.seasia.driverapp.model.OfflineStatusInput
 import com.seasia.driverapp.model.RejectOrderInput
 import com.seasia.driverapp.model.WalletInput
+import com.seasia.driverapp.model.driverjob.CashCollectInput
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -59,6 +60,9 @@ interface ApiInterface {
 
     @POST("profile/wallet/history")
     fun walletData(@Body input:WalletInput): Call<JsonObject>
+
+    @POST("/api/delivery/orders/cashCollected")
+    fun cashCollectData(@Body input:CashCollectInput): Call<JsonObject>
 
 
 

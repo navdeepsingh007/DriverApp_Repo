@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--<color name="colorPrimary">#6200EE</color>-->
-    <color name="colorPrimary">#DC143C</color>
+<!--    <color name="colorPrimary">#DC143C</color>-->
+    <color name="colorPrimary">#E13E61</color>
+    <color name="colorRedDard">#E13E61</color>
    <!--<color name="colorPrimaryDark">#3700B3</color>-->
+<!--
     <color name="colorPrimaryDark">#C51639</color>
+-->
+    <color name="colorPrimaryDark">#435E55</color>
     <color name="colorAccent">#03DAC5</color>
 
     <color name="colorWhite">#ffffff</color>
+    <color name="colorLiteWhite">#F5F5F5</color>
+    <color name="colorGray">#F5F5F5</color>
     <color name="colorWhite2">#F9F4F3</color>
+    <color name="colorGreenToolBar">#435E55</color>
     <color name="colorGrey">#7B7C7C</color>
     <color name="appBackgroundColor">#ffffff</color>
     <color name="colorGreyLight">#EDF0F0</color>
@@ -22,6 +30,7 @@
     <color name="colorBlack2">#464646</color>
     <color name="colorGolden">#F1B922</color>
     <color name="colorGrey1">#D0D0D0</color>
+    <color name="darkGrey">#C1BFBF</color>
     <color name="colorLightBlue">#1C9FEA</color>
     <color name="orange_transparent">#98FC9A03</color>
     <color name="colorBlack">#000000</color>

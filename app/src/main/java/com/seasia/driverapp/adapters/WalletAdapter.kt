@@ -4,19 +4,17 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.request.RequestOptions
 import com.seasia.driverapp.R
-import com.seasia.driverapp.common.UtilsFunctions
-import com.seasia.driverapp.databinding.RowJobOrdersNewBinding
 import com.seasia.driverapp.databinding.RowWalletAdapterBinding
-import com.seasia.driverapp.model.OrderDetailResponse
+import com.seasia.driverapp.model.WalletResponse
 
-class WalletAdapter (
-    val context: Context) : RecyclerView.Adapter<WalletAdapter.ViewHolder>() {
+class WalletAdapter(
+    val context: Context,
+    var arrayList: ArrayList<WalletResponse.Body>?
+) : RecyclerView.Adapter<WalletAdapter.ViewHolder>() {
 
     @NonNull
     override fun onCreateViewHolder(@NonNull parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,12 +27,29 @@ class WalletAdapter (
         return ViewHolder(binding.root, viewType, binding)
     }
 
+    fun setData(list: ArrayList<WalletResponse.Body>?) {
+        arrayList = list
+        notifyDataSetChanged()
+
+    }
+
     override fun onBindViewHolder(@NonNull holder: ViewHolder, position: Int) {
-      //  val response = jobHistoryList[position].service
+        //  val response = jobHistoryList[position].service
+
+        holder.binding.tvDate.text = arrayList!!.get(position).createdAt
+        holder.binding.tvOrderId.text = arrayList!!.get(position).order!!.orderNo
+        holder.binding.tvAmount.text = "$" + arrayList!!.get(position).amount
+        if (arrayList!!.get(position).payType.equals("0")) {
+            holder.binding.tvType.text = "Debit"
+
+        } else {
+            holder.binding.tvType.text = "Credit"
+
+        }
     }
 
     override fun getItemCount(): Int {
-        return 10
+        return arrayList!!.size
     }
 
     inner class ViewHolder

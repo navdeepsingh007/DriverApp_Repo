@@ -97,8 +97,15 @@ class AssignedJobsAdapter(
         if (response.address != null) {
             val completeAddress =
                 "${response.address.addressName} ${response.address.landmark} ${response.address.city}"
-            holder.binding.tvAddress.text = completeAddress
+            holder.binding.deliveryAddress.text = completeAddress
         }
+
+        if (response.company != null) {
+            val deliveryAddress = "${response.company.address1}"
+            holder.binding.tvAddress.text = deliveryAddress
+        }
+
+
 
         val price = "${response.currency}${response.totalOrderPrice}"
         holder.binding.tvOrderPrice.text = price
@@ -162,7 +169,7 @@ class AssignedJobsAdapter(
             onDetail(orderId, trackStatus,currDate,orderDate)
         }
 
-        holder.itemView.llAddressDtl.setOnClickListener {
+        holder.itemView.deliveryAddress.setOnClickListener {
             driverJobCallbacks.onShowGMaps(lat, lon)
         }
 
@@ -179,8 +186,8 @@ class AssignedJobsAdapter(
 
 
         if(assignStatus.equals("0")){
-            holder.binding.btnStart.text="Accept"
-            holder.binding.btnCancel.text="Reject"
+            holder.binding.btnStart.text="Take Order"
+            holder.binding.btnCancel.text="Cancel"
             holder.binding.btnStart.setBackgroundResource(R.drawable.round_small_green)
             if (currDate.equals(orderDate)) {
                 holder.binding.btnStart.isEnabled = true

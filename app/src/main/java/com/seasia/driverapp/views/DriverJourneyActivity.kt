@@ -4,16 +4,22 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.app.Dialog
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.graphics.Color
 import android.graphics.PorterDuff
+import android.graphics.drawable.ColorDrawable
 import android.location.Location
 import android.os.Handler
 import android.os.IBinder
 import android.util.Log
+import android.view.Gravity
 import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
@@ -32,12 +38,14 @@ import com.seasia.driverapp.constants.GlobalConstants
 import com.seasia.driverapp.databinding.DriverJourneyActivityBinding
 import com.seasia.driverapp.maps.FusedLocationClass
 import com.seasia.driverapp.model.CommonModel
+import com.seasia.driverapp.model.driverjob.CashCollectInput
 import com.seasia.driverapp.sharedpreference.SharedPrefClass
 import com.seasia.driverapp.socket.BackgroundLocationService
 import com.seasia.driverapp.utils.BaseActivity
 import com.seasia.driverapp.viewmodel.DriverJourneyVM
 import com.skyfishjy.library.RippleBackground
 import kotlinx.android.synthetic.main.driver_journey_activity.*
+import kotlinx.android.synthetic.main.upload_document_dialog.*
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -47,6 +55,7 @@ class DriverJourneyActivity : BaseActivity(), DialogsInterface,
     private lateinit var binding: DriverJourneyActivityBinding
     private lateinit var driverJourneyVM: DriverJourneyVM
     private lateinit var orderId: String
+    private lateinit var amount: String
     private lateinit var orderStatus: String
     private lateinit var orderDate: String
     private lateinit var currDate: String
@@ -117,10 +126,7 @@ class DriverJourneyActivity : BaseActivity(), DialogsInterface,
             onJobReached(true)
         }
         binding.btnComplete.setOnClickListener {
-            showAlert(
-                COMPLETED,
-                getString(R.string.job_complete)
-            )
+            showAlert(COMPLETED, getString(R.string.job_complete))
         }
 
         getExtras()
@@ -273,6 +279,7 @@ class DriverJourneyActivity : BaseActivity(), DialogsInterface,
 
     private fun getExtras() {
         orderId = intent.getStringExtra("orderId")
+        amount = intent.getStringExtra("amount")
         orderStatus = intent.getStringExtra("orderStatus")
         currDate = intent.getStringExtra("currDate")
         orderDate = intent.getStringExtra("orderDate")
@@ -522,10 +529,59 @@ class DriverJourneyActivity : BaseActivity(), DialogsInterface,
                 onJobReached(true)
             }
             COMPLETED -> {
-                onJobComplete(true)
+               // onJobComplete(true)
+                cashCollect()
             }
         }
     }
+
+    private fun cashCollect() {
+        val uploadImage = Dialog(this,R.style.Theme_Dialog);
+        uploadImage.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        uploadImage.setContentView(R.layout.upload_document_dialog)
+
+        uploadImage.window!!.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
+        uploadImage.setCancelable(true)
+        uploadImage.setCanceledOnTouchOutside(true)
+        uploadImage.window!!.setGravity(Gravity.BOTTOM)
+
+        uploadImage.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        uploadImage.tvPay.setOnClickListener {
+
+            var input=CashCollectInput()
+            input.amount=amount
+            input.orderId=orderId
+
+            driverJourneyVM.onCashCollect(input)
+            cashCollectApi()
+            uploadImage.dismiss()
+        }
+        uploadImage.show()
+
+    }
+
+    fun cashCollectApi(){
+        driverJourneyVM.cashCollectResponse().observe(this, Observer { response ->
+            stopProgressDialog()
+
+            if (response != null) {
+                val message = response.message
+                if (response.code == 200) {
+                    onJobComplete(true)
+
+                } else {
+                    showToastError(message)
+                }
+            } else {
+                showToastError(MyApplication.instance.getString(R.string.internal_server_error))
+            }
+
+        })
+    }
+
 
     override fun onDialogCancelAction(mView: View?, mKey: String) {}
 

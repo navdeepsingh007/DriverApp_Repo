@@ -44,7 +44,9 @@ class ServicesRepository {
             mApiService.get(
                 object : ApiResponse<JsonObject> {
                     override fun onResponse(mResponse : Response<JsonObject>) {
-                        val loginResponse = if (mResponse.body() != null)
+
+                        try {
+                            val loginResponse = if (mResponse.body() != null)
                             gson.fromJson<OrderStatusResponse>(
                                 "" + mResponse.body(),
                                 OrderStatusResponse::class.java
@@ -56,6 +58,9 @@ class ServicesRepository {
                             )
                         }
                         data!!.postValue(loginResponse)
+                        }catch (e:Exception){
+                            data!!.postValue(null)
+                        }
                     }
 
                     override fun onError(mKey : String) {

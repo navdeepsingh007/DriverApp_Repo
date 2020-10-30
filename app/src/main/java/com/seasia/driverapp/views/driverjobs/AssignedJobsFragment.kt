@@ -98,7 +98,7 @@ class AssignedJobsFragment(/*val totalAssignedJobs: DashboardAssignedJobs*/) : B
                     ApiKeysConstants.COMPANY_ID
                 ) as String
               //  baseActivity.startProgressDialog()
-                jobsViewModel!!. getServices("0,1","", "1",limit.toString())
+                jobsViewModel!!. getServices("0","", "1",limit.toString())
              //   fragmentServicesBinding.swipeContainer.isRefreshing=false
 
             } else{
@@ -256,7 +256,7 @@ class AssignedJobsFragment(/*val totalAssignedJobs: DashboardAssignedJobs*/) : B
                             count++
                             //reviewsViewModel.getReviewsList(serviceId, count.toString())
                             if (UtilsFunctions.isNetworkConnected()) {
-                                jobsViewModel!!.getServices("0,1","", count.toString(),limit.toString())
+                                jobsViewModel!!.getServices("0","", count.toString(),limit.toString())
                             }
                         }
                     }
@@ -280,7 +280,7 @@ class AssignedJobsFragment(/*val totalAssignedJobs: DashboardAssignedJobs*/) : B
                 requireContext(),
                 ApiKeysConstants.COMPANY_ID
             ) as String
-            jobsViewModel!!. getServices("0,1","", "1",limit.toString())
+            jobsViewModel!!. getServices("0","", "1",limit.toString())
         }
     }
 
@@ -442,7 +442,7 @@ class AssignedJobsFragment(/*val totalAssignedJobs: DashboardAssignedJobs*/) : B
                                             UtilsFunctions.showToastSuccess(response.message!!)
                                             servicesList.clear()
                                             jobsViewModel!!.getServices(
-                                                "0,1",
+                                                "0",
                                                 "",
                                                 "1",
                                                 limit.toString()
@@ -486,7 +486,7 @@ class AssignedJobsFragment(/*val totalAssignedJobs: DashboardAssignedJobs*/) : B
                                             UtilsFunctions.showToastSuccess(response.message!!)
                                             servicesList.clear()
                                             jobsViewModel!!.getServices(
-                                                "0,1",
+                                                "0",
                                                 "",
                                                 "1",
                                                 limit.toString()

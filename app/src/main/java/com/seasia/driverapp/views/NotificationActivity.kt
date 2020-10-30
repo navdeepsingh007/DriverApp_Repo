@@ -124,19 +124,19 @@ class NotificationActivity : BaseActivity(), DialogsInterface {
     }
 
     private fun setNotificationsAdapter() {
-        if (notificationsList.size > 0) {
-            val notificationAdapter = NotificationsAdapter(this, notificationsList)
-            val linearLayoutManager = LinearLayoutManager(this)
-            linearLayoutManager.orientation = RecyclerView.VERTICAL
-            binding.rvJobHistory.layoutManager = linearLayoutManager
-            binding.rvJobHistory.adapter = notificationAdapter
-
-            binding.rvJobHistory.visibility = View.VISIBLE
-            binding.tvNoRecord.visibility = View.GONE
-        } else {
-            binding.rvJobHistory.visibility = View.GONE
-            binding.tvNoRecord.visibility = View.VISIBLE
-        }
+//        if (notificationsList.size > 0) {
+//            val notificationAdapter = NotificationsAdapter(this, notificationsList)
+//            val linearLayoutManager = LinearLayoutManager(this)
+//            linearLayoutManager.orientation = RecyclerView.VERTICAL
+//            binding.rvJobHistory.layoutManager = linearLayoutManager
+//            binding.rvJobHistory.adapter = notificationAdapter
+//
+//            binding.rvJobHistory.visibility = View.VISIBLE
+//            binding.tvNoRecord.visibility = View.GONE
+//        } else {
+//            binding.rvJobHistory.visibility = View.GONE
+//            binding.tvNoRecord.visibility = View.VISIBLE
+//        }
     }
 
     override fun onDialogConfirmAction(mView: View?, mKey: String) {

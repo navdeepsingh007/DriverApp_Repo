@@ -142,14 +142,14 @@ class CustomerFeedbackActivity : BaseActivity() {
 
     private fun setCustFeedbackAdapter(response: ArrayList<CustomerFeedbackResponse.Rating>) {
         if (response.size > 0) {
-            val rateListAdapter = CustomerFeedbackAdapter(this, response, this)
-            val linearLayoutManager = LinearLayoutManager(this)
-            linearLayoutManager.orientation = RecyclerView.VERTICAL
-            binding.myProfile.rvRateListing.layoutManager = linearLayoutManager
-            binding.myProfile.rvRateListing.adapter = rateListAdapter
-
-            binding.myProfile.rvRateListing.visibility = View.VISIBLE
-            binding.myProfile.tvNoRecord.visibility = View.GONE
+//            val rateListAdapter = CustomerFeedbackAdapter(this, response, this)
+//            val linearLayoutManager = LinearLayoutManager(this)
+//            linearLayoutManager.orientation = RecyclerView.VERTICAL
+//            binding.myProfile.rvRateListing.layoutManager = linearLayoutManager
+//            binding.myProfile.rvRateListing.adapter = rateListAdapter
+//
+//            binding.myProfile.rvRateListing.visibility = View.VISIBLE
+//            binding.myProfile.tvNoRecord.visibility = View.GONE
         } else {
             binding.myProfile.rvRateListing.visibility = View.GONE
             binding.myProfile.tvNoRecord.visibility = View.VISIBLE

@@ -1,73 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+        android:background="@drawable/topround"
         tools:showIn="@layout/app_bar_main">
 
         <RelativeLayout
+
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorWhite">
+            android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_services"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:background="@color/colorWhite"
-                android:visibility="gone" />
+            <!--            <androidx.recyclerview.widget.RecyclerView-->
+            <!--                android:id="@+id/rv_services"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                android:layout_marginStart="8dp"-->
+            <!--                android:layout_marginTop="8dp"-->
+            <!--                android:layout_marginEnd="8dp"-->
+            <!--                android:layout_marginBottom="8dp"-->
+            <!--                android:background="@color/colorWhite"-->
+            <!--                android:visibility="gone" />-->
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent">
+            <!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="match_parent"-->
+            <!--                android:visibility="gone"-->
+            <!--                android:orientation="vertical"-->
+            <!--                android:layout_marginTop="@dimen/dp_10"-->
+            <!--                android:layout_marginLeft="@dimen/dp_5"-->
+            <!--                android:layout_marginRight="@dimen/dp_5"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintHorizontal_bias="0.5"-->
+            <!--                app:layout_constraintStart_toStartOf="parent">-->
+            <!--                <RelativeLayout-->
+            <!--                    app:layout_constraintTop_toTopOf="parent"-->
+            <!--                    android:layout_marginTop="@dimen/dp_10"-->
 
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tablayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_tablayout"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/toolbar_common"
-                    app:tabBackground="@drawable/tab_selected_color"
-                    app:tabIndicatorColor="@android:color/transparent"
-                    app:tabSelectedTextColor="@color/colorWhite"
-                    app:tabTextAppearance="@style/customizeTabText"
-                    app:tabTextColor="@color/colorBlack">
+            <!--                    android:background="@drawable/ic_rectangle_52"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"/>-->
 
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/assign_jobs" />
 
-                    <com.google.android.material.tabs.TabItem
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/complete_jobs" />
+            <!--                <com.google.android.material.tabs.TabLayout-->
+            <!--                    android:id="@+id/tablayout"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="@dimen/dp_tablayout"-->
+            <!--                    android:layout_marginTop="@dimen/dp_30"-->
+            <!--                    android:visibility="visible"-->
+            <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                    app:layout_constraintTop_toTopOf="parent"-->
 
-                </com.google.android.material.tabs.TabLayout>
 
-                <FrameLayout
-                    android:id="@+id/frame_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tablayout" />
+            <!--                    app:layout_constraintStart_toStartOf="parent"-->
+            <!--                    app:layout_constraintTop_toBottomOf="@+id/toolbar_common"-->
+            <!--                    app:tabBackground="@drawable/tab_selected_color"-->
+            <!--                    app:tabIndicatorColor="@android:color/transparent"-->
+            <!--                    app:tabSelectedTextColor="@color/colorWhite"-->
+            <!--                    app:tabTextAppearance="@style/customizeTabText"-->
+            <!--                    app:tabTextColor="@color/colorBlack">-->
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--                    <com.google.android.material.tabs.TabItem-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:text="Available" />-->
+
+            <!--                    <com.google.android.material.tabs.TabItem-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:text="Active" />-->
+            <!--                    <com.google.android.material.tabs.TabItem-->
+            <!--                        android:layout_width="wrap_content"-->
+            <!--                        android:layout_height="wrap_content"-->
+            <!--                        android:text="Complete" />-->
+
+            <!--                </com.google.android.material.tabs.TabLayout>-->
+
+
+            <!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+
 
         </RelativeLayout>
 
@@ -81,7 +96,255 @@
             app:defaultNavHost="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:navGraph="@navigation/mobile_navigation" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/tabParent">
+
+            <FrameLayout
+                android:id="@+id/frame_layout1"
+                android:layout_width="match_parent"
+
+                android:layout_height="match_parent"
+                android:background="@drawable/topround"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/tabParent"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/ic_tab_background">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="17dp"
+                android:background="@drawable/bottom_round"
+                android:visibility="gone" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+<!--                    <View-->
+<!--                        android:background="@drawable/bottom_round"-->
+<!--                        android:id="@+id/orderView"-->
+<!--                        android:layout_marginLeft="@dimen/dp_5"-->
+<!--                        android:layout_alignLeft="@+id/orderTab"-->
+<!--                        android:layout_alignRight="@+id/orderTab"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="5dp"/>-->
+
+                    <ImageView
+                        android:layout_marginTop="-24dp"
+                        android:id="@+id/orderTab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_50"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/ic_tabs"
+                          />
+
+
+                    <RelativeLayout
+                        android:id="@+id/imgOrderParent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/imgOrder"
+                            android:layout_width="@dimen/dp_25"
+                            android:layout_height="@dimen/dp_25"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/ic_order1"
+                            android:tint="@color/colorLiteWhite" />
+
+                        <TextView
+                            android:id="@+id/txtOrder"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/imgOrder"
+                            android:layout_centerInParent="true"
+
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:text="Order"
+                            android:textColor="@color/colorWhite" />
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/profileTab"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:src="@drawable/tab_ic2"-->
+<!--                        android:tint="@color/colorWhite"-->
+<!--                        android:visibility="gone" />-->
+
+                    <ImageView
+                        android:layout_marginTop="-24dp"
+                        android:id="@+id/profileTab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_50"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/ic_tabs"
+                        android:visibility="gone"
+                        />
+
+
+                    <RelativeLayout
+                        android:id="@+id/imgProfileParent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/imgProfile"
+                            android:layout_width="@dimen/dp_25"
+                            android:layout_height="@dimen/dp_25"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/ic_user"
+                            android:tint="@color/darkGrey" />
+
+                        <TextView
+                            android:id="@+id/txtProfile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/imgProfile"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:text="Profile"
+                            android:textColor="@color/darkGrey" />
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+<!--                    <ImageView-->
+<!--                        android:layout_marginTop="-23dp"-->
+
+<!--                        android:id="@+id/messageTab"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="@dimen/dp_50"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:src="@drawable/ic_tabs"-->
+<!--                        android:visibility="" />-->
+
+                    <ImageView
+                        android:layout_marginTop="-24dp"
+                        android:id="@+id/messageTab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_50"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/ic_tabs"
+                        android:visibility="gone"
+                        />
+
+
+
+                    <RelativeLayout
+                        android:id="@+id/imgMessageParent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/imgMessage"
+                            android:layout_width="@dimen/dp_25"
+                            android:layout_height="@dimen/dp_25"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/ic_notification"
+                            android:tint="@color/darkGrey" />
+
+                        <TextView
+                            android:id="@+id/txtNotification"
+                            android:layout_width="wrap_content"
+
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/imgMessage"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:text="Notifications"
+                            android:textColor="@color/darkGrey" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="@dimen/dp_80"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/availbleTab"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_centerHorizontal="true"-->
+<!--                        android:src="@drawable/tab_ic2"-->
+<!--                        android:tint="@color/colorWhite"-->
+<!--                        android:visibility="gone" />-->
+
+
+                    <ImageView
+                        android:layout_marginTop="-24dp"
+                        android:id="@+id/availbleTab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/dp_50"
+                        android:layout_centerHorizontal="true"
+                        android:src="@drawable/ic_tabs"
+                        android:visibility="gone"
+                        />
+
+                    <RelativeLayout
+                        android:id="@+id/imgAvailableParent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/imgAvailable"
+                            android:layout_width="@dimen/dp_25"
+                            android:layout_height="@dimen/dp_25"
+                            android:tint="@color/colorGrey1"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/ic_settings"
+                         />
+
+                        <TextView
+                            android:id="@+id/txtAvailble"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/imgAvailable"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:text="Setting"
+                            android:textColor="@color/darkGrey" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
 </layout>

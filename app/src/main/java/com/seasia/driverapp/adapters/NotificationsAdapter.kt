@@ -12,10 +12,11 @@ import com.seasia.driverapp.R
 import com.seasia.driverapp.databinding.RowNotificationsBinding
 import com.seasia.driverapp.model.NotificationResponse
 import com.seasia.driverapp.utils.Utils
+import com.seasia.driverapp.views.driverjobs.NotificationFragment
 
 
 class NotificationsAdapter(
-    val context: Context,
+    val context: NotificationFragment,
     val notificationList: ArrayList<NotificationResponse.Body>
 ) : RecyclerView.Adapter<NotificationsAdapter.ViewHolder>() {
 
@@ -27,14 +28,14 @@ class NotificationsAdapter(
             parent,
             false
         ) as RowNotificationsBinding
-        return ViewHolder(binding.root, viewType, binding, context, notificationList)
+        return ViewHolder(binding.root, viewType, binding, context!!, notificationList)
     }
 
     override fun onBindViewHolder(@NonNull holder: ViewHolder, position: Int) {
         val result = notificationList[position]
 
         holder.binding.tvNotificationName.text = result.notificationTitle
-        holder.binding.tvAssignedDate.text = Utils(context).getDate(
+        holder.binding.tvAssignedDate.text = Utils(context.requireActivity()).getDate(
             "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
             result.createdAt,
             "dd MMM yyyy, hh:mm a"
@@ -51,7 +52,7 @@ class NotificationsAdapter(
         (
         v: View, val viewType: Int,
         val binding: RowNotificationsBinding,
-        context: Context,
+        context: NotificationFragment,
         notificationList: ArrayList<NotificationResponse.Body>
     ) : RecyclerView.ViewHolder(v)
 

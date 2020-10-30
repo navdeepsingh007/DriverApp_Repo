@@ -10,13 +10,11 @@ import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
 import androidx.core.app.NotificationCompat
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.seasia.driverapp.R
-import com.seasia.driverapp.common.UtilsFunctions
 import com.seasia.driverapp.views.SplashActivity
+
 
 class MyFirebaseMessagingService: FirebaseMessagingService() {
     private val TAG = "MyFirebaseMsgService"
@@ -53,18 +51,25 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(this, 0/*Request code*/, intent,
             PendingIntent.FLAG_ONE_SHOT)
-        val icon1 = BitmapFactory.decodeResource(resources, R.drawable.app_icon)
+        val icon1 = BitmapFactory.decodeResource(resources, R.drawable.notification_ic)
 
         val channelId = getString(R.string.app_name)
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.drawable.app_icon)
-            .setSmallIcon(notificationIcon).setLargeIcon(icon1)
+            .setSmallIcon(notificationIcon)
+            .setLargeIcon(icon1)
             .setContentTitle(getString(R.string.app_name))
             .setContentText(messageBody)
             .setAutoCancel(true)
             .setSound(defaultSoundUri)
             .setContentIntent(pendingIntent)
+//        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            notificationBuilder.setSmallIcon(R.drawable.app_notification_icon);
+//            notificationBuilder.setColor(getResources().getColor(android.R.color.holo_red_light));
+//        } else {
+//            notificationBuilder.setSmallIcon(R.drawable.app_icon);
+//        }
+
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -82,7 +87,6 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
     private val notificationIcon: Int
         get() {
             val useWhiteIcon = Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
-            return if (useWhiteIcon) R.drawable.app_icon else R.drawable.app_icon
+            return if (useWhiteIcon) R.drawable.app_notification_icon else R.drawable.notification_ic
         }
-
 }

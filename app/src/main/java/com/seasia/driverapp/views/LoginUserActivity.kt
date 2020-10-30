@@ -121,7 +121,6 @@ class LoginUserActivity : BaseActivity() {
 //                            "isLogin",
 //                            true
 //                        )
-
                         // Final production, 1 liner
                         FirebaseFunctions.sendOTP("login", jObj, this)
                         loginUserBinding.etPhoneNo.setText("")

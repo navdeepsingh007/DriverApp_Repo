@@ -7,29 +7,24 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.location.Location
 import android.os.IBinder
-import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.request.RequestOptions
 import com.example.fleet.socket.SocketClass
 import com.example.fleet.socket.SocketInterface
 import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.material.tabs.TabLayout
 import com.seasia.driverapp.R
 import com.seasia.driverapp.adapters.NavOptionsAdapter
 import com.seasia.driverapp.application.MyApplication
-import com.seasia.driverapp.callbacks.DashboardAssignedJobs
 import com.seasia.driverapp.common.DialogUtil
 import com.seasia.driverapp.common.DialogsInterface
 import com.seasia.driverapp.common.UtilsFunctions
@@ -43,14 +38,16 @@ import com.seasia.driverapp.maps.FusedLocationClass
 import com.seasia.driverapp.sharedpreference.SharedPrefClass
 import com.seasia.driverapp.socket.BackgroundLocationService
 import com.seasia.driverapp.utils.BaseActivity
-import com.seasia.driverapp.viewmodel.LoginVM
 import com.seasia.driverapp.viewmodel.JobsViewModel
-import com.seasia.driverapp.views.driverjobs.AssignedJobsFragment
-import com.seasia.driverapp.views.driverjobs.CompletedJobsFragment
+import com.seasia.driverapp.viewmodel.LoginVM
+import com.seasia.driverapp.views.driverjobs.HomeFragment
+import com.seasia.driverapp.views.driverjobs.NotificationFragment
+import com.seasia.driverapp.views.driverjobs.ProfileFragment
+import com.seasia.driverapp.views.driverjobs.SettingFragment
 import org.json.JSONObject
 
 class DashboardNewActivity : BaseActivity(), DialogsInterface,
-    FusedLocationClass.FusedLocationInterface, SocketInterface {
+    FusedLocationClass.FusedLocationInterface, SocketInterface, View.OnClickListener {
     private val SOCKET_METHOD = "updateLocation"
     lateinit var binding: ActivityDashboardNewBinding
     private lateinit var contentBinding: ContentMainBinding
@@ -81,14 +78,14 @@ class DashboardNewActivity : BaseActivity(), DialogsInterface,
         binding = viewDataBinding as ActivityDashboardNewBinding
         loginVM = ViewModelProvider(this).get(LoginVM::class.java)
 
-        navBinding = DataBindingUtil.inflate(
-            layoutInflater,
-            R.layout.nav_header_main,
-            binding.navView,
-            false
-        )
-
-        navBinding = NavHeaderMainBinding.bind(binding.navView.getHeaderView(0))
+//        navBinding = DataBindingUtil.inflate(
+//            layoutInflater,
+//            R.layout.nav_header_main,
+//            binding.navView,
+//            false
+//        )
+//
+//        navBinding = NavHeaderMainBinding.bind(binding.navView.getHeaderView(0))
 
 //        binding.navView.addHeaderView(.root)
 
@@ -109,26 +106,31 @@ class DashboardNewActivity : BaseActivity(), DialogsInterface,
         // FCM
 //        FcmUtils.isGooglePlayServicesAvailable(this)
         FcmUtils.getInstanceId()
+
+        //deleteNotifications(frag)
+
+
+
     }
 
     fun initNavViewActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
 
-        navController = findNavController(R.id.my_nav_host_fragment)
+        //navController = findNavController(R.id.my_nav_host_fragment)
         setSupportActionBar(toolbar)
-        setupActionBarWithNavController(navController, binding.drawerLayout)
+   //    setupActionBarWithNavController(navController, binding.drawerLayout)
 
-        binding.navView.setupWithNavController(navController)
+        //inding.navView.setupWithNavController(navController)
 
-        toolbar.setNavigationOnClickListener {
-            binding.drawerLayout.openDrawer(GravityCompat.START)
-        }
+//        toolbar.setNavigationOnClickListener {
+//            binding.drawerLayout.openDrawer(GravityCompat.START)
+//        }
     }
 
     private fun setNavOptionsAdapter() {
-        binding.rvNavDrawer.adapter = NavOptionsAdapter(this)
-        binding.rvNavDrawer.layoutManager = LinearLayoutManager(this)
-        binding.tvLogout.setOnClickListener { showLogoutAlert() }
+//        binding.rvNavDrawer.adapter = NavOptionsAdapter(this)
+//        binding.rvNavDrawer.layoutManager = LinearLayoutManager(this)
+//        binding.tvLogout.setOnClickListener { showLogoutAlert() }
     }
 
     private fun initNavUserProfile() {
@@ -143,31 +145,31 @@ class DashboardNewActivity : BaseActivity(), DialogsInterface,
     }
 
     fun initNavUserPicture() {
-        val picturePath =
-            MyApplication.sharedPref.getPrefValue(
-                this,
-                GlobalConstants.USER_IMAGE
-            ) as String?
-
-        UtilsFunctions.loadImage(
-            this,
-            picturePath!!,
-            RequestOptions(),
-            R.drawable.user,
-            navBinding.ivNavImage
-        )
-
-        val userName = MyApplication.sharedPref.getPrefValue(
-            this,
-            GlobalConstants.USER_NAME
-        ) as String?
-
-        navBinding.tvNavUserName.setText(userName)
+//        val picturePath =
+//            MyApplication.sharedPref.getPrefValue(
+//                this,
+//                GlobalConstants.USER_IMAGE
+//            ) as String?
+//
+//        UtilsFunctions.loadImage(
+//            this,
+//            picturePath!!,
+//            RequestOptions(),
+//            R.drawable.user,
+//            navBinding.ivNavImage
+//        )
+//
+//        val userName = MyApplication.sharedPref.getPrefValue(
+//            this,
+//            GlobalConstants.USER_NAME
+//        ) as String?
+//
+//        navBinding.tvNavUserName.setText(userName)
     }
 
     override fun onResume() {
         super.onResume()
-        initNavUserPicture()
+        //initNavUserPicture()
 
         // Ask user to turn on GPS
         if (!UtilsFunctions.checkGpsEnabled(this)) {
@@ -206,10 +208,23 @@ class DashboardNewActivity : BaseActivity(), DialogsInterface,
         }
     }
 
-  /*  override fun onBackPressed() {
-        super.onBackPressed()
-        //showLogoutAlert()
-    }*/
+    override fun onBackPressed() {
+        //super.onBackPressed()
+        val frag = supportFragmentManager.findFragmentById(R.id.frame_layout1)
+
+        if(frag is HomeFragment){
+            finish()
+
+        } else{
+            visilility(View.VISIBLE,View.GONE,View.GONE,View.GONE)
+            newCallFragments(HomeFragment(), supportFragmentManager)
+            binding.incAppBar.toolbarTitle.setText("Orders")
+            binding.incAppBar.ivDeleteNotification.visibility=View.GONE
+            color(R.color.colorWhite,R.color.darkGrey,R.color.darkGrey,R.color.darkGrey)
+        }
+
+
+    }
 
     fun showLogoutAlert() {
         dialog = DialogUtil.showDialog(
@@ -227,30 +242,35 @@ class DashboardNewActivity : BaseActivity(), DialogsInterface,
      */
     private fun initContentMain() {
         jobsViewModel = ViewModelProviders.of(this).get(JobsViewModel::class.java)
-        fragment = AssignedJobsFragment()
-        callFragments(fragment, supportFragmentManager, false, "send_data", "")
+        newCallFragments(HomeFragment(), supportFragmentManager)
+        binding.incAppBar.toolbarTitle.setText("Orders")
 
-        contentBinding.tablayout.addOnTabSelectedListener(object :
-            TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                var fragment: Fragment? = null
+        contentBinding.imgOrderParent.setOnClickListener(this)
+        contentBinding.imgProfileParent.setOnClickListener(this)
+        contentBinding.imgMessageParent.setOnClickListener(this)
+        contentBinding.imgAvailableParent.setOnClickListener(this)
 
-                when (tab!!.position) {
-                    0 -> fragment = AssignedJobsFragment()
-                    1 -> fragment = CompletedJobsFragment()
-                }
-                callFragments(fragment, supportFragmentManager, false, "send_data", "")
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-                //var fragment : Fragment? = null
-                //Not In use
-            }
-        })
+//        contentBinding.tablayout.addOnTabSelectedListener(object :
+//            TabLayout.OnTabSelectedListener {
+//            override fun onTabSelected(tab: TabLayout.Tab?) {
+//                var fragment: Fragment? = null
+//
+//                when (tab!!.position) {
+//                    0 -> fragment = AssignedJobsFragment()
+//                    1 -> fragment = CompletedJobsFragment()
+//                }
+//                callFragments(fragment, supportFragmentManager, false, "send_data", "")
+//            }
+//
+//            override fun onTabUnselected(tab: TabLayout.Tab?) {
+//
+//            }
+//
+//            override fun onTabReselected(tab: TabLayout.Tab?) {
+//                //var fragment : Fragment? = null
+//                //Not In use
+//            }
+//        })
     }
 
     /**
@@ -302,14 +322,14 @@ class DashboardNewActivity : BaseActivity(), DialogsInterface,
     }
 
     fun assignedJobsCount(size: Int) {
-        if (size > 0) {
-            val count = "($size)"
-            binding.incAppBar.tvAssignedJobsCount.text = count
-
-            binding.incAppBar.tvAssignedJobsCount.visibility = View.VISIBLE
-        } else {
-            binding.incAppBar.tvAssignedJobsCount.visibility = View.GONE
-        }
+//        if (size > 0) {
+//            val count = "($size)"
+//            binding.incAppBar.tvAssignedJobsCount.text = count
+//
+//            binding.incAppBar.tvAssignedJobsCount.visibility = View.VISIBLE
+//        } else {
+//            binding.incAppBar.tvAssignedJobsCount.visibility = View.GONE
+//        }
     }
 
 
@@ -426,6 +446,80 @@ class DashboardNewActivity : BaseActivity(), DialogsInterface,
 
     }
 
-    // Get FCM token
+    override fun onClick(p0: View?) {
+       when(p0!!.id){
+           R.id.imgOrderParent->{
+               visilility(View.VISIBLE,View.GONE,View.GONE,View.GONE)
+               newCallFragments(HomeFragment(), supportFragmentManager)
+               binding.incAppBar.toolbarTitle.setText("Orders")
+               binding.incAppBar.ivDeleteNotification.visibility=View.GONE
+               color(R.color.colorWhite,R.color.darkGrey,R.color.darkGrey,R.color.darkGrey)
+           }
+           R.id.imgProfileParent->{
+               visilility(View.GONE,View.VISIBLE,View.GONE,View.GONE)
+               newCallFragments(ProfileFragment(), supportFragmentManager)
+               binding.incAppBar.toolbarTitle.setText("My Profile")
+               binding.incAppBar.ivDeleteNotification.visibility=View.GONE
+               color(R.color.darkGrey, R.color.colorWhite, R.color.darkGrey, R.color.darkGrey)
 
+           }
+           R.id.imgMessageParent->{
+               visilility(View.GONE,View.GONE,View.VISIBLE,View.GONE)
+               var frag=NotificationFragment()
+               newCallFragments(frag, supportFragmentManager)
+               deleteNotifications(frag)
+               binding.incAppBar.toolbarTitle.setText("Notifications")
+               binding.incAppBar.ivDeleteNotification.visibility=View.VISIBLE
+               color(R.color.darkGrey, R.color.darkGrey, R.color.colorWhite, R.color.darkGrey)
+
+           }
+           R.id.imgAvailableParent->{
+               visilility(View.GONE,View.GONE,View.GONE,View.VISIBLE)
+               newCallFragments(SettingFragment(), supportFragmentManager)
+               binding.incAppBar.ivDeleteNotification.visibility=View.GONE
+               color(R.color.darkGrey, R.color.darkGrey, R.color.darkGrey, R.color.colorWhite)
+           }
+       }
+    }
+
+    fun deleteNotifications(frag: NotificationFragment) {
+        binding.incAppBar.ivDeleteNotification.setOnClickListener {
+            //var frag=NotificationFragment()
+            frag.deleteAllNotifications()
+        }
+    }
+
+    fun visilility(order: Int,profile: Int,message: Int,availble: Int) {
+        contentBinding.orderTab.visibility=order
+        contentBinding.profileTab.visibility=profile
+        contentBinding.messageTab.visibility=message
+        contentBinding.availbleTab.visibility=availble
+    }
+
+    fun color(
+        orderColor: Int,
+        profileColor: Int,
+        notificationColor: Int,
+        availbleColor: Int
+    ) {
+        contentBinding.txtOrder.setTextColor(resources.getColor(orderColor))
+        contentBinding.txtProfile.setTextColor(resources.getColor(profileColor))
+        contentBinding.txtNotification.setTextColor(resources.getColor(notificationColor))
+        contentBinding.txtAvailble.setTextColor(resources.getColor(availbleColor))
+
+//        contentBinding.imgOrder.setColorFilter(resources.getColor(orderColor),android.graphics.PorterDuff.Mode.MULTIPLY);
+//        contentBinding.imgProfile.setColorFilter(resources.getColor(profileColor),android.graphics.PorterDuff.Mode.MULTIPLY);
+//        contentBinding.imgMessage.setColorFilter(resources.getColor(notificationColor),android.graphics.PorterDuff.Mode.MULTIPLY);
+//        contentBinding.imgAvailable.setColorFilter(resources.getColor(availbleColor),android.graphics.PorterDuff.Mode.MULTIPLY);
+
+
+
+        contentBinding.imgOrder.setColorFilter(ContextCompat.getColor(this, orderColor), android.graphics.PorterDuff.Mode.SRC_IN);
+        contentBinding.imgProfile.setColorFilter(ContextCompat.getColor(this, profileColor), android.graphics.PorterDuff.Mode.SRC_IN);
+        contentBinding.imgMessage.setColorFilter(ContextCompat.getColor(this, notificationColor), android.graphics.PorterDuff.Mode.SRC_IN);
+        contentBinding.imgAvailable.setColorFilter(ContextCompat.getColor(this, availbleColor), android.graphics.PorterDuff.Mode.SRC_IN);
+
+
+        //contentBinding.imgProfile.setColorFilter(ContextCompat.getColor(this, R.color.colorWhite), android.graphics.PorterDuff.Mode.MULTIPLY);
+    }
 }

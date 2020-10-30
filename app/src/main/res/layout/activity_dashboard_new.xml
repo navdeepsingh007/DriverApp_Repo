@@ -10,83 +10,12 @@
         android:fitsSystemWindows="true"
         tools:openDrawer="start">
 
-   <!--     <androidx.appcompat.widget.Toolbar
-            android:id="@+id/main_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />-->
-
         <include
             android:id="@+id/inc_app_bar"
             layout="@layout/app_bar_main"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <!--app:menu="@menu/activity_main_drawer"-->
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/nav_view"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@color/colorWhite"
-            android:layout_gravity="start"
-            android:fitsSystemWindows="true"
-            app:headerLayout="@layout/nav_header_main">
 
-            <androidx.core.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="200dp"
-                android:layout_marginBottom="@dimen/dp_30"
-                android:paddingBottom="@dimen/dp_20">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <!--<include layout="@layout/nav_header_home" />-->
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvNavDrawer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="@dimen/dp_10"
-                        android:background="@color/colorWhite"
-                        android:nestedScrollingEnabled="false" />
-
-                </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="@dimen/dp_10"
-                android:visibility="gone"
-                android:layout_marginEnd="@dimen/dp_10"
-                android:layout_marginBottom="@dimen/dp_10"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dp_10"
-                    android:src="@drawable/ic_keyboard_arrow_left"
-                    android:visibility="gone"
-                    android:tint="@color/colorWhite" />
-
-                <!--android:fontFamily="@font/montserrat_regular"-->
-                <TextView
-                    android:id="@+id/tvLogout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_20"
-                    android:layout_marginEnd="@dimen/dp_10"
-                    android:layout_marginBottom="@dimen/dp_10"
-                    android:text="@string/logout"
-                    android:textColor="@color/colorBlack"
-                    android:textStyle="bold" />
-            </LinearLayout>
-        </com.google.android.material.navigation.NavigationView>
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

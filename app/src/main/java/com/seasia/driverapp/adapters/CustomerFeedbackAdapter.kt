@@ -15,15 +15,16 @@ import com.seasia.driverapp.model.CustomerFeedbackResponse
 import com.seasia.driverapp.utils.Utils
 import com.seasia.driverapp.views.CustomerFeedbackActivity
 import com.seasia.driverapp.views.OrderDetailsActivity
+import com.seasia.driverapp.views.driverjobs.ProfileFragment
 
 
 class CustomerFeedbackAdapter(
-    var context: CustomerFeedbackActivity,
+    var context: ProfileFragment,
     val ratingList: ArrayList<CustomerFeedbackResponse.Rating>,
     var activity: Context
 ) : RecyclerView.Adapter<CustomerFeedbackAdapter.ViewHolder>() {
 
-    private val mContext: CustomerFeedbackActivity
+    private val mContext: ProfileFragment
 
     init {
         this.mContext = context
@@ -56,14 +57,14 @@ class CustomerFeedbackAdapter(
             if (result.order == null) {
                 context.showToastError(context.getString(R.string.order_is_already_deleted))
             } else {
-                val formattedOrderDate = Utils(context).getDate(
+                val formattedOrderDate = Utils(context.requireActivity()).getDate(
                     "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
                     result.order.serviceDateTime,
                     "dd MMM yyyy, hh:mm a"
 //            "dd-MMM,yyyy | hh:mm a"
                 )
-                val currDate = Utils(context).currentDate()
-                val orderDate = Utils(context).formattedDate(
+                val currDate = Utils(context.requireActivity()).currentDate()
+                val orderDate = Utils(context.requireActivity()).formattedDate(
                     formattedOrderDate,
                     "dd MMM yyyy, hh:mm a", "dd-MMM-yyyy"
                 )
@@ -79,7 +80,7 @@ class CustomerFeedbackAdapter(
         currDate: String,
         orderDate: String
     ) {
-        val intent = Intent(mContext, OrderDetailsActivity::class.java)
+        val intent = Intent(mContext.requireActivity(), OrderDetailsActivity::class.java)
         intent.putExtra("orderId", orderId)
         intent.putExtra("currDate", currDate)
         intent.putExtra("orderDate", orderDate)
@@ -102,7 +103,7 @@ class CustomerFeedbackAdapter(
         (
         v: View, val viewType: Int,
         val binding: RowFeedbackListingBinding,
-        mContext: CustomerFeedbackActivity,
+        mContext: ProfileFragment,
         ratingList: ArrayList<CustomerFeedbackResponse.Rating>?
     ) : RecyclerView.ViewHolder(v)
 }

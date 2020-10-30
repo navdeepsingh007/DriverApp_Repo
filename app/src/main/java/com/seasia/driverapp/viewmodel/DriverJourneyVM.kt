@@ -11,6 +11,8 @@ import com.seasia.driverapp.common.UtilsFunctions
 import com.seasia.driverapp.constants.ApiKeysConstants
 import com.seasia.driverapp.model.CommonModel
 import com.seasia.driverapp.model.OrderDetailResponse
+import com.seasia.driverapp.model.driverjob.CashCollectInput
+import com.seasia.driverapp.model.driverjob.CashCollectResponse
 import com.seasia.driverapp.repo.DriverJourneyRepo
 import com.seasia.driverapp.repo.JobDetailsRepo
 import com.seasia.driverapp.repo.LoginRepo
@@ -18,6 +20,7 @@ import com.seasia.driverapp.repo.LoginRepo
 class DriverJourneyVM: BaseViewModel() {
     private var driverJourneyRepo: DriverJourneyRepo
     private var jobDetailsResponse: LiveData<OrderDetailResponse>
+    private var cashCollect: LiveData<CashCollectResponse>
     private var isLoading: MutableLiveData<Boolean>
     private var isClicked: MutableLiveData<Boolean>
     private var onErrorMsg: MutableLiveData<String>
@@ -28,6 +31,7 @@ class DriverJourneyVM: BaseViewModel() {
     init {
         driverJourneyRepo = DriverJourneyRepo()
         isLoading = MutableLiveData()
+        cashCollect = MutableLiveData()
         isClicked = MutableLiveData()
         onErrorMsg = MutableLiveData()
         isClicked.postValue(false)
@@ -67,6 +71,20 @@ class DriverJourneyVM: BaseViewModel() {
         onJobDtlClick(orderID)
         return jobDetailsResponse
     }
+
+    fun onCashCollect(input: CashCollectInput) {
+        if (UtilsFunctions.isNetworkConnected()) {
+            cashCollect = driverJourneyRepo.cashCollect(input)
+            isLoading.postValue(true)
+        } else {
+            UtilsFunctions.showToastWarning(MyApplication.instance.getString(R.string.internet_connection))
+        }
+    }
+
+    fun cashCollectResponse(): LiveData<CashCollectResponse> {
+        return cashCollect
+    }
+
 
 
     fun updateJobStatus(orderId: String, orderStatus: String): LiveData<CommonModel> {

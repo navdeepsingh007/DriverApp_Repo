@@ -16,10 +16,11 @@ import com.seasia.driverapp.databinding.RowJobsHistoryBinding
 import com.seasia.driverapp.model.OrderStatusResponse
 import com.seasia.driverapp.utils.Utils
 import com.seasia.driverapp.views.OrderDetailsActivity
+import com.seasia.driverapp.views.driverjobs.CompletedJobsFragment
 
 
 class JobHistoryAdapter(
-    val context: Context,
+    val context: CompletedJobsFragment,
     var jobHistoryList: ArrayList<OrderStatusResponse.Body>
 ) : RecyclerView.Adapter<JobHistoryAdapter.ViewHolder>() {
 
@@ -41,7 +42,7 @@ class JobHistoryAdapter(
 
     override fun onBindViewHolder(@NonNull holder: ViewHolder, position: Int) {
         val response = jobHistoryList[position]
-        holder.binding.tvAssignedDate.text = Utils(context).getDate(
+        holder.binding.tvAssignedDate.text = Utils(context.requireContext()).getDate(
             "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
             response.serviceDateTime,
             "dd MMM yyyy, hh:mm a"
@@ -60,14 +61,14 @@ class JobHistoryAdapter(
         setJobStatusColor(response.progressStatus, holder.binding.tvJobStatus)
         val orderStatus = UtilsFunctions.getTrackingStatus(response.progressStatus.toString())
 
-        val formattedOrderDate = Utils(context).getDate(
+        val formattedOrderDate = Utils(context.requireContext()).getDate(
             "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
             response.serviceDateTime,
             "dd MMM yyyy, hh:mm a"
 //            "dd-MMM,yyyy | hh:mm a"
         )
-        val currDate = Utils(context).currentDate()
-        val orderDate = Utils(context).formattedDate(
+        val currDate = Utils(context.requireContext()).currentDate()
+        val orderDate = Utils(context.requireContext()).formattedDate(
             formattedOrderDate,
             "dd MMM yyyy, hh:mm a", "dd-MMM-yyyy"
         )
@@ -88,7 +89,7 @@ class JobHistoryAdapter(
         itemsDeliveredByDriver(holder, response)
 
         UtilsFunctions.loadImage(
-            context,
+            context.requireActivity(),
             response.company.logo1,
             RequestOptions(),
             R.drawable.no_image,
@@ -112,7 +113,7 @@ class JobHistoryAdapter(
         currDate: String,
         orderDate: String
     ) {
-        val intent = Intent(context, OrderDetailsActivity::class.java)
+        val intent = Intent(context.requireActivity(), OrderDetailsActivity::class.java)
         intent.putExtra("orderId", orderId)
         intent.putExtra("orderStatus", orderStatus)
         intent.putExtra("currDate", currDate)
@@ -129,7 +130,7 @@ class JobHistoryAdapter(
         (
         v: View, val viewType: Int,
         val binding: RowJobsHistoryBinding,
-        context: Context,
+        context: CompletedJobsFragment,
         jobHistoryList: ArrayList<OrderStatusResponse.Body>
     ) : RecyclerView.ViewHolder(v)
 

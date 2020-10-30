@@ -124,42 +124,36 @@ class JobHistoryActivity : BaseActivity(), EndlessRecyclerViewScrollListenerImpl
     }
 
     private fun setJobHistoryAdapter() {
-//        val options = ArrayList<String>()
-//        options.add("Not available")
-//        options.add("B")
-//        options.add("C")
-//        options.add("Others")
 
-       // if (jobHistoryList.size > 0) {
-             rateListAdapter = JobHistoryAdapter(this, jobHistoryList)
-            val linearLayoutManager = LinearLayoutManager(this)
-            linearLayoutManager.orientation = RecyclerView.VERTICAL
-            binding.rvJobHistory.layoutManager = linearLayoutManager
-            binding.rvJobHistory.adapter = rateListAdapter
-            binding.rvJobHistory.addOnScrollListener(object :
-                RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-
-                    if (dy > 0) //check for scroll down
-                    {
-                        mVisibleItemCount = linearLayoutManager.childCount
-                        mTotalItemCount = linearLayoutManager.itemCount
-                        mPastVisibleItems = linearLayoutManager.findFirstVisibleItemPosition()
-                        if (mLoadMoreViewCheck) {
-                            if ((mVisibleItemCount + mPastVisibleItems) >= mTotalItemCount) {
-                                mLoadMoreViewCheck = false
-                                count++
-                                //reviewsViewModel.getReviewsList(serviceId, count.toString())
-                                if (UtilsFunctions.isNetworkConnected()) {
-                                    jobsViewModel.completedJobs("3","", count.toString(),"10")
-                                }
-                            }
-                        }
-                    }
-
-
-                }
-            })
+//             rateListAdapter = JobHistoryAdapter(this, jobHistoryList)
+//            val linearLayoutManager = LinearLayoutManager(this)
+//            linearLayoutManager.orientation = RecyclerView.VERTICAL
+//            binding.rvJobHistory.layoutManager = linearLayoutManager
+//            binding.rvJobHistory.adapter = rateListAdapter
+//            binding.rvJobHistory.addOnScrollListener(object :
+//                RecyclerView.OnScrollListener() {
+//                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//
+//                    if (dy > 0) //check for scroll down
+//                    {
+//                        mVisibleItemCount = linearLayoutManager.childCount
+//                        mTotalItemCount = linearLayoutManager.itemCount
+//                        mPastVisibleItems = linearLayoutManager.findFirstVisibleItemPosition()
+//                        if (mLoadMoreViewCheck) {
+//                            if ((mVisibleItemCount + mPastVisibleItems) >= mTotalItemCount) {
+//                                mLoadMoreViewCheck = false
+//                                count++
+//                                //reviewsViewModel.getReviewsList(serviceId, count.toString())
+//                                if (UtilsFunctions.isNetworkConnected()) {
+//                                    jobsViewModel.completedJobs("3","", count.toString(),"10")
+//                                }
+//                            }
+//                        }
+//                    }
+//
+//
+//                }
+//            })
 
 
             binding.rvJobHistory.visibility = View.VISIBLE

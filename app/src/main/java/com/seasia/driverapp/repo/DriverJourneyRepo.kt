@@ -11,16 +11,20 @@ import com.seasia.driverapp.application.MyApplication
 import com.seasia.driverapp.common.UtilsFunctions
 import com.seasia.driverapp.model.CommonModel
 import com.seasia.driverapp.model.OrderDetailResponse
+import com.seasia.driverapp.model.driverjob.CashCollectInput
+import com.seasia.driverapp.model.driverjob.CashCollectResponse
 import retrofit2.Response
 
 class DriverJourneyRepo {
     private val gson = MyApplication.gson
     private var jobDetailsData: MutableLiveData<OrderDetailResponse>
+    private var cashCOllectResopnse: MutableLiveData<CashCollectResponse>
     private var data1 : MutableLiveData<CommonModel>? = null
 
     init {
         jobDetailsData = MutableLiveData()
         data1 = MutableLiveData()
+        cashCOllectResopnse = MutableLiveData()
     }
 
 
@@ -83,5 +87,33 @@ class DriverJourneyRepo {
             }, ApiClient.getApiInterface().getOrderDetail(orderId, companyId))
         }
         return jobDetailsData
+    }
+
+
+    fun cashCollect(input:CashCollectInput): LiveData<CashCollectResponse> {
+        if (input != null) {
+            ApiService<JsonObject>().get(object : ApiResponse<JsonObject> {
+                override fun onResponse(mResponse: Response<JsonObject>) {
+                    val loginResponse = if (mResponse.body() != null) {
+                        gson.fromJson<CashCollectResponse>(
+                            "" + mResponse.body(),
+                            CashCollectResponse::class.java
+                        )
+                    } else {
+                        gson.fromJson<CashCollectResponse>(
+                            mResponse.errorBody()!!.charStream(),
+                            CashCollectResponse::class.java
+                        )
+                    }
+                    cashCOllectResopnse.postValue(loginResponse)
+                }
+
+                override fun onError(mKey: String) {
+                    UtilsFunctions.showToastError(MyApplication.instance.getString(R.string.internal_server_error))
+                    cashCOllectResopnse.postValue(null)
+                }
+            }, ApiClient.getApiInterface().cashCollectData(input))
+        }
+        return cashCOllectResopnse
     }
 }

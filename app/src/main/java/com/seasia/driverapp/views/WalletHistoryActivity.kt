@@ -1,31 +1,32 @@
 package com.seasia.driverapp.views
 
 import android.app.DatePickerDialog
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.JsonObject
 import com.seasia.driverapp.R
+import com.seasia.driverapp.adapters.WalletAdapter
 import com.seasia.driverapp.application.MyApplication
-import com.seasia.driverapp.common.FirebaseFunctions
-import com.seasia.driverapp.constants.ApiKeysConstants
-import com.seasia.driverapp.constants.GlobalConstants
 import com.seasia.driverapp.databinding.ActivityWalletHistoryBinding
 import com.seasia.driverapp.model.WalletInput
-import com.seasia.driverapp.sharedpreference.SharedPrefClass
+import com.seasia.driverapp.model.WalletResponse
 import com.seasia.driverapp.utils.BaseActivity
 import com.seasia.driverapp.utils.DateTimeUtil
-import com.seasia.driverapp.viewmodel.JobsViewModel
 import com.seasia.driverapp.viewmodel.WalletHistoryViewModel
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class WalletHistoryActivity : BaseActivity(), View.OnClickListener {
     var walletVIewModel:WalletHistoryViewModel?=null
     var binding:ActivityWalletHistoryBinding?=null
+    var adapter:WalletAdapter?=null
     private var date = ""
+    private var startDate = ""
+    private var endtDate = ""
+    var arrayList:ArrayList<WalletResponse.Body>?=null
     override fun getLayoutId(): Int {
         return R.layout.activity_wallet_history
     }
@@ -35,28 +36,23 @@ class WalletHistoryActivity : BaseActivity(), View.OnClickListener {
         walletVIewModel = ViewModelProviders.of(this).get(WalletHistoryViewModel::class.java)
         binding!!.tvStartDate.setOnClickListener(this)
         binding!!.tvEndDate.setOnClickListener(this)
+        arrayList= ArrayList()
+        walletAdapter()
+
+        binding!!.btnSubmit.setOnClickListener(this)
 
         binding!!.commonToolBar.imgToolbarText.text =
             resources.getString(R.string.wallet_history)
-//        val  input=WalletInput()
-//
-//        walletVIewModel!!.walletInputData(input)
-//
-//        walletVIewModel!!.walletResponse().observe(this, Observer { response ->
-//            stopProgressDialog()
-//
-//            if (response != null) {
-//                val message = response.message
-//
-//                if (response.code == 200) {
-//                } else {
-//                    showToastError(message)
-//                }
-//            } else {
-//                showToastError(MyApplication.instance.getString(R.string.internal_server_error))
-//            }
-//        })
 
+
+    }
+
+
+    fun walletAdapter(){
+        adapter= WalletAdapter(this,arrayList)
+        var layputManager=LinearLayoutManager(this)
+        binding!!.rvRecycler.adapter=adapter
+        binding!!.rvRecycler.layoutManager=layputManager
     }
 
 
@@ -67,22 +63,18 @@ class WalletHistoryActivity : BaseActivity(), View.OnClickListener {
             calendar.set(Calendar.YEAR, year)
             calendar.set(Calendar.MONTH, monthOfYear)
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            val myFormat = "dd/MM/yyyy"
+            val myFormat = "dd-MM-yyyy"
             val myFormat2 = "yyyy-MM-dd"
             val sdf = SimpleDateFormat(myFormat, Locale.US)
             val sdf2 = SimpleDateFormat(myFormat2, Locale.US)
-            if (DateTimeUtil.checkPastDay(calendar2, calendar)
-            ) {
-                showToastError("Please select future date")
-            } else {
-                //strDate = sdf.format(calendar.time)
+//            if (DateTimeUtil.checkPastDay(calendar2, calendar)
+//            ) {
+//                showToastError("Please select future date")
+//            } else {
                 date = sdf2.format(calendar.time)
                 binding!!.tvStartDate.setText(sdf.format(calendar.time))
-                val mJsonObject = JsonObject()
-//                mJsonObject.addProperty("subjectId", subjectId)
-//                mJsonObject.addProperty("date", date)
-//                bookingAddStudentViewModel.getSlotList(this, mJsonObject)
-            }
+                startDate=sdf.format(calendar.time)
+//            }
         }
         val dpDialog = DatePickerDialog(
             this,R.style.DialogTheme, date, calendar
@@ -99,18 +91,18 @@ class WalletHistoryActivity : BaseActivity(), View.OnClickListener {
             calendar.set(Calendar.YEAR, year)
             calendar.set(Calendar.MONTH, monthOfYear)
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            val myFormat = "dd/MM/yyyy"
+            val myFormat = "dd-MM-yyyy"
             val myFormat2 = "yyyy-MM-dd"
             val sdf = SimpleDateFormat(myFormat, Locale.US)
             val sdf2 = SimpleDateFormat(myFormat2, Locale.US)
-            if (DateTimeUtil.checkPastDay(calendar2, calendar)
-            ) {
-                showToastError("Please select future date")
-            } else {
-                //strDate = sdf.format(calendar.time)
+//            if (DateTimeUtil.checkPastDay(calendar2, calendar)
+//            ) {
+//                showToastError("Please select future date")
+//            } else {
                 date = sdf2.format(calendar.time)
                 binding!!.tvEndDate.setText(sdf.format(calendar.time))
-            }
+                endtDate=sdf.format(calendar.time)
+//            }
         }
         val dpDialog = DatePickerDialog(
             this,R.style.DialogTheme, date, calendar
@@ -127,6 +119,44 @@ class WalletHistoryActivity : BaseActivity(), View.OnClickListener {
             }
             R.id.tvEndDate->{
                 endDatePicker()
+            }
+            R.id.btnSubmit->{
+
+                val  input=WalletInput()
+                input.fromDate=startDate
+                input.toDate=endtDate
+                input.page="1"
+                input.limit="10"
+//                input.payType="0"
+
+
+
+                walletVIewModel!!.walletInputData(input)
+                startProgressDialog()
+
+                walletVIewModel!!.walletResponse().observe(this, Observer { response ->
+                    stopProgressDialog()
+
+                    if (response != null) {
+                        val message = response.message
+
+                        if (response.code == 200) {
+                            arrayList=response.body
+                            adapter!!.setData(arrayList)
+                            if(arrayList!!.size>0){
+                                binding!!.noRecordFound.visibility=View.GONE
+                            } else{
+                                binding!!.noRecordFound.visibility=View.VISIBLE
+
+                            }
+                        } else {
+                            showToastError(message)
+                        }
+                    } else {
+                        showToastError(MyApplication.instance.getString(R.string.internal_server_error))
+                    }
+                })
+
             }
         }
     }

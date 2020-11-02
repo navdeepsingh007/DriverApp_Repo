@@ -118,7 +118,7 @@
                 android:paddingRight="@dimen/dp_15"
                 android:paddingBottom="@dimen/dp_15"
                 android:text="@string/wallet"
-                android:drawableLeft="@drawable/ic_share_app"
+                android:drawableLeft="@drawable/ic_wallet_12"
                 android:textAllCaps="false"
                 android:textColor="@color/colorBlack"
                 android:textSize="@dimen/sp_14"

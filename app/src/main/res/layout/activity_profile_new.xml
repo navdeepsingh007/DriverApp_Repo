@@ -10,312 +10,341 @@
             type="com.seasia.driverapp.viewmodel.ProfileVM" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorWhite"
         android:orientation="vertical">
 
         <include
+            android:visibility="gone"
             android:id="@+id/toolbar_common"
             layout="@layout/common_toolbar_back"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_toobar" />
-
-        <ScrollView
+        <RelativeLayout
+            android:id="@+id/toolLayout"
+            android:background="@drawable/ic_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="@dimen/dp_15">
+            android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/dp_15">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                <ImageView
+                    android:id="@+id/iv_back"
+                    android:layout_width="@dimen/dp_25"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="@dimen/dp_10">
+                    android:layout_alignParentStart="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="@dimen/dp_5"
+                    android:tint="@color/colorWhite"
+                    android:src="@drawable/ic_keyboard_arrow_left" />
 
-                    <ImageView
-                        android:id="@+id/ivBanner"
-                        android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        android:scaleType="centerCrop"
-                        android:background="@color/colorBlack" />
+                <TextView
+                    android:layout_toRightOf="@+id/iv_back"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginLeft="@dimen/dp_8"
+                    android:id="@+id/tvProfile"
+                    android:text="Profile"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:textSize="@dimen/dp_20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-                    <!--    <ImageView
-                            android:id="@+id/ivBanner"
-                            android:layout_width="match_parent"
-                            android:layout_height="180dp"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_marginStart="-15dp"
-                            android:layout_marginTop="1dp"
-                            android:layout_marginEnd="-15dp"
-                            android:paddingStart="-15dp"
-                            android:paddingEnd="-15dp" />-->
-
-                    <LinearLayout
-                        android:id="@+id/llEditProfile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/ivBanner"
-                        android:layout_alignParentRight="true"
-                        android:layout_margin="@dimen/dp_10"
-                        android:background="@drawable/round_back_white"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingLeft="@dimen/dp_8"
-                        android:paddingTop="@dimen/dp_5"
-                        android:paddingRight="@dimen/dp_8"
-                        android:paddingBottom="@dimen/dp_5">
-
-                        <ImageView
-                            android:id="@+id/ivEditCamera"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_marginRight="@dimen/dp_5"
-                            android:src="@drawable/ic_photo_camera" />
-
-                        <!--android:fontFamily="@font/montserrat_regular"-->
-                        <TextView
-                            android:id="@+id/tvEditProfile"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="@string/profile_edit"
-                            android:textColor="@color/colorBlack" />
-                    </LinearLayout>
-
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/img_profile"
-                        android:layout_width="@dimen/dp_80"
-                        android:layout_height="@dimen/dp_80"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="140dp"
-                        android:layout_marginBottom="@dimen/dp_10"
-                        android:background="@drawable/circle_white"
-                        android:clickable="false"
-                        android:elevation="@dimen/dp_5"
-                        android:onClick="@{(v) -> profileViewModel.clickListener(v)}"
-                        android:padding="@dimen/dp_2"
-                        android:src="@drawable/user"
-                        app:civ_border_color="@color/colorWhite"
-                        app:civ_border_width="2dp" />
-
-                </RelativeLayout>
-
-                <LinearLayout
+            <RelativeLayout
+                android:layout_marginTop="@dimen/dp_60"
+                android:background="@drawable/topround"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:paddingLeft="@dimen/dp_15"
-                    android:paddingRight="@dimen/dp_15"
                     android:paddingBottom="@dimen/dp_15">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tvFirstName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/floating_edittext_side"
-                        android:layout_marginRight="@dimen/floating_edittext_side"
-                        android:layout_marginTop="@dimen/floating_edittext_top"
-                        android:theme="@style/floating_et"
-                        app:hintEnabled="true">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_first_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/first_name"
-                            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-                            android:imeOptions="actionNext"
-                            android:inputType="text"
-                            android:maxLength="32"
-                            android:theme="@style/floating_et"
-                            />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tvLastName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/floating_edittext_side"
-                        android:layout_marginRight="@dimen/floating_edittext_side"
-                        android:layout_marginTop="@dimen/floating_edittext_top"
-                        android:theme="@style/floating_et"
-                        app:hintEnabled="true">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_last_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/last_name"
-                            android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
-                            android:imeOptions="actionNext"
-                            android:inputType="text"
-                            android:maxLength="32"
-                            android:theme="@style/floating_et"
-                            />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tvEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/floating_edittext_side"
-                        android:layout_marginRight="@dimen/floating_edittext_side"
-                        android:layout_marginTop="@dimen/floating_edittext_top"
-                        android:theme="@style/floating_et"
-                        app:hintEnabled="true">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_email_address"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/email_address"
-                            android:imeOptions="actionNext"
-                            android:inputType="textEmailAddress"
-                            android:maxLength="40"
-                            android:theme="@style/floating_et"
-                            />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tvPhone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/floating_edittext_side"
-                        android:layout_marginRight="@dimen/floating_edittext_side"
-                        android:layout_marginTop="@dimen/floating_edittext_top"
-                        android:theme="@style/floating_et"
-                        android:enabled="false"
-                        app:hintEnabled="true">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_phone_number"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/phone_no"
-                            android:imeOptions="actionNext"
-                            android:inputType="phone"
-                            android:maxLength="10"
-                            android:enabled="false"
-                            android:theme="@style/floating_et"
-                            />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tvAddress"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/floating_edittext_side"
-                        android:layout_marginRight="@dimen/floating_edittext_side"
-                        android:layout_marginTop="@dimen/floating_edittext_top"
-                        android:theme="@style/floating_et"
-                        app:hintEnabled="true">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/et_address"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="@string/address"
-                            android:imeOptions="actionNext"
-                            android:inputType="text"
-                            android:maxLength="32"
-                            android:theme="@style/floating_et"
-                            />
-
-                    </com.google.android.material.textfield.TextInputLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/floating_edittext_side"
-                        android:orientation="horizontal">
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/dp_15">
 
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tvIdProof"
-                            android:layout_width="0dp"
+                        <RelativeLayout
+                            android:background="@drawable/topround"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="8.5"
-                            android:layout_marginLeft="@dimen/floating_edittext_side"
-                            android:layout_marginTop="@dimen/floating_edittext_top"
-                            android:theme="@style/floating_et"
-                            app:hintEnabled="true">
+                            android:paddingBottom="@dimen/dp_10">
 
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/etIdProof"
+<!--                            <ImageView-->
+<!--                                android:id="@+id/ivBanner"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="180dp"-->
+<!--                                android:scaleType="centerCrop"-->
+<!--                                android:background="@color/colorBlack" />-->
+
+
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:id="@+id/ivBanner"
+                                app:riv_corner_radius_top_left="@dimen/dp_35"
+                                app:riv_corner_radius_top_right="@dimen/dp_35"
+                                android:layout_width="match_parent"
+                                android:layout_height="180dp"
+                                android:adjustViewBounds="true"
+                                android:scaleType="centerCrop"
+                                android:background="@color/colorGreenToolBar"
+                                android:visibility="visible" />
+
+                            <!--<ImageView
+                                    android:id="@+id/ivBanner"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="180dp"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_marginStart="-15dp"
+                                    android:layout_marginTop="1dp"
+                                    android:layout_marginEnd="-15dp"
+                                    android:paddingStart="-15dp"
+                                    android:paddingEnd="-15dp" />-->
+
+                            <LinearLayout
+                                android:id="@+id/llEditProfile"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBottom="@+id/ivBanner"
+                                android:layout_alignParentRight="true"
+                                android:layout_margin="@dimen/dp_10"
+                                android:background="@drawable/round_back_white"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:paddingLeft="@dimen/dp_8"
+                                android:paddingTop="@dimen/dp_5"
+                                android:paddingRight="@dimen/dp_8"
+                                android:paddingBottom="@dimen/dp_5">
+
+                                <ImageView
+                                    android:id="@+id/ivEditCamera"
+                                    android:layout_width="15dp"
+                                    android:layout_height="15dp"
+                                    android:layout_marginRight="@dimen/dp_5"
+                                    android:src="@drawable/ic_photo_camera" />
+
+                                <!--android:fontFamily="@font/montserrat_regular"-->
+                                <TextView
+                                    android:id="@+id/tvEditProfile"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="@string/profile_edit"
+                                    android:textColor="@color/colorBlack" />
+                            </LinearLayout>
+
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/img_profile"
+                                android:layout_width="@dimen/dp_80"
+                                android:layout_height="@dimen/dp_80"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="140dp"
+                                android:layout_marginBottom="@dimen/dp_10"
+                                android:background="@drawable/circle_white"
+                                android:clickable="false"
+                                android:elevation="@dimen/dp_5"
+                                android:onClick="@{(v) -> profileViewModel.clickListener(v)}"
+                                android:padding="@dimen/dp_2"
+                                android:src="@drawable/user"
+                                app:civ_border_color="@color/colorWhite"
+                                app:civ_border_width="2dp" />
+
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:paddingLeft="@dimen/dp_15"
+                            android:paddingRight="@dimen/dp_15"
+                            android:paddingBottom="@dimen/dp_15">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/tvFirstName"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="@string/id_proof"
-                                android:imeOptions="actionDone"
-                                android:inputType="text"
-                                android:maxLength="20"
+                                android:layout_marginLeft="@dimen/floating_edittext_side"
+                                android:layout_marginRight="@dimen/floating_edittext_side"
+                                android:layout_marginTop="@dimen/floating_edittext_top"
                                 android:theme="@style/floating_et"
-                                />
+                                app:hintEnabled="true">
 
-                        </com.google.android.material.textfield.TextInputLayout>
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_first_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/first_name"
+                                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+                                    android:imeOptions="actionNext"
+                                    android:inputType="text"
+                                    android:maxLength="32"
+                                    android:theme="@style/floating_et"
+                                    />
 
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/img_id_preview"
-                            android:layout_width="0dp"
-                            android:layout_height="@dimen/dp_50"
-                            android:layout_weight="1.5"
-                            android:layout_gravity="center_vertical"
-                            android:onClick="@{(v) -> profileViewModel.clickListener(v)}"
-                            android:src="@drawable/attachment"
-                            tools:ignore="UnusedAttribute" />
+                            </com.google.android.material.textfield.TextInputLayout>
 
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/tvLastName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/floating_edittext_side"
+                                android:layout_marginRight="@dimen/floating_edittext_side"
+                                android:layout_marginTop="@dimen/floating_edittext_top"
+                                android:theme="@style/floating_et"
+                                app:hintEnabled="true">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_last_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/last_name"
+                                    android:digits="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+                                    android:imeOptions="actionNext"
+                                    android:inputType="text"
+                                    android:maxLength="32"
+                                    android:theme="@style/floating_et"
+                                    />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/tvEmail"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/floating_edittext_side"
+                                android:layout_marginRight="@dimen/floating_edittext_side"
+                                android:layout_marginTop="@dimen/floating_edittext_top"
+                                android:theme="@style/floating_et"
+                                app:hintEnabled="true">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_email_address"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/email_address"
+                                    android:imeOptions="actionNext"
+                                    android:inputType="textEmailAddress"
+                                    android:maxLength="40"
+                                    android:theme="@style/floating_et"
+                                    />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/tvPhone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/floating_edittext_side"
+                                android:layout_marginRight="@dimen/floating_edittext_side"
+                                android:layout_marginTop="@dimen/floating_edittext_top"
+                                android:theme="@style/floating_et"
+                                android:enabled="false"
+                                app:hintEnabled="true">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_phone_number"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/phone_no"
+                                    android:imeOptions="actionNext"
+                                    android:inputType="phone"
+                                    android:maxLength="10"
+                                    android:enabled="false"
+                                    android:theme="@style/floating_et"
+                                    />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/tvAddress"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/floating_edittext_side"
+                                android:layout_marginRight="@dimen/floating_edittext_side"
+                                android:layout_marginTop="@dimen/floating_edittext_top"
+                                android:theme="@style/floating_et"
+                                app:hintEnabled="true">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/et_address"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/address"
+                                    android:imeOptions="actionNext"
+                                    android:inputType="text"
+                                    android:maxLength="32"
+                                    android:theme="@style/floating_et"
+                                    />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/floating_edittext_side"
+                                android:orientation="horizontal">
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/tvIdProof"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="8.5"
+                                    android:layout_marginLeft="@dimen/floating_edittext_side"
+                                    android:layout_marginTop="@dimen/floating_edittext_top"
+                                    android:theme="@style/floating_et"
+                                    app:hintEnabled="true">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/etIdProof"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:hint="@string/id_proof"
+                                        android:imeOptions="actionDone"
+                                        android:inputType="text"
+                                        android:maxLength="20"
+                                        android:theme="@style/floating_et"
+                                        />
+
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:id="@+id/img_id_preview"
+                                    android:layout_width="0dp"
+                                    android:layout_height="@dimen/dp_50"
+                                    android:layout_weight="1.5"
+                                    android:layout_gravity="center_vertical"
+                                    android:onClick="@{(v) -> profileViewModel.clickListener(v)}"
+                                    android:src="@drawable/attachment"
+                                    tools:ignore="UnusedAttribute" />
+
+                            </LinearLayout>
+
+                            <Button
+                                android:id="@+id/btn_continue"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_25"
+                                android:layout_marginTop="@dimen/dp_25"
+                                android:layout_marginRight="@dimen/dp_25"
+                                android:background="@drawable/button_round_back_blue"
+                                android:onClick="@{(v) -> profileViewModel.onUpdateProfileClick(v, etFirstName, etLastName, etPhoneNumber, etEmailAddress, etAddress, imgProfile, etIdProof)}"
+                                android:text="@string/btn_update"
+                                android:textColor="@color/colorWhite"
+                                android:visibility="visible" />
+                        </LinearLayout>
                     </LinearLayout>
+                </ScrollView>
 
-                    <Button
-                        android:id="@+id/btn_continue"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_25"
-                        android:layout_marginTop="@dimen/dp_25"
-                        android:layout_marginRight="@dimen/dp_25"
-                        android:background="@drawable/button_round_back_blue"
-                        android:onClick="@{(v) -> profileViewModel.onUpdateProfileClick(v, etFirstName, etLastName, etPhoneNumber, etEmailAddress, etAddress, imgProfile, etIdProof)}"
-                        android:text="@string/btn_update"
-                        android:textColor="@color/colorWhite"
-                        android:visibility="visible" />
-                </LinearLayout>
-            </LinearLayout>
-        </ScrollView>
+            </RelativeLayout>
 
-        <!--    <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/first_name"
-                    />
+        </RelativeLayout>
 
-            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/last_name"
-                    />
 
-            </com.google.android.material.textfield.TextInputLayout>-->
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

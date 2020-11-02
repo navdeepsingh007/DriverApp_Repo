@@ -80,17 +80,16 @@ class ProfileNewActivity : BaseActivity(), ChoiceCallBack {
         profileVM.onGetProfile()
         startProgressDialog()
 //        initNonEditableViews()
-
         onUpdateClickObserver()
         initErrorMsgObserver()
         loadingObserver()
+        binding.ivBack.setOnClickListener { finish() }
 //        imageButtonDisable()
     }
 
     private fun imageButtonDisable() {
         binding.imgIdPreview.isEnabled = false
         binding.imgProfile.isEnabled = false
-
         binding.llEditProfile.isEnabled = false
         binding.llEditProfile.isClickable = false
         binding.llEditProfile.background.alpha = 160
@@ -99,7 +98,6 @@ class ProfileNewActivity : BaseActivity(), ChoiceCallBack {
     private fun imageButtonEnable() {
         binding.imgIdPreview.isEnabled = true
         binding.imgProfile.isEnabled = true
-
         binding.llEditProfile.isEnabled = true
         binding.llEditProfile.isClickable = true
         binding.llEditProfile.background.alpha = 250
@@ -126,8 +124,6 @@ class ProfileNewActivity : BaseActivity(), ChoiceCallBack {
                     binding.etAddress.setText(response.body!!.address)
                     binding.etPhoneNumber.setText(response.body!!.phoneNumber)
                     binding.etIdProof.setText(response.body!!.idProofName)
-
-
                     MyApplication.sharedPref.putObject(
                         applicationContext,
                         GlobalConstants.USER_IMAGE,
@@ -138,7 +134,6 @@ class ProfileNewActivity : BaseActivity(), ChoiceCallBack {
                         GlobalConstants.USER_BANNER,
                         response.body!!.coverImage
                     )
-
                     setImage(response.body!!.image!!)
                     setIdProofImage(response.body!!.idProof)
                     setBannerImage(response.body!!.coverImage)

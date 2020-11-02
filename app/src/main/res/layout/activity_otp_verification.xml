@@ -15,7 +15,7 @@
 
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/cl_mainLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,21 +23,219 @@
         android:background="@color/colorWhite"
         app:hideKeyBoardOnClick="@{`back`}">
 
-        <include
-            android:id="@+id/toolbarCommon"
-            layout="@layout/generic_back_toolbar"
+        <RelativeLayout
+            android:background="@drawable/ic_toolbar"
             android:layout_width="match_parent"
-            android:visibility="gone"
-            android:layout_height="@dimen/dp_50" />
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="@dimen/dp_25"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="@dimen/dp_5"
+                android:tint="@color/colorWhite"
+                android:src="@drawable/ic_keyboard_arrow_left" />
 
-        <include
-            android:id="@+id/includeView"
-            layout="@layout/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/splsh_hut"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_50"
+                android:background="@drawable/scooter"
+                android:contentDescription="@string/cd_splash_screen" />
+            <RelativeLayout
+                android:layout_below="@+id/splsh_hut"
+                android:layout_marginTop="@dimen/dp_50"
+                android:background="@drawable/topround"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dp_10"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_marginRight="@dimen/dp_10"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        tools:ignore="MissingConstraints">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/img_profile"
+                            android:layout_width="@dimen/dp_120"
+                            android:layout_height="@dimen/dp_120"
+                            android:layout_centerInParent="true"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/tv_verifyEmail"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_5"
+                            android:gravity="center"
+                            android:textStyle="bold"
+                            android:visibility="gone"
+                            android:text="@string/verification_code"
+                            android:textAllCaps="true"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/sp_20"
+                            app:font="@{`bold`}"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_otp_sent"
+                            android:layout_width="@dimen/dp_300"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/dp_10"
+                            android:gravity="center"
+                            android:text="@string/verification_code_msg"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/sp_16"
+                            android:textStyle="bold"
+                            app:font="@{`regular`}"
+                            tools:ignore="MissingConstraints"
+                            tools:layout_editor_absoluteX="116dp"
+                            tools:layout_editor_absoluteY="306dp" />
+
+                        <TextView
+                            android:id="@+id/tv_otp_email"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_2"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/sp_10"
+                            app:font="@{`semibold`}" />
+
+                        <com.goodiebag.pinview.Pinview
+                            android:id="@+id/pinview"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_80"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:layout_marginRight="@dimen/dp_10"
+                            app:cursorVisible="false"
+                            app:forceKeyboard="true"
+                            app:hint=""
+                            app:inputType="number"
+                            app:password="false"
+                            app:pinBackground="@drawable/shape_round_corner_back"
+                            app:pinHeight="@dimen/dp_40"
+                            app:pinLength="6"
+                            app:pinWidth="@dimen/dp_35"
+                            app:textSize="@dimen/sp_10" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="@string/otp_not_received_text"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="@dimen/sp_14"
+                                app:font="@{`bold`}"
+                                tools:ignore="MissingConstraints"
+                                tools:layout_editor_absoluteX="116dp"
+                                tools:layout_editor_absoluteY="306dp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_resend"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/rectangle_blue"
+                            android:padding="@dimen/dp_12"
+                            android:gravity="center"
+                            android:layout_margin="@dimen/dp_20"
+                            android:onClick="@{(v) -> verifViewModel.clickListener(v)}"
+                            android:text="@string/resend_otp"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorWhite"
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:textSize="@dimen/sp_14"
+                            app:font="@{`bold`}"
+                            />
+                        <TextView
+                            android:id="@+id/tv_resend_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{(v) -> verifViewModel.clickListener(v)}"
+                            android:padding="@dimen/dp_10"
+                            android:text="@string/resend_time"
+                            android:visibility="gone"
+                            android:textColor="@color/color_primary_blue"
+                            android:textSize="@dimen/sp_18"
+                            app:font="@{`semibold`}" />
+
+                        <!--android:visibility="@{resendOTP==1}"-->
+                        <TextView
+                            android:id="@+id/tv_resend_time_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:onClick="@{(v) -> verifViewModel.clickListener(v)}"
+                            android:padding="@dimen/dp_10"
+                            android:text="@string/resend_otp_time"
+                            android:visibility="gone"
+                            android:textColor="@color/colorBlack"
+                            android:textSize="@dimen/sp_14"
+                            app:font="@{`regular`}" />
+
+                        <Button
+                            android:id="@+id/btn_send"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:layout_marginTop="@dimen/dp_20"
+                            android:layout_marginRight="@dimen/dp_10"
+                            android:visibility="gone"
+                            android:background="@drawable/rectangle_blue"
+                            android:onClick="@{(v) -> verifViewModel.clickListener(v)}"
+                            android:paddingLeft="@dimen/dp_40"
+                            android:paddingRight="@dimen/dp_40"
+                            android:text="@string/proceed"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="@dimen/sp_14"
+                            app:font="@{`regular`}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_resend1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{(v) -> verifViewModel.clickListener(v)}"
+                            android:padding="@dimen/dp_10"
+                            android:text="@string/resend_otp"
+                            android:textColor="@color/color_primary_blue"
+                            android:textSize="@dimen/sp_14"
+                            android:visibility="gone"
+                            app:font="@{`semibold`}" />
+
+
+                        <!---->
+
+                    </LinearLayout>
+                </ScrollView>
+
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
 
         <View
             android:id="@+id/toolbar_line"
+            android:visibility="gone"
             android:layout_below="@+id/includeView"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
@@ -50,200 +248,5 @@
             android:visibility="gone"
             layout="@layout/generic_back_toolbar"/>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginTop="@dimen/dp_16"
-                android:layout_marginRight="@dimen/dp_10"
-                android:gravity="center"
-                android:orientation="vertical"
-                tools:ignore="MissingConstraints">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/img_profile"
-                    android:layout_width="@dimen/dp_120"
-                    android:layout_height="@dimen/dp_120"
-                    android:layout_centerInParent="true"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/tv_verifyEmail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_5"
-                    android:gravity="center"
-                    android:textStyle="bold"
-                    android:text="@string/verification_code"
-                    android:textAllCaps="true"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/sp_20"
-                    app:font="@{`bold`}"
-                    />
-
-                <TextView
-                    android:id="@+id/tv_otp_sent"
-                    android:layout_width="@dimen/dp_300"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/dp_10"
-                    android:gravity="center"
-                    android:text="@string/verification_code_msg"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/sp_16"
-                    android:textStyle="bold"
-                    app:font="@{`regular`}"
-                    tools:ignore="MissingConstraints"
-                    tools:layout_editor_absoluteX="116dp"
-                    tools:layout_editor_absoluteY="306dp" />
-
-                <TextView
-                    android:id="@+id/tv_otp_email"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_2"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/sp_10"
-                    app:font="@{`semibold`}" />
-
-                <com.goodiebag.pinview.Pinview
-                    android:id="@+id/pinview"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_80"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginRight="@dimen/dp_10"
-                    app:cursorVisible="false"
-                    app:forceKeyboard="true"
-                    app:hint=""
-                    app:inputType="number"
-                    app:password="false"
-                    app:pinBackground="@drawable/shape_round_corner_back"
-                    app:pinHeight="@dimen/dp_40"
-                    app:pinLength="6"
-                    app:pinWidth="@dimen/dp_35"
-                    app:textSize="@dimen/sp_10" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="@string/otp_not_received_text"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="@dimen/sp_14"
-                        app:font="@{`bold`}"
-                        tools:ignore="MissingConstraints"
-                        tools:layout_editor_absoluteX="116dp"
-                        tools:layout_editor_absoluteY="306dp" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tv_resend"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/rectangle_blue"
-                    android:padding="@dimen/dp_8"
-                    android:onClick="@{(v) -> verifViewModel.clickListener(v)}"
-                    android:text="@string/resend_otp"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorWhite"
-                    android:layout_marginTop="@dimen/dp_8"
-                    android:textSize="@dimen/sp_14"
-                    app:font="@{`bold`}"
-                    />
-
-              <!--  <TextView
-                    android:id="@+id/tv_resend"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_2"
-                    android:gravity="center"
-                    android:background="@drawable/rectangle_blue"
-                    android:padding="@dimen/dp_8"
-                    android:onClick="@{(v) -> verifViewModel.clickListener(v)}"
-                    android:text="@string/resend_otp"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorWhite"
-                    android:layout_marginTop="@dimen/dp_8"
-                    android:textSize="@dimen/sp_14"
-                    android:visibility="@{resendOTP==0}"
-                    app:font="@{`bold`}"
-                    tools:ignore="MissingConstraints"
-                    tools:layout_editor_absoluteX="116dp"
-                    tools:layout_editor_absoluteY="306dp" />-->
-
-                <!--android:visibility="@{resendOTP==1}"-->
-                <TextView
-                    android:id="@+id/tv_resend_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{(v) -> verifViewModel.clickListener(v)}"
-                    android:padding="@dimen/dp_10"
-                    android:text="@string/resend_time"
-                    android:visibility="gone"
-                    android:textColor="@color/color_primary_blue"
-                    android:textSize="@dimen/sp_18"
-                    app:font="@{`semibold`}" />
-
-                <!--android:visibility="@{resendOTP==1}"-->
-                <TextView
-                    android:id="@+id/tv_resend_time_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:onClick="@{(v) -> verifViewModel.clickListener(v)}"
-                    android:padding="@dimen/dp_10"
-                    android:text="@string/resend_otp_time"
-                    android:visibility="gone"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/sp_14"
-                    app:font="@{`regular`}" />
-
-                <Button
-                    android:id="@+id/btn_send"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_10"
-                    android:layout_marginTop="@dimen/dp_20"
-                    android:layout_marginRight="@dimen/dp_10"
-                    android:visibility="gone"
-                    android:background="@drawable/rectangle_blue"
-                    android:onClick="@{(v) -> verifViewModel.clickListener(v)}"
-                    android:paddingLeft="@dimen/dp_40"
-                    android:paddingRight="@dimen/dp_40"
-                    android:text="@string/proceed"
-                    android:textAllCaps="false"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="@dimen/sp_14"
-                    app:font="@{`regular`}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_resend1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{(v) -> verifViewModel.clickListener(v)}"
-                    android:padding="@dimen/dp_10"
-                    android:text="@string/resend_otp"
-                    android:textColor="@color/color_primary_blue"
-                    android:textSize="@dimen/sp_14"
-                    android:visibility="gone"
-                    app:font="@{`semibold`}" />
-
-
-                <!---->
-
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

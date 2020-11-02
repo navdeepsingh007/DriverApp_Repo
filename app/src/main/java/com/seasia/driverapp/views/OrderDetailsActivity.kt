@@ -48,6 +48,8 @@ class OrderDetailsActivity : BaseActivity() {
         initJobDetailsObserver()
         startProgressDialog()
         initClickListener()
+
+        binding.ivBack.setOnClickListener { finish() }
     }
 
     private fun getOrderExtras() {

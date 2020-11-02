@@ -156,19 +156,13 @@ class OTPVerificationActivity : BaseActivity(),
             MyApplication.instance.getString(R.string.verification_account)
         )
 
-        activityOtpVerificationBinding.includeView.toolbatTitle.setText(
-            MyApplication.instance.getString(R.string.verification_account)
-        )
-        activityOtpVerificationBinding.includeView.ivBack.setOnClickListener(onToolbarBack)
+
+        activityOtpVerificationBinding.ivBack.setOnClickListener {
+            finish()
+        }
 
         val resendTv = activityOtpVerificationBinding.tvResend
         resendTv.setPaintFlags(resendTv.getPaintFlags() and Paint.UNDERLINE_TEXT_FLAG.inv())
-    }
-
-    private val onToolbarBack = object : View.OnClickListener {
-        override fun onClick(p0: View?) {
-            finish()
-        }
     }
 
     private val mCallbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {

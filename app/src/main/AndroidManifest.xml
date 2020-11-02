@@ -36,10 +36,7 @@
         </activity>
         <activity
             android:name=".views.OTPVerificationActivity"
-            android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:windowSoftInputMode="stateHidden" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".views.LoginUserActivity"
             android:screenOrientation="portrait" />

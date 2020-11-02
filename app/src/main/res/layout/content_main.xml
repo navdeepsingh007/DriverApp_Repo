@@ -147,8 +147,6 @@
                         android:visibility="gone"
                         />
 
-
-
                     <RelativeLayout
                         android:id="@+id/imgMessageParent"
                         android:layout_width="match_parent"
@@ -165,7 +163,6 @@
                         <TextView
                             android:id="@+id/txtNotification"
                             android:layout_width="wrap_content"
-
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/imgMessage"
                             android:layout_centerInParent="true"

@@ -7,23 +7,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".views.WebActivity">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
-            android:id="@+id/common_tool_bar"
-            layout="@layout/common_toolbar_back"
+        <RelativeLayout
+            android:id="@+id/toolLayout"
+            android:background="@drawable/ic_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
 
-        <WebView
-            android:id="@+id/webView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/dp_5" />
 
-    </LinearLayout>
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="@dimen/dp_25"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="@dimen/dp_5"
+            android:tint="@color/colorWhite"
+            android:src="@drawable/ic_keyboard_arrow_left" />
+
+        <TextView
+            android:layout_toRightOf="@+id/back"
+            android:textColor="@color/colorWhite"
+            android:layout_marginLeft="@dimen/dp_8"
+            android:id="@+id/tvProfile"
+            android:text="Order Detail"
+            android:layout_marginTop="@dimen/dp_10"
+            android:textSize="@dimen/dp_20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+            <RelativeLayout
+                android:layout_marginTop="@dimen/dp_60"
+                android:background="@drawable/topround"
+                android:layout_width="match_parent"
+                android:backgroundTint="@color/colorWhite"
+                android:layout_height="match_parent">
+
+                <WebView
+                    android:id="@+id/webView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/sp_9"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_marginLeft="@dimen/dp_10" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        </RelativeLayout>
+    </RelativeLayout>
 </layout>

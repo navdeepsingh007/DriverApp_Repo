@@ -512,8 +512,6 @@ class DashboardNewActivity : BaseActivity(), DialogsInterface,
 //        contentBinding.imgMessage.setColorFilter(resources.getColor(notificationColor),android.graphics.PorterDuff.Mode.MULTIPLY);
 //        contentBinding.imgAvailable.setColorFilter(resources.getColor(availbleColor),android.graphics.PorterDuff.Mode.MULTIPLY);
 
-
-
         contentBinding.imgOrder.setColorFilter(ContextCompat.getColor(this, orderColor), android.graphics.PorterDuff.Mode.SRC_IN);
         contentBinding.imgProfile.setColorFilter(ContextCompat.getColor(this, profileColor), android.graphics.PorterDuff.Mode.SRC_IN);
         contentBinding.imgMessage.setColorFilter(ContextCompat.getColor(this, notificationColor), android.graphics.PorterDuff.Mode.SRC_IN);

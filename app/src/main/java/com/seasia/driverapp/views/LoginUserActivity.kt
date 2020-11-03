@@ -113,9 +113,8 @@ class LoginUserActivity : BaseActivity() {
                     )
 
                     if (message.equals("Login Successfully")) {
-                        // Temporary code below
+                     //    Temporary code below
 //                        startActivity(Intent(this, DashboardNewActivity::class.java))
-////                        showToastSuccess(message)
 //                        SharedPrefClass().putObject(
 //                            MyApplication.instance,
 //                            "isLogin",

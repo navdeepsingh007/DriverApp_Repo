@@ -104,22 +104,22 @@ class ActiveJobsFragment : BaseFragment() {
         }
 
         initRecyclerView()
-        mStatus=   SharedPrefClass().getPrefValue(MyApplication.instance.applicationContext, ApiKeysConstants.OFFLINE_STATUS).toString()
-        if(mStatus.equals("1")){
-            btnOffline.setText(getString(R.string.online))
-            btnOffline.isChecked=true
-        }
-        btnOffline.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
-            if (isChecked) {
-                btnOffline.setText(getString(R.string.online))
-                offlineStatus("1")
-                mStatus="1"
-            } else {
-                btnOffline.setText(getString(R.string.offline))
-                offlineStatus("0")
-                mStatus="0"
-            }
-        })
+//        mStatus=   SharedPrefClass().getPrefValue(MyApplication.instance.applicationContext, ApiKeysConstants.OFFLINE_STATUS).toString()
+//        if(mStatus.equals("1")){
+//            btnOffline.setText(getString(R.string.online))
+//            btnOffline.isChecked=true
+//        }
+//        btnOffline.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
+//            if (isChecked) {
+//                btnOffline.setText(getString(R.string.online))
+//                offlineStatus("1")
+//                mStatus="1"
+//            } else {
+//                btnOffline.setText(getString(R.string.offline))
+//                offlineStatus("0")
+//                mStatus="0"
+//            }
+//        })
 
         //   servicesViewModel.getServicesList()
         jobsViewModel!!.getServicesList().observe(this,

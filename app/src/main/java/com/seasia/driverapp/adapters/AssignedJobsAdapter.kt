@@ -144,7 +144,7 @@ class AssignedJobsAdapter(
                 mContext.acceptOrder(orderId,userId)
 
             } else{
-                onStart(orderId, progressStatus, lat, lon, trackingStatus,currDate,orderDate)
+                onStart(orderId, progressStatus, lat, lon, trackingStatus,currDate,orderDate,response.paymentType)
             }
 
         }
@@ -188,7 +188,7 @@ class AssignedJobsAdapter(
         if(assignStatus.equals("0")){
             holder.binding.btnStart.text="Take Order"
             holder.binding.btnCancel.text="Cancel"
-            holder.binding.btnStart.setBackgroundResource(R.drawable.round_small_green)
+            holder.binding.btnStart.setBackgroundResource(R.drawable.round_green)
             if (currDate.equals(orderDate)) {
                 holder.binding.btnStart.isEnabled = true
                 holder.binding.btnStart.background.alpha = 255
@@ -281,7 +281,8 @@ class AssignedJobsAdapter(
         lon: String,
         trackingStatus: String,
         currDate: String,
-        orderDate: String
+        orderDate: String,
+        paymentType: String?
     ) {
         if (UtilsFunctions.checkGpsEnabled(activity)) {
             val intent = Intent(activity, DriverJourneyActivity::class.java)
@@ -289,6 +290,7 @@ class AssignedJobsAdapter(
             intent.putExtra("orderStatus", orderStatus)
             intent.putExtra("currDate", currDate)
             intent.putExtra("orderDate", orderDate)
+            intent.putExtra("paymentType", paymentType)
             intent.putExtra("lat", lat)
             intent.putExtra("lon", lon)
             activity.startActivity(intent)

@@ -18,6 +18,10 @@ class WebActivity : BaseActivity() {
                 view?.loadUrl(url)
                 return true
             }
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                stopProgressDialog()
+            }
         }
 
         binding!!.back.setOnClickListener {
@@ -31,6 +35,7 @@ class WebActivity : BaseActivity() {
         } else {
             binding!!.webView.loadUrl("https://www.cerebruminfotech.com/")
         }
+        startProgressDialog()
 
 
     }

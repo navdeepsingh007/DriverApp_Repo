@@ -47,13 +47,29 @@
                 android:backgroundTint="@color/colorWhite"
                 android:layout_height="match_parent">
 
-                <WebView
-                    android:id="@+id/webView"
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/sp_9"
-                    android:layout_marginRight="@dimen/dp_10"
-                    android:layout_marginLeft="@dimen/dp_10" />
+                    android:paddingTop="10dip"
+                    android:paddingLeft="1dip"
+                    android:paddingRight="1dip"
+                    android:backgroundTint="@color/colorWhite"
+                    android:background="@drawable/topround"
+                    >
+                    <WebView
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:layout_marginRight="@dimen/dp_5"
+                        android:background="@drawable/topround"
+                        android:id="@+id/webView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/sp_9"
+
+                       />
+
+                </FrameLayout>
+
+
             </RelativeLayout>
         </RelativeLayout>
 

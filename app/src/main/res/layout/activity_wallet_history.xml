@@ -54,68 +54,141 @@
             android:layout_margin="@dimen/dp_20"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-
-
-            <TextView
-                android:padding="@dimen/dp_5"
-                android:background="@drawable/shape_round__date_bgr"
-                android:hint="Start date"
-                android:id="@+id/tvStartDate"
-                android:layout_marginTop="@dimen/dp_40"
-                android:textSize="@dimen/sp_16"
-                android:layout_centerVertical="true"
-
-                android:gravity="center"
+            <RelativeLayout
                 android:layout_width="@dimen/dp_120"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:text="to"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:padding="@dimen/dp_5"
-                android:background="@drawable/shape_round__date_bgr"
-                android:hint="End date"
-                android:layout_marginTop="@dimen/dp_40"
-                android:textSize="@dimen/sp_16"
-                android:layout_centerVertical="true"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:text="Start Date"
+                    android:textSize="@dimen/dp_12"
+                    android:textColor="@color/darkGrey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/tvStartDate"
+                    android:layout_below="@+id/tvDate"
+                    android:text="mm-dd-yyyy"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <View
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:background="@color/darkGrey"
+                    android:layout_below="@+id/tvStartDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"/>
+                <ImageView
+                    android:id="@+id/startDateCalender"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/tvDate"
+                    android:src="@drawable/ic_calendar"
+                    android:tint="@color/colorPrimary"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"/>
+            </RelativeLayout>
 
-                android:id="@+id/tvEndDate"
-                android:gravity="center"
+            <RelativeLayout
                 android:layout_alignParentRight="true"
                 android:layout_width="@dimen/dp_120"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/tvDate1"
+                    android:text="End Date"
+                    android:textSize="@dimen/dp_12"
+                    android:textColor="@color/darkGrey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/tvEndDate"
+                    android:layout_below="@+id/tvDate1"
+                    android:text="mm-dd-yyyy"
+                    android:textColor="@color/colorBlack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <View
+                    android:layout_marginTop="@dimen/dp_8"
+                    android:background="@color/darkGrey"
+                    android:layout_below="@+id/tvEndDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"/>
+                <ImageView
+                    android:id="@+id/endDateCalender"
+                    android:tint="@color/colorPrimary"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/tvDate1"
+                    android:src="@drawable/ic_calendar"
+                    android:layout_width="@dimen/dp_20"
+                    android:layout_height="@dimen/dp_20"/>
+
+
+
+            </RelativeLayout>
+
+
+
+<!--            <TextView-->
+<!--                android:padding="@dimen/dp_5"-->
+<!--                android:background="@drawable/shape_round__date_bgr"-->
+<!--                android:hint="Start date"-->
+<!--                android:visibility="gone"-->
+<!--                android:id="@+id/tvStartDate"-->
+<!--                android:layout_marginTop="@dimen/dp_40"-->
+<!--                android:textSize="@dimen/sp_16"-->
+<!--                android:layout_centerVertical="true"-->
+
+<!--                android:gravity="center"-->
+<!--                android:layout_width="@dimen/dp_120"-->
+<!--                android:layout_height="wrap_content"/>-->
+
+<!--            <TextView-->
+<!--                android:visibility="gone"-->
+<!--                android:padding="@dimen/dp_5"-->
+<!--                android:background="@drawable/shape_round__date_bgr"-->
+<!--                android:hint="End date"-->
+<!--                android:layout_marginTop="@dimen/dp_40"-->
+<!--                android:textSize="@dimen/sp_16"-->
+<!--                android:layout_centerVertical="true"-->
+
+<!--                android:id="@+id/tvEndDate"-->
+<!--                android:gravity="center"-->
+<!--                android:layout_alignParentRight="true"-->
+<!--                android:layout_width="@dimen/dp_120"-->
+<!--                android:layout_height="wrap_content"/>-->
 
         </RelativeLayout>
         <Button
             android:layout_below="@+id/dateParent"
             android:id="@+id/btnSubmit"
             android:layout_width="wrap_content"
-            android:paddingLeft="@dimen/dp_20"
-            android:paddingRight="@dimen/dp_20"
+            android:paddingLeft="@dimen/dp_40"
+            android:paddingRight="@dimen/dp_40"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_20"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dp_10"
             android:layout_marginRight="@dimen/dp_20"
-            android:background="@drawable/button_round_back_blue"
+            android:background="@drawable/round_layout"
             android:text="Submit"
+            android:backgroundTint="@color/colorPrimary"
             android:textAllCaps="false"
             android:textColor="@color/colorWhite" />
 
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvRecycler"
-            android:layout_width="match_parent"
-            android:layout_below="@+id/btnSubmit"
-
-            android:layout_height="match_parent"
+        <RelativeLayout
             android:layout_marginTop="@dimen/dp_15"
-            android:layout_marginBottom="5dp"
-            android:background="#F5F5F5" />
+            android:layout_below="@+id/btnSubmit"
+            android:layout_width="match_parent"
+            android:background="@drawable/topround"
+            android:backgroundTint="@color/colorWhite"
+            android:layout_height="match_parent">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvRecycler"
+                android:layout_margin="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                />
+        </RelativeLayout>
+
         <TextView
             android:layout_centerInParent="true"
             android:id="@+id/noRecordFound"

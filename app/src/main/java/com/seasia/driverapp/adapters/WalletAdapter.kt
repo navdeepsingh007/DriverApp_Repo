@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.seasia.driverapp.R
 import com.seasia.driverapp.databinding.RowWalletAdapterBinding
 import com.seasia.driverapp.model.WalletResponse
+import com.seasia.driverapp.utils.Utils
 
 class WalletAdapter(
     val context: Context,
@@ -35,8 +36,13 @@ class WalletAdapter(
 
     override fun onBindViewHolder(@NonNull holder: ViewHolder, position: Int) {
         //  val response = jobHistoryList[position].service
-
-        holder.binding.tvDate.text = arrayList!!.get(position).createdAt
+        val formattedOrderDate = Utils(context).getDate(
+            "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+            arrayList!!.get(position).createdAt,
+            "dd MMM yyyy"
+//            "dd-MMM,yyyy | hh:mm a"
+        )
+        holder.binding.tvDate.text = formattedOrderDate
         holder.binding.tvOrderId.text = arrayList!!.get(position).order!!.orderNo
         holder.binding.tvAmount.text = "$" + arrayList!!.get(position).amount
         if (arrayList!!.get(position).payType.equals("0")) {

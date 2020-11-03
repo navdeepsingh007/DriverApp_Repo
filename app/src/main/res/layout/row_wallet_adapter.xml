@@ -14,77 +14,81 @@
             android:layout_marginTop="@dimen/dp_8"
             android:layout_marginEnd="@dimen/dp_10"
             android:layout_marginBottom="@dimen/dp_5"
-            app:cardElevation="@dimen/dp_5"
-            app:cardCornerRadius="25dp">
+            app:cardCornerRadius="25dp"
+            app:cardElevation="@dimen/dp_5">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <RelativeLayout
-                    android:layout_centerInParent="true"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-
-                <TextView
-                    android:id="@+id/tvOrderId"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="@dimen/sp_16"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_15"
-                    android:text="Order Id " />
-
-                <TextView
-
-                    android:id="@+id/tvDate"
-                    android:textSize="@dimen/sp_14"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginEnd="@dimen/dp_15"
-                    android:layout_marginRight="@dimen/dp_15"                    android:text="Date" />
-
-                <View
-                    android:layout_marginRight="@dimen/dp_15"
-                    android:layout_marginLeft="@dimen/dp_15"
-                    android:id="@+id/view"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:layout_centerInParent="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="1dp"
-                    android:layout_below="@+id/tvDate"
-                    android:background="@color/colorGrey1" />
+                    android:layout_centerInParent="true">
 
 
-                <TextView
-                    android:id="@+id/tvAmount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    <TextView
+                        android:id="@+id/tvOrderId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:text="Order Id "
+                        android:textColor="@color/colorBlack"
+                        android:textSize="@dimen/sp_16" />
 
-                    android:layout_below="@+id/view"
-                    android:textSize="@dimen/sp_16"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:layout_marginLeft="@dimen/dp_15"
-                    android:text="amount" />
+                    <TextView
 
-                <TextView
-                    android:id="@+id/tvType"
-                    android:layout_width="@dimen/dp_80"
-                    android:layout_height="@dimen/dp_30"
-                    android:layout_below="@+id/view"
+                        android:id="@+id/tvDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginEnd="@dimen/dp_15"
+                        android:layout_marginRight="@dimen/dp_15"
+                        android:text="Date"
+                        android:textSize="@dimen/sp_14" />
 
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="@dimen/dp_10"
-                    android:textColor="@color/colorWhite"
-                    android:paddingLeft="@dimen/dp_12"
-                    android:gravity="center"
-                    android:paddingRight="@dimen/dp_12"
-                    android:backgroundTint="@color/colorGreenToolBar"
-                    android:background="@drawable/round_layout"
-                    android:layout_marginRight="@dimen/dp_15"                    android:text="payment type" />
-            </RelativeLayout>
+                    <View
+                        android:id="@+id/view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/tvDate"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_marginRight="@dimen/dp_15"
+                        android:background="@color/colorGrey1" />
+
+
+                    <TextView
+                        android:id="@+id/tvAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/view"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:textColor="@color/colorPrimary"
+                        android:drawableLeft="@drawable/ic_pay"
+                        android:drawablePadding="@dimen/dp_5"
+                        android:text="amount"
+                        android:textSize="@dimen/sp_16" />
+
+                    <TextView
+                        android:id="@+id/tvType"
+                        android:layout_width="@dimen/dp_80"
+                        android:layout_height="@dimen/dp_30"
+                        android:layout_below="@+id/view"
+
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_marginRight="@dimen/dp_15"
+                        android:background="@drawable/round_layout"
+                        android:backgroundTint="@color/colorGreenToolBar"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/dp_12"
+                        android:paddingRight="@dimen/dp_12"
+                        android:text="payment type"
+                        android:textColor="@color/colorWhite" />
+                </RelativeLayout>
 
             </RelativeLayout>
 

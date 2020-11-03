@@ -55,6 +55,7 @@ class DriverJourneyActivity : BaseActivity(), DialogsInterface,
     private lateinit var binding: DriverJourneyActivityBinding
     private lateinit var driverJourneyVM: DriverJourneyVM
     private lateinit var orderId: String
+    private lateinit var paymentType: String
     private lateinit var amount: String
     private lateinit var orderStatus: String
     private lateinit var orderDate: String
@@ -279,6 +280,7 @@ class DriverJourneyActivity : BaseActivity(), DialogsInterface,
 
     private fun getExtras() {
         orderId = intent.getStringExtra("orderId")
+        paymentType = intent.getStringExtra("paymentType")
         amount = intent.getStringExtra("amount")
         orderStatus = intent.getStringExtra("orderStatus")
         currDate = intent.getStringExtra("currDate")
@@ -530,7 +532,12 @@ class DriverJourneyActivity : BaseActivity(), DialogsInterface,
             }
             COMPLETED -> {
                // onJobComplete(true)
-                cashCollect()
+
+                if(paymentType.equals("2")){
+                    cashCollectApi()
+                } else{
+                    onJobComplete(true)
+                }
             }
         }
     }
@@ -551,19 +558,19 @@ class DriverJourneyActivity : BaseActivity(), DialogsInterface,
         uploadImage.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         uploadImage.tvPay.setOnClickListener {
 
-            var input=CashCollectInput()
-            input.amount=amount
-            input.orderId=orderId
 
-            driverJourneyVM.onCashCollect(input)
             cashCollectApi()
             uploadImage.dismiss()
         }
         uploadImage.show()
-
     }
 
     fun cashCollectApi(){
+        var input=CashCollectInput()
+        input.amount=amount
+        input.orderId=orderId
+        startProgressDialog()
+        driverJourneyVM.onCashCollect(input)
         driverJourneyVM.cashCollectResponse().observe(this, Observer { response ->
             stopProgressDialog()
 

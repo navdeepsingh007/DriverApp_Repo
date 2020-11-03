@@ -30,7 +30,8 @@ data class OrderStatusResponse(
         val updatedAt: String = "",
         val user: User = User(),
         val userId: String = "",
-        val company: CompanyAddress = CompanyAddress()
+        val company: CompanyAddress = CompanyAddress(),
+        var paymentType: String? = null
     )
 
     data class CompanyAddress(

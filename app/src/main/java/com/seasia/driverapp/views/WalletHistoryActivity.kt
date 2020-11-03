@@ -5,7 +5,6 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.gson.JsonObject
 import com.seasia.driverapp.R
 import com.seasia.driverapp.adapters.WalletAdapter
 import com.seasia.driverapp.application.MyApplication
@@ -13,8 +12,8 @@ import com.seasia.driverapp.databinding.ActivityWalletHistoryBinding
 import com.seasia.driverapp.model.WalletInput
 import com.seasia.driverapp.model.WalletResponse
 import com.seasia.driverapp.utils.BaseActivity
-import com.seasia.driverapp.utils.DateTimeUtil
 import com.seasia.driverapp.viewmodel.WalletHistoryViewModel
+import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -35,18 +34,24 @@ class WalletHistoryActivity : BaseActivity(), View.OnClickListener {
         binding=viewDataBinding as ActivityWalletHistoryBinding
         walletVIewModel = ViewModelProviders.of(this).get(WalletHistoryViewModel::class.java)
         binding!!.tvStartDate.setOnClickListener(this)
+        binding!!.startDateCalender.setOnClickListener(this)
         binding!!.tvEndDate.setOnClickListener(this)
+        binding!!.endDateCalender.setOnClickListener(this)
         arrayList= ArrayList()
         walletAdapter()
 
         binding!!.btnSubmit.setOnClickListener(this)
+        binding!!.ivBack.setOnClickListener(this)
 
-        binding!!.commonToolBar.imgToolbarText.text =
-            resources.getString(R.string.wallet_history)
-
-
+        binding!!.commonToolBar.imgToolbarText.text = resources.getString(R.string.wallet_history)
+        val df: DateFormat = SimpleDateFormat("MM-dd-yyyy")
+        val dateobj = Date()
+        binding!!.tvStartDate.setText(df.format(dateobj))
+        binding!!.tvEndDate.setText(df.format(dateobj))
+        startDate=df.format(dateobj)
+        endtDate=df.format(dateobj)
+        hitApi()
     }
-
 
     fun walletAdapter(){
         adapter= WalletAdapter(this,arrayList)
@@ -63,7 +68,7 @@ class WalletHistoryActivity : BaseActivity(), View.OnClickListener {
             calendar.set(Calendar.YEAR, year)
             calendar.set(Calendar.MONTH, monthOfYear)
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            val myFormat = "dd-MM-yyyy"
+            val myFormat = "MM-dd-yyyy"
             val myFormat2 = "yyyy-MM-dd"
             val sdf = SimpleDateFormat(myFormat, Locale.US)
             val sdf2 = SimpleDateFormat(myFormat2, Locale.US)
@@ -91,7 +96,7 @@ class WalletHistoryActivity : BaseActivity(), View.OnClickListener {
             calendar.set(Calendar.YEAR, year)
             calendar.set(Calendar.MONTH, monthOfYear)
             calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            val myFormat = "dd-MM-yyyy"
+            val myFormat = "MM-dd-yyyy"
             val myFormat2 = "yyyy-MM-dd"
             val sdf = SimpleDateFormat(myFormat, Locale.US)
             val sdf2 = SimpleDateFormat(myFormat2, Locale.US)
@@ -117,47 +122,53 @@ class WalletHistoryActivity : BaseActivity(), View.OnClickListener {
             R.id.tvStartDate->{
                 startDatePicker()
             }
+            R.id.startDateCalender->{
+                startDatePicker()
+            }
             R.id.tvEndDate->{
                 endDatePicker()
             }
+            R.id.endDateCalender->{
+                endDatePicker()
+            }
+            R.id.iv_back->{
+                finish()
+            }
             R.id.btnSubmit->{
-
-                val  input=WalletInput()
-                input.fromDate=startDate
-                input.toDate=endtDate
-                input.page="1"
-                input.limit="10"
-//                input.payType="0"
-
-
-
-                walletVIewModel!!.walletInputData(input)
-                startProgressDialog()
-
-                walletVIewModel!!.walletResponse().observe(this, Observer { response ->
-                    stopProgressDialog()
-
-                    if (response != null) {
-                        val message = response.message
-
-                        if (response.code == 200) {
-                            arrayList=response.body
-                            adapter!!.setData(arrayList)
-                            if(arrayList!!.size>0){
-                                binding!!.noRecordFound.visibility=View.GONE
-                            } else{
-                                binding!!.noRecordFound.visibility=View.VISIBLE
-
-                            }
-                        } else {
-                            showToastError(message)
-                        }
-                    } else {
-                        showToastError(MyApplication.instance.getString(R.string.internal_server_error))
-                    }
-                })
+                hitApi()
 
             }
         }
     }
+    fun hitApi(){
+        startProgressDialog()
+        val  input=WalletInput()
+        input.fromDate=startDate
+        input.toDate=endtDate
+        input.page="1"
+        input.limit="30"
+//                input.payType="0"
+        walletVIewModel!!.walletInputData(input)
+        walletVIewModel!!.walletResponse().observe(this, Observer { response ->
+            stopProgressDialog()
+            if (response != null) {
+                val message = response.message
+                if (response.code == 200) {
+                    arrayList=response.body
+                    adapter!!.setData(arrayList)
+                    if(arrayList!!.size>0){
+                        binding!!.noRecordFound.visibility=View.GONE
+                    } else{
+                        binding!!.noRecordFound.visibility=View.VISIBLE
+                    }
+                } else {
+                    showToastError(message)
+                }
+            } else {
+                showToastError(MyApplication.instance.getString(R.string.internal_server_error))
+            }
+        })
+    }
+
+
 }
